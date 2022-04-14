@@ -10,7 +10,7 @@ const FinanceCard = ({ navigation }) => {
                     <Card.Title title="Finance" subtitle="Family Finances" />
                     <Card.Content>
                         <Button
-                            color='rgb(40,44,53)' title="Finances" onPress={() => navigation.navigate('Finance')}
+                            color='rgb(40,44,53)' title="Finances" onPress={() => navigation.navigate('Finances')}
                         />
                     </Card.Content>
                     <Card.Cover source={require('../../assets/home-screen-pics/finance.jpg')} style={styles.cardCoverImg} />

@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, Alert, Pressable } from 'react-native';
-import { Card, Paragraph, Title, Divider } from 'react-native-paper';
 import BookRecCard from '../../components/home/BookRecCard';
 import ContactInfoCard from '../../components/home/ContactInfoCard';
 import FinanceCard from '../../components/home/FinanceCard';
