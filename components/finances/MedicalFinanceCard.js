@@ -9,9 +9,16 @@ const MedicalFinanceCard = ({ navigation }) => {
                 <Card style={styles.boxWithShadow}>
                     <Card.Title title="Medical Finance" subtitle="Medical Finance Information" />
                     <Card.Content>
-                        <Button
-                            color='black' title="Medical Finance" onPress={() => navigation.navigate('Medical Finances')}
-                        />
+                        <View style={styles.buttonView}>
+                            <Button
+                                color='black' title="Medical Finance" onPress={() => navigation.navigate('Medical Finances')}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
+                            <Button
+                                color='black' title="Medical Offices" onPress={() => navigation.navigate('Medical-Offices')}
+                            />
+                        </View>
                     </Card.Content>
                     <Card.Cover source={require('../../assets/finance-pics/medical.jpg')} style={styles.cardCoverImg} />
 
@@ -50,6 +57,9 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 5
     },
+    buttonView: {
+        margin: 10
+    }
 });
 
 export default MedicalFinanceCard;

@@ -9,9 +9,21 @@ const AutoFinanceCard = ({ navigation }) => {
                 <Card style={styles.boxWithShadow}>
                     <Card.Title title="Auto Finance" subtitle="Automotive Finance Information" />
                     <Card.Content>
-                        <Button
-                            color='black' title="Auto Finance" onPress={() => navigation.navigate('Auto-Finances')}
-                        />
+                        <View style={styles.buttonView}>
+                            <Button
+                                color='black' title="Auto Finance" onPress={() => navigation.navigate('Auto-Finances')}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
+                            <Button
+                                color='black' title="Auto Repair Shops" onPress={() => navigation.navigate('Auto-Shops')}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
+                            <Button
+                                color='black' title="Vehicles" onPress={() => navigation.navigate('Vehicles')}
+                            />
+                        </View>
                     </Card.Content>
                     <Card.Cover source={require('../../assets/finance-pics/auto.jpg')} style={styles.cardCoverImg} />
 
@@ -52,6 +64,9 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 5
     },
+    buttonView: {
+        margin: 10
+    }
 });
 
 export default AutoFinanceCard;
