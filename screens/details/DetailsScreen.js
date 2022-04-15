@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 
-function DetailsScreen() {
+const DetailsScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image} >
-        <View style={styles.container}> +
-          {/* <Text style={styles.containerText}>Details Screen</Text> */}
-          <Text>Welcome to DeGuzmanStuffAnywhere Mobile</Text>
+        <View style={styles.container}>
+
         </View>
       </ImageBackground>
     </View>
