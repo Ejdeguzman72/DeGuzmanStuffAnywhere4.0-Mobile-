@@ -9,23 +9,46 @@ const AmericanCategories = ({ navigation }) => {
         style={styles.button}
         onPress={() => navigation.navigate('American')}
       >
-        <Text>American Recipes</Text>
+        <Text style={styles.buttonText}>American Recipes</Text>
       </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
+  view: {
+    textAlign: 'center',
+    justifyContent: 'center',
+},
+button: {
     alignItems: "center",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#191970",
     padding: 10,
+    width: 160,
+    height: 160,
     borderRadius: 50,
     margin: 10,
-    shadowRadius: 50,
-  },
-  buttoniew: {
-      fontSize: 30
-  }
+    elevation: 2,
+},
+buttonView: {
+    fontSize: 20,
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: 10,
+    flexWrap: 'wrap',
+    flexShrink: 1
+},
+buttonText: {
+    fontSize: 20,
+    flexWrap: 'wrap',
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    margin: 20,
+    textTransform: 'uppercase',
+    flexWrap: 'wrap',
+    flexShrink: 1
+}
 });
 
 export default AmericanCategories;

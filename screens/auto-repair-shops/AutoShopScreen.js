@@ -1,11 +1,22 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { Divider } from 'react-native-paper';
+import AddAutoRepairShopBtn from '../../components/auto-repair-shops/buttons/AddAutoShopBtn';
+import ViewAllAutoShopBtn from '../../components/auto-repair-shops/buttons/ViewAllAutoShops';
+import Title from '../../components/title/Title';
+import AutoShopDetailsCard from '../../components/auto-repair-shops/cards/AutoShopDetailsCard';
 
 const AutoShopScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Auto Shop Screen</Text>
+                <Title />
+                <Divider />
+                <View style={styles.row}>
+                    <AddAutoRepairShopBtn />
+                    <ViewAllAutoShopBtn />
+                </View>
+                <AutoShopDetailsCard />
             </ImageBackground>
         </View>
     )
@@ -18,6 +29,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 })
 

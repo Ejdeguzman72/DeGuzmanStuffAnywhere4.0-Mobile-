@@ -29,6 +29,7 @@ import HispanicRecipeScreen from '../screens/recipes/hispanic-recipes/HispanicRe
 import ItalianRecipeScreen from '../screens/recipes/italian-recipes/ItalianRecipeScreen';
 import SeafoodRecipeScreen from '../screens/recipes/seafood-recipes/SeafoodRecipeScreen';
 import SlowCookerRecipeScreen from '../screens/recipes/slow-cooker-recipes/SlowCookerRecipeScreen';
+import RunTrackerScreen from '../screens/run-tracker/RunTrackerScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ const AppNavigation = () => {    return (
                 <Stack.Screen name="Books" component={BookScreen} options={{ title: 'Book'}} />
                 <Stack.Screen name="Contact Info" component={ContactInfoScreen} options={{ title: 'Contact Info' }} />
                 <Stack.Screen name="Gym Tracker" component={GymTrackerScreen} options={{ title: 'Gym Tracker'}} />
+                <Stack.Screen name="Run Tracker" component={RunTrackerScreen} option={{ title: 'Run Tracker' }} />
 
                 <Stack.Screen name="Finances" component={FinanceScreen} options={{ title: 'Finance' }} />
                 <Stack.Screen name="Auto-Finances" component={AutoFinanceScreen} options={{ title: 'Auto Finances' }} />

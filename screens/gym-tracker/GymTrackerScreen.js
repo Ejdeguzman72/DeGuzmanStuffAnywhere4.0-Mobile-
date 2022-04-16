@@ -1,11 +1,20 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import AddGymEntryBtn from '../../components/gym-tracker/buttons/AddGymEntryBtn';
+import ViewAllGymEntriesBtn from '../../components/gym-tracker/buttons/ViewAllGymEntriesBtn';
+import GymTrackerDetailsCard from '../../components/gym-tracker/cards/GymTrackerDetailsCard';
+import Title from '../../components/title/Title';
 
-const GymTrackerScreen = () => {
+const GymTrackerScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Gym Tracker Screen</Text>
+                <Title />
+                <View style={styles.row}>
+                    <ViewAllGymEntriesBtn navigation={navigation} />
+                    <AddGymEntryBtn navigaton={navigation} />
+                </View>
+                <GymTrackerDetailsCard />
             </ImageBackground>
         </View>
     )
@@ -18,6 +27,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 })
 

@@ -1,11 +1,20 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import Title from '../../components/title/Title';
+import AddVehicleBtn from '../../components/vehicles/buttons/AddVehicleBtn';
+import ViewAllVehiclesBtn from '../../components/vehicles/buttons/ViewAllVehicles';
+import VehicleDetailsCard from '../../components/vehicles/cards/VehicleDetailsCard';
 
 const VehicleScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Vehicle Screen</Text>
+                <Title />
+                <View style={styles.row}>
+                    <ViewAllVehiclesBtn />
+                    <AddVehicleBtn />
+                </View>
+                <VehicleDetailsCard />
             </ImageBackground>
         </View>
     )
@@ -18,6 +27,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 })
 

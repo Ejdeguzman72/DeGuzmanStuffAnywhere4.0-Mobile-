@@ -1,11 +1,22 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { Divider } from 'react-native-paper';
+import Title from '../../components/title/Title';
+import RunTrackerDetailsCard from '../../components/run-tracker/cards/RunTrackerDetailsCard';
+import ViewAllRunsBtn from '../../components/run-tracker/buttons/ViewAllRunsBtn';
+import AddRunEntryBtn from '../../components/run-tracker/buttons/AddRunBtn';
 
 const RunTrackerScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Run Tracker Screen</Text>
+                <Title />
+                <Divider />
+                <View style={styles.row}>
+                    <ViewAllRunsBtn />
+                    <AddRunEntryBtn />
+                </View>
+                <RunTrackerDetailsCard />
             </ImageBackground>
         </View>
     )
@@ -18,6 +29,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 })
 

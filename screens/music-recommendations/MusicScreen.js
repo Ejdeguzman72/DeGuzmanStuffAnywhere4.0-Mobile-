@@ -1,11 +1,20 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import Title from '../../components/title/Title';
+import AddMusicBtn from '../../components/music/buttons/AddMusicBtn';
+import ViewAllMusicBtn from '../../components/music/buttons/ViewAllMusicBtn';
+import MusicDetailsCard from '../../components/music/cards/MusicDetailsCard';
 
 const MusicScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Music Screen</Text>
+                <Title />
+                <View style={styles.row}>
+                    <ViewAllMusicBtn />
+                    <AddMusicBtn />
+                </View>
+                <MusicDetailsCard />
             </ImageBackground>
         </View>
     )
@@ -18,7 +27,11 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
-})
+});
 
 export default MusicScreen;

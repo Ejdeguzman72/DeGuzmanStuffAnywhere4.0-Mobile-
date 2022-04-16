@@ -5,26 +5,45 @@ const SlowCookerRecipeCategory = ({ navigation }) => {
 
 
   return (
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Slow Cooker Recipes')}
-      >
-        <Text>Slow Cooker Recipes</Text>
-      </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => navigation.navigate('Slow Cooker Recipes')}
+    >
+      <Text style={styles.buttonText}>Slow Cooker Recipes</Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  view: {
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
   button: {
     alignItems: "center",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#2F4F4F",
     padding: 10,
+    width: 160,
+    height: 160,
     borderRadius: 50,
     margin: 10,
     shadowRadius: 50,
+    margin: 10,
   },
   buttoniew: {
-      fontSize: 30
+    fontSize: 30,
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: 10
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    margin: 20,
+    textTransform: 'uppercase'
   }
 });
 
