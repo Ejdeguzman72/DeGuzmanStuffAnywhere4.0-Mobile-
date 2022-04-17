@@ -1,9 +1,9 @@
 import React from 'react';
 import { ImageBackground, ScrollView, StyleSheet, View, Button } from 'react-native';
 import { Card, Divider } from 'react-native-paper';
-import AutoFinanceCard from '../../components/finances/AutoFinanceCard';
-import GeneralFinanceCard from '../../components/finances/GeneralFinanceCard';
-import MedicalFinanceCard from '../../components/finances/MedicalFinanceCard';
+import AutoFinanceCard from '../../components/finances/auto/AutoFinanceCard';
+import GeneralFinanceCard from '../../components/finances/general/GeneralFinanceCard';
+import MedicalFinanceCard from '../../components/finances/medical/MedicalFinanceCard';
 
 const FinanceScreen = ({ navigation }) => {
     return (

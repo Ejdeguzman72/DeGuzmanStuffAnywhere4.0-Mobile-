@@ -25,7 +25,7 @@ const AutoFinanceCard = ({ navigation }) => {
                             />
                         </View>
                     </Card.Content>
-                    <Card.Cover source={require('../../assets/finance-pics/auto.jpg')} style={styles.cardCoverImg} />
+                    <Card.Cover source={require('../../../assets/finance-pics/auto.jpg')} style={styles.cardCoverImg} />
 
                 </Card>
             </View>

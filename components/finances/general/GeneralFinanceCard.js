@@ -13,7 +13,7 @@ const GeneralFinanceCard = ({ navigation }) => {
                             color='black' title="General Finance" onPress={() => navigation.navigate('General-Finances')}
                         />
                     </Card.Content>
-                    <Card.Cover source={require('../../assets/finance-pics/general-finance.jpg')} style={styles.cardCoverImg} />
+                    <Card.Cover source={require('../../../assets/finance-pics/general-finance.jpg')} style={styles.cardCoverImg} />
 
                 </Card>
             </View>

@@ -20,7 +20,7 @@ const MedicalFinanceCard = ({ navigation }) => {
                             />
                         </View>
                     </Card.Content>
-                    <Card.Cover source={require('../../assets/finance-pics/medical.jpg')} style={styles.cardCoverImg} />
+                    <Card.Cover source={require('../../../assets/finance-pics/medical.jpg')} style={styles.cardCoverImg} />
 
                 </Card>
             </View>

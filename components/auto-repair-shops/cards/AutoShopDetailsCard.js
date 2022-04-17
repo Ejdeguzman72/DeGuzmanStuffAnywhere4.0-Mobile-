@@ -7,11 +7,11 @@ const AutoShopDetailsCard = ({ navigation }) => {
         <View>
             <View style={styles.card}>
                 <Card style={styles.boxWithShadow}>
-                    <Card.Title title="Favorite Books" />
+                    <Card.Title title="Auto Repair Shops" />
                     <Card.Content>
-                        <Text>Check out favorite books</Text>
+                        <Text>Check out Auto Repair Shops</Text>
                     </Card.Content>
-                    <Card.Cover source={require('../../../assets/card-img/bookshelf.jpg')} style={styles.cardCoverImg} />
+                    <Card.Cover source={require('../../../assets/card-img/autoshop.jpg')} style={styles.cardCoverImg} />
                 </Card>
             </View>
             <Divider />

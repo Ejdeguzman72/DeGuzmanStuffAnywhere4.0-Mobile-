@@ -1,11 +1,18 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import AddAutoTrxBtn from '../../../components/finances/auto/buttons/AddAutoTrxBtn';
+import ViewAutoTrxBtn from '../../../components/finances/auto/buttons/ViewAutoTrxBtn';
+import Title from '../../../components/title/Title';
 
-const AutoFinanceScreen = () => {
+const AutoFinanceScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Auto Finance Screen</Text>
+                <Title />
+                <View style={styles.row}>
+                    <AddAutoTrxBtn navigation={navigation} />
+                    <ViewAutoTrxBtn navigation={navigation} />
+                </View>
             </ImageBackground>
         </View>
     )
@@ -18,6 +25,10 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'cover'
+    },
+    row: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 })
 

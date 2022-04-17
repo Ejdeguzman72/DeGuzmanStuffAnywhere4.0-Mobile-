@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const AddRunEntryBtn = ({ navigation }) => {
+const ViewAutoTrxBtn = ({ navigation }) => {
     return (
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate('American')}
             >
-                <Text style={styles.buttonText}>Add Run Infomration</Text>
+                <Text style={styles.buttonText}>View All Auto Transaction</Text>
             </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+
     view: {
         textAlign: 'center',
         justifyContent: 'center'
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#EE82EE",
+        backgroundColor: "#B0C4DE",
         padding: 10,
         width: 160,
         height: 160,
@@ -46,4 +47,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AddRunEntryBtn;
+export default ViewAutoTrxBtn;

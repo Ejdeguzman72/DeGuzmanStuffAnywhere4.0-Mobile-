@@ -8,7 +8,7 @@ const ViewAllVehiclesBtn = ({ navigation }) => {
                 style={styles.button}
                 onPress={() => navigation.navigate('American')}
             >
-                <Text>View All Vehicles Information</Text>
+                <Text style={styles.buttonText}>View All Vehicles Information</Text>
             </TouchableOpacity>
         </View>
     );
@@ -21,19 +21,29 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
+        backgroundColor: "#3CB371",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
-        shadowRadius: 50,
     },
-    buttoniew: {
-        fontSize: 30,
+    buttonView: {
+        fontSize: 20,
         justifyContent: 'center',
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+        margin: 10
+    },
+    buttonText: {
+        fontSize: 20,
+        flexWrap: 'wrap',
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        justifyContent: 'center',
+        margin: 20,
+        textTransform: 'uppercase'
+    },
 });
 
 export default ViewAllVehiclesBtn;

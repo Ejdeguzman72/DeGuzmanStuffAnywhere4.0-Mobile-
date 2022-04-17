@@ -8,7 +8,7 @@ const AddVehicleBtn = ({ navigation }) => {
                 style={styles.button}
                 onPress={() => navigation.navigate('American')}
             >
-                <Text>Add Vehicle Information</Text>
+                <Text style={styles.buttonText}>Add Vehicle Information</Text>
             </TouchableOpacity>
         </View>
     );
@@ -21,18 +21,28 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
+        backgroundColor: "#EE82EE",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
-        shadowRadius: 50,
     },
     buttonView: {
-        fontSize: 30,
+        fontSize: 20,
         justifyContent: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        margin: 10
+    },
+    buttonText: {
+        fontSize: 20,
+        flexWrap: 'wrap',
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        justifyContent: 'center',
+        margin: 20,
+        textTransform: 'uppercase'
     }
 });
 
