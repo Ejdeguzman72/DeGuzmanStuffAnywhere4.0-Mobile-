@@ -5,13 +5,13 @@ import AddRestaurantBtn from '../../components/restaurants/buttons/AddRestaurant
 import ViewAllRestaurantsBtn from '../../components/restaurants/buttons/ViewAllRestaurantsBtn';
 import RestaurantDetailsCard from '../../components/restaurants/cards/RestaurantDetailsCard';
 
-const RestaurantScreen = () => {
+const RestaurantScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <ViewAllRestaurantsBtn />
+                    <ViewAllRestaurantsBtn navigation={navigation} />
                     <AddRestaurantBtn />
                 </View>
                 <RestaurantDetailsCard />

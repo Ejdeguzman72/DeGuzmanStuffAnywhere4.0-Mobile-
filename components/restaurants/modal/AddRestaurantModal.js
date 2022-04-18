@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
 
-const AddBookModal = () => {
+const AddRestaurantModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <Modal
@@ -15,22 +15,38 @@ const AddBookModal = () => {
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Book</Text>
+                    <Text style={styles.modalText}>Add Restaurant</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Title"
+                        placeholder="Amount"
                     // value={this.state.name}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Author"
+                        placeholder="Payment Date"
                     // value={this.state.author}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Description"
+                        placeholder="Medical Office ID"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Transaction Type ID"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="User ID"
                         // value={this.state.descr}
                         // onChangeText={handleInputChange}
                         multiline={true}
@@ -151,8 +167,24 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: 'black',
         width: 300
-    }
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        fontSize: 25,
+        width: 300,
+        borderRadius: 10
+    },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
 });
 
 
-export default AddBookModal;
+export default AddRestaurantModal;

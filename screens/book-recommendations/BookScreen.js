@@ -5,7 +5,7 @@ import AddBookBtn from '../../components/books/buttons/AddBookBtn';
 import ViewAllBooksBtn from '../../components/books/buttons/ViewAllBooksBtn';
 import BookDetailsCard from '../../components/books/card/BookDetailsCard';
 
-const BookScreen = ({ navigation }) => {
+const BookScreen = ({ navigation }, props) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>

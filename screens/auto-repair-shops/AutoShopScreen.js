@@ -6,7 +6,7 @@ import ViewAllAutoShopBtn from '../../components/auto-repair-shops/buttons/ViewA
 import Title from '../../components/title/Title';
 import AutoShopDetailsCard from '../../components/auto-repair-shops/cards/AutoShopDetailsCard';
 
-const AutoShopScreen = () => {
+const AutoShopScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
@@ -14,7 +14,7 @@ const AutoShopScreen = () => {
                 <Divider />
                 <View style={styles.row}>
                     <AddAutoRepairShopBtn />
-                    <ViewAllAutoShopBtn />
+                    <ViewAllAutoShopBtn navigation={navigation} />
                 </View>
                 <AutoShopDetailsCard />
             </ImageBackground>

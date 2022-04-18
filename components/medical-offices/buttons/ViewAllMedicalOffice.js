@@ -6,7 +6,7 @@ const ViewAllMedicalOfficesBtn = ({ navigation }) => {
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Medical Offices')}
             >
                 <Text style={styles.buttonText}>View All Medical Offices</Text>
             </TouchableOpacity>

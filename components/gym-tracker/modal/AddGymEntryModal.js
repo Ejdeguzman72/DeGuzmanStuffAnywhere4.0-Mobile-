@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
 
-const AddBookModal = () => {
+const AddGymEntryModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <Modal
@@ -15,22 +15,54 @@ const AddBookModal = () => {
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Book</Text>
+                    <Text style={styles.modalText}>Add Gym Entry</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Title"
+                        placeholder="Exercise Name"
                     // value={this.state.name}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Author"
+                        placeholder="Sets"
                     // value={this.state.author}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Description"
+                        placeholder="Reps"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Weight"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Date"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Exercise Type ID"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="User ID"
                         // value={this.state.descr}
                         // onChangeText={handleInputChange}
                         multiline={true}
@@ -155,4 +187,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddBookModal;
+export default AddGymEntryModal;

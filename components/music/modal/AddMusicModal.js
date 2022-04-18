@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import { View, TextInput, Text, Pressable, Modal, StyleSheet } from 'react-native';
 
-const AddBookModal = () => {
+const AddMusicModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <Modal
@@ -15,22 +15,96 @@ const AddBookModal = () => {
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Add Contact Information</Text>
+
                     <Text style={styles.modalText}>Add Book</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Title"
+                        placeholder="First Name"
                     // value={this.state.name}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Author"
+                        placeholder="Middle Initial"
                     // value={this.state.author}
                     // onChangeText={handleInputChange}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Description"
+                        placeholder="Last Name"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Address_01"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Address_02"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="City"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="State"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Zipcode"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Age"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Birth Date"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        // value={this.state.descr}
+                        // onChangeText={handleInputChange}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Phone"
                         // value={this.state.descr}
                         // onChangeText={handleInputChange}
                         multiline={true}
@@ -154,5 +228,4 @@ const styles = StyleSheet.create({
     }
 });
 
-
-export default AddBookModal;
+export default AddMusicModal;

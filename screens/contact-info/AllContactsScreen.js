@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet } from 'react-native';
+import { View, ImageBackground, StyleSheet, Text } from 'react-native';
 import Title from '../../components/title/Title';
 
 const AllContactsScreen = () => {
@@ -7,7 +7,7 @@ const AllContactsScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>Contacts List</Text>
+                <Text>All Contacts</Text>
             </ImageBackground>
         </View>
     )

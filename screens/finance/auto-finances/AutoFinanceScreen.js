@@ -10,7 +10,7 @@ const AutoFinanceScreen = ({ navigation }) => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddAutoTrxBtn navigation={navigation} />
+                    <AddAutoTrxBtn />
                     <ViewAutoTrxBtn navigation={navigation} />
                 </View>
             </ImageBackground>

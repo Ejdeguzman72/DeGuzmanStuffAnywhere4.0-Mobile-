@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
-import Title from '../../components/title/Title';
+import Title from '../../../components/title/Title';
 
-const AllMusicScreen = () => {
+const AllMedicalTrxScreen = () => {
     return (
         <View style={styles.screen}>
-            <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
+            <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Music</Text>
+                <Text>All Medical Transactions</Text>
             </ImageBackground>
         </View>
     )
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AllMusicScreen;
+export default AllMedicalTrxScreen;

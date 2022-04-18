@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import AddMedicalTrxButton from '../../components/finances/medical/buttons/AddMedicalTrxBtn';
-import ViewMedicalTrxButton from '../../components/finances/medical/buttons/ViewMedicalTrxBtn';
+import AddMedicalOfficeBtn from '../../components/medical-offices/buttons/AddMedicalOfficeBtn';
+import ViewAllMedicalOfficesBtn from '../../components/medical-offices/buttons/ViewAllMedicalOffice';
 import Title from '../../components/title/Title';
 
 const MedicalOfficeScreen = ({ navigation }) => {
@@ -10,8 +10,8 @@ const MedicalOfficeScreen = ({ navigation }) => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddMedicalTrxButton navigation={navigation} />
-                    <ViewMedicalTrxButton navigation={navigation} />
+                    <AddMedicalOfficeBtn />
+                    <ViewAllMedicalOfficesBtn navigation={navigation} />
                 </View>
             </ImageBackground>
         </View>

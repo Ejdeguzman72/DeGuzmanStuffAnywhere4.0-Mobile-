@@ -6,7 +6,7 @@ const ViewMedicalTrxButton = ({ navigation }) => {
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Medical Transactions')}
             >
                 <Text style={styles.buttonText}>View List Medical Transaction</Text>
             </TouchableOpacity>

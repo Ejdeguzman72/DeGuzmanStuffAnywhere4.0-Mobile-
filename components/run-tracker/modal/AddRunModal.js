@@ -1,66 +1,65 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import React, { useState } from 'react';
+import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
 
-const AddMusicBtn = ({ navigation }) => {
+const AddRunModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <View style={styles.view}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Music</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Song Title"
-                        // value={this.state.name}
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+                setModalVisible(!modalVisible);
+            }}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Add Run</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Run Date"
+                    // value={this.state.name}
+                    // onChangeText={handleInputChange}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Distance"
+                    // value={this.state.author}
+                    // onChangeText={handleInputChange}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Time"
+                        // value={this.state.descr}
                         // onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Artist"
-                        // value={this.state.author}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="User ID"
+                        // value={this.state.descr}
                         // onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Genre"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.closeButton, styles.buttonClose]}
-                            onPress={(event) => onSubmit(event)}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.closeButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close </Text>
-                        </Pressable>
-                    </View>
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <Pressable
+                        style={[styles.modalButton, styles.buttonClose]}
+                        onPress={(event) => onSubmit(event)}
+                    >
+                        <Text style={styles.textStyle}>Submit</Text>
+                    </Pressable>
+                    <Pressable
+                        style={[styles.modalButton, styles.buttonClose]}
+                        onPress={() => setModalVisible(!modalVisible)}
+                    >
+                        <Text style={styles.textStyle}>Close </Text>
+                    </Pressable>
                 </View>
-            </Modal>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => setModalVisible(true)}
-            >
-                <Text style={styles.buttonText}>Add Music</Text>
-            </TouchableOpacity>
-        </View>
-    );
-};
+            </View>
+        </Modal>
+    )
+}
 
 const styles = StyleSheet.create({
 
@@ -70,13 +69,12 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#191970",
+        backgroundColor: "#FFB6C1",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
-        elevation: 2
     },
     buttonView: {
         fontSize: 20,
@@ -171,6 +169,13 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10
     },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
 });
 
-export default AddMusicBtn;
+
+export default AddRunModal;

@@ -7,7 +7,7 @@ const ViewAllRestaurantsBtn = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.button}
                 title="View All"
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Restaurants')}
             >
                 <Text style={styles.buttonText}>View All</Text>
             </TouchableOpacity>

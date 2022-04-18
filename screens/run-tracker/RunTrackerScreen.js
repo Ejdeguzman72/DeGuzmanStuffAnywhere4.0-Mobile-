@@ -6,14 +6,14 @@ import RunTrackerDetailsCard from '../../components/run-tracker/cards/RunTracker
 import ViewAllRunsBtn from '../../components/run-tracker/buttons/ViewAllRunsBtn';
 import AddRunEntryBtn from '../../components/run-tracker/buttons/AddRunBtn';
 
-const RunTrackerScreen = () => {
+const RunTrackerScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Divider />
                 <View style={styles.row}>
-                    <ViewAllRunsBtn />
+                    <ViewAllRunsBtn navigation={navigation} />
                     <AddRunEntryBtn />
                 </View>
                 <RunTrackerDetailsCard />

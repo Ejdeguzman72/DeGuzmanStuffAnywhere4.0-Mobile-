@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import AddBookModal from "../modal/AddBookModal";
 
-const AddBookBtn = ({ navigation }) => {
+const AddBookBtn = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <View style={styles.view}>
@@ -52,6 +53,7 @@ const AddBookBtn = ({ navigation }) => {
                     </View>
                 </View>
             </Modal>
+            {/* <AddBookModal visible={props.modalVisible} /> */}
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(true)}

@@ -12,7 +12,7 @@ const GymTrackerScreen = ({ navigation }) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllGymEntriesBtn navigation={navigation} />
-                    <AddGymEntryBtn navigaton={navigation} />
+                    <AddGymEntryBtn />
                 </View>
                 <GymTrackerDetailsCard />
             </ImageBackground>

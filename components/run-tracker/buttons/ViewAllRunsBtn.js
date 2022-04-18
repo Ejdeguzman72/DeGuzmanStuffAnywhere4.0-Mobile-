@@ -6,7 +6,7 @@ const ViewAllRunsBtn = ({ navigation }) => {
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Runs')}
             >
                 <Text style={styles.buttonText}>View All Run Information</Text>
             </TouchableOpacity>

@@ -2,12 +2,12 @@ import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
 import Title from '../../components/title/Title';
 
-const AllMusicScreen = () => {
+const AllGymEntriesScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Music</Text>
+                <Text>All Gym Entries</Text>
             </ImageBackground>
         </View>
     )
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AllMusicScreen;
+export default AllGymEntriesScreen;

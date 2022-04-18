@@ -6,7 +6,7 @@ const ViewGeneralTrxBtn = ({ navigation }) => {
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All General Transactions')}
             >
                 <Text style={styles.buttonText}>View All General Transaction</Text>
             </TouchableOpacity>

@@ -6,7 +6,7 @@ const ViewAutoTrxBtn = ({ navigation }) => {
         <View style={styles.view}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Auto Transactions')}
             >
                 <Text style={styles.buttonText}>View All Auto Transaction</Text>
             </TouchableOpacity>

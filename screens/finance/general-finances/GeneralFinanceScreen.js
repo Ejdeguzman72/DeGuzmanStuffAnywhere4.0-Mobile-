@@ -10,7 +10,7 @@ const GeneralFinanceScreen = ({ navigation }) => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddGeneralTrxBtn navigation={navigation} />
+                    <AddGeneralTrxBtn />
                     <ViewGeneralTrxBtn navigation={navigation} />
                 </View>
             </ImageBackground>

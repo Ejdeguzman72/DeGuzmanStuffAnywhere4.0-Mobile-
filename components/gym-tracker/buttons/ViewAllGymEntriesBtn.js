@@ -7,7 +7,7 @@ const ViewAllGymEntriesBtn = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.button}
                 title="View All"
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Gym Entries')}
             >
                 <Text style={styles.buttonText}>View All Gym Entries</Text>
             </TouchableOpacity>
