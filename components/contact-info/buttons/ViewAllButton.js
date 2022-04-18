@@ -7,7 +7,7 @@ const ViewAllBUtton = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.button}
                 title="View All"
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Contacts')}
             >
                 <Text style={styles.buttonText}>View All Contacts</Text>
             </TouchableOpacity>

@@ -5,13 +5,13 @@ import AddMusicBtn from '../../components/music/buttons/AddMusicBtn';
 import ViewAllMusicBtn from '../../components/music/buttons/ViewAllMusicBtn';
 import MusicDetailsCard from '../../components/music/cards/MusicDetailsCard';
 
-const MusicScreen = () => {
+const MusicScreen = ({ navigation}) => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <ViewAllMusicBtn />
+                    <ViewAllMusicBtn navigation={navigation} />
                     <AddMusicBtn />
                 </View>
                 <MusicDetailsCard />

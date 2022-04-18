@@ -11,7 +11,7 @@ const ContactInfoScreen = ({ navigation }) => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddContactButton navigation={navigation} />
+                    <AddContactButton />
                     <ViewAllBUtton navigation={navigation} />
                 </View>
                 <ContactDetailsCard />

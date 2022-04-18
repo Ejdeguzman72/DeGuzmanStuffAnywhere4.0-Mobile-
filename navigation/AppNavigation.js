@@ -30,6 +30,10 @@ import ItalianRecipeScreen from '../screens/recipes/italian-recipes/ItalianRecip
 import SeafoodRecipeScreen from '../screens/recipes/seafood-recipes/SeafoodRecipeScreen';
 import SlowCookerRecipeScreen from '../screens/recipes/slow-cooker-recipes/SlowCookerRecipeScreen';
 import RunTrackerScreen from '../screens/run-tracker/RunTrackerScreen';
+import ContactList from '../components/contact-info/list/ContactList';
+import BookListScreen from '../screens/book-recommendations/BookListScreen';
+import AllMusicScreen from '../screens/music-recommendations/AllMusicScreen';
+import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +43,9 @@ const AppNavigation = () => {    return (
                 <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
                 <Stack.Screen name='Details' component={DetailsScreen} options={{ title: 'Details' }} />
                 <Stack.Screen name="Books" component={BookScreen} options={{ title: 'Book'}} />
+                <Stack.Screen name="All Books" component={BookListScreen} options={{ title: 'All Books'}} />
                 <Stack.Screen name="Contact Info" component={ContactInfoScreen} options={{ title: 'Contact Info' }} />
+                <Stack.Screen name="All Contacts" component={ContactList} options={{ title: 'All Contacts' }} />
                 <Stack.Screen name="Gym Tracker" component={GymTrackerScreen} options={{ title: 'Gym Tracker'}} />
                 <Stack.Screen name="Run Tracker" component={RunTrackerScreen} option={{ title: 'Run Tracker' }} />
 
@@ -52,6 +58,7 @@ const AppNavigation = () => {    return (
                 <Stack.Screen name="Medical-Offices" component={MedicalOfficeScreen} options={{ title: 'Medical Offices' }} />
 
                 <Stack.Screen name="Music" component={MusicScreen} options={{ title: 'Music' }} />
+                {/* <Stack.Screen name="All Music" component={AllMusicScreen} options={{ title: 'All Music'}} /> */}
                 <Stack.Screen name="Restaurants" component={RestaurantScreen} options={{ title: 'Restaurants' }} />
                 <Stack.Screen name="Social Media" component={SocialMediaScreen} options={{ title: 'Social Media' }} />
                 <Stack.Screen name="Utility Info" component={UtilityScreen} options={{title: 'Utility Info' }} />

@@ -11,7 +11,7 @@ const BookScreen = ({ navigation }) => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <ViewAllBooksBtn />
+                    <ViewAllBooksBtn navigation={navigation} />
                     <AddBookBtn />
                 </View>
                 <BookDetailsCard />

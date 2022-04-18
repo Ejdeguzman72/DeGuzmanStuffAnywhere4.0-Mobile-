@@ -7,7 +7,7 @@ const ViewAllBooksBtn = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.button}
                 title="View All"
-                onPress={() => navigation.navigate('American')}
+                onPress={() => navigation.navigate('All Books')}
             >
                 <Text style={styles.buttonText}>View All Books</Text>
             </TouchableOpacity>
@@ -46,7 +46,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 20,
         textTransform: 'uppercase'
-    }
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        fontSize: 25,
+        width: 300,
+        borderRadius: 10
+    },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
 });
 
 export default ViewAllBooksBtn;
