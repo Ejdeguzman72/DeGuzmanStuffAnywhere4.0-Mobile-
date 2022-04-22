@@ -19,21 +19,7 @@ const BookList = () => {
     return (
         <ScrollView>
             <View style={styles.table}>
-                {books &&
-                    books.map((book) => (
-                        <ListItem style={styles.container} key={book.book_id} avatar>
-                            <Left>
-                                
-                            </Left>
-                            <Body>
-                                <Text>{`${book.title} ${book.author}`}</Text>
-                            </Body>
-                            <Right style={{ justifyContent: 'center' }}>
-                                <Icon name="heart" style={{ paddingRight: 5, fontSize: 30 }} />
-                            </Right>
-                        </ListItem>
-                    ))}
-                <Divider />
+                
             </View>
         </ScrollView>
     )

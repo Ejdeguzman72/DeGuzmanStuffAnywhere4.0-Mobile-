@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import Title from '../../components/title/Title';
-import AddMusicBtn from '../../components/music/buttons/AddMusicBtn';
+import AddMusicModal from '../../components/music/modal/AddMusicModal';
 import ViewAllMusicBtn from '../../components/music/buttons/ViewAllMusicBtn';
 import MusicDetailsCard from '../../components/music/cards/MusicDetailsCard';
 
@@ -12,7 +12,7 @@ const MusicScreen = ({ navigation}) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllMusicBtn navigation={navigation} />
-                    <AddMusicBtn />
+                    <AddMusicModal />
                 </View>
                 <MusicDetailsCard />
             </ImageBackground>

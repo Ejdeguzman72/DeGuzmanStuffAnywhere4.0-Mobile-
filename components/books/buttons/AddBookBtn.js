@@ -11,55 +11,6 @@ const AddBookBtn = () => {
         descr: ""
     }
 
-    const [books,setBooks] = useState(initialState);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState);
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({...books, [name]: value })
-    }
-
-    const setModalVisible = (visible) => {
-        setModalVisible({ modalVisible: visible })
-    }
-
-    const onSubmit = () => {
-        const data = {
-            book_id: book.book_id,
-            name: book.name,
-            author: book.author,
-            descr: book.descr
-        }
-
-        try {
-            const response = await fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/all/app/books/add-book-information', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.state)
-            });
-            const json = await response.json();
-            return this.setState({
-                book_id: json.book_id,
-                name: json.name,
-                author: json.author,
-                descr: json.descr,
-                submitted: true
-            });
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
     return (
         <View style={styles.view}>
             <Modal

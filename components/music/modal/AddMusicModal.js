@@ -1,157 +1,206 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, Pressable, Modal, StyleSheet } from 'react-native';
+import React from 'react';
+import { Pressable } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Modal, TextInput } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
-const AddMusicModal = () => {
-    const [modalVisible, setModalVisible] = useState(false);
-    return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Contact Information</Text>
+export default class AddMusicModal extends React.Component {
 
-                    <Text style={styles.modalText}>Add Book</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="First Name"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Middle Initial"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Last Name"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Address_01"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Address_02"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="City"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="State"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Zipcode"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Age"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Birth Date"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Phone"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
+    state = {
+        song_id: 0,
+        artist: "",
+        title: "",
+        genre: "",
+        modalVisible: false,
+        submitted: false
+    };
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+
+    onHandleArtistChange = (input) => {
+        this.setState({
+            artist: input
+        })
+    }
+
+    onHandleTitleChange = (input) => {
+        this.setState({
+            title: input
+        })
+    }
+
+    onHandleGenreChange = (input) => {
+        this.setState({
+            genre: input
+        })
+    }
+
+    onSubmit = async (event) => {
+
+        const data = {
+            song_id: this.state.song_id,
+            artist: this.state.artist,
+            title: this.state.title,
+            genre: this.state.genre,
+        }
+
+        try {
+            const response = await fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/music/add-music', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state)
+            });
+            console.log(json);
+            const json = await response.json();
+            return this.setState({
+                song_id: json.song_id,
+                title: json.title,
+                artist: json.artist,
+                genre: json.genre,
+                submitted: true
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    render() {
+        const { modalVisible } = this.state
+
+        return (
+            <View >
+                <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image} >
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                    // onRequestClose={() => {
+                    //     Alert.alert("Modal has been closed.");
+                    //     this.setModalVisible(!modalVisible);
+                    // }}
                     >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
+                        {this.state.submitted ? (
+                            <View style={styles.addCenteredView}>
+                                <View style={styles.addModalView}>
+                                    <Text style={styles.modalText}>Add Book</Text>
+                                    <Text>{this.state.title} has been submitted!</Text>
+                                    <Pressable
+                                        style={[styles.modalButton, styles.buttonClose]}
+                                    // onPress={this.newBook}
+                                    >
+                                        <Text style={styles.textStyle}>Add</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        style={[styles.modalButton, styles.buttonClose]}
+                                        onPress={() => this.setModalVisible(!modalVisible)}
+                                    >
+                                        <Text style={styles.textStyle}>Close </Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        ) : (
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+
+                                    <Text style={styles.modalText}>Add Music</Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Enter Title"
+                                        value={this.state.title}
+                                        onChangeText={(event) => this.onHandleTitleChange(event)}
+                                    />
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Enter Artist"
+                                        value={this.state.artist}
+                                        onChangeText={(event) => this.onHandleArtistChange(event)}
+                                    />
+                                    <View style={styles.pickerView}>
+                                        <Picker
+                                            style={styles.pickerstyles}
+                                            selectedValue={this.state.genre}
+                                            onValueChange={(
+                                                itemValue, itemPosition
+                                            ) => this.setState({
+                                                genre: itemValue, choosenIndex: itemPosition
+                                            })}
+                                        >
+                                            <Picker.Item label="Select a Genre" value="Selet a Genre" disabled={true} />
+                                            <Picker.Item label="Rock" value="Rock" />
+                                            <Picker.Item label="Pop" value="Pop" />
+                                            <Picker.Item label="Country" value="Country" />
+                                            <Picker.Item label="Classical" value="Classical" />
+                                            <Picker.Item label="Electronic" value="Electronic" />
+                                            <Picker.Item label="LoFi Beats" value="LoFi Beats" />
+                                            <Picker.Item label="Metal" value="Metal" />
+                                            <Picker.Item label="Rap" value="Rap" />
+                                            <Picker.Item label="Hip Hop" value="Hip Hop" />
+                                            {/* <Picker.Item label="R&B" value="R&B" /> */}
+                                            <Picker.Item label="Jazz" value="Jazz" />
+                                            <Picker.Item label="Indie" value="Indie" />
+                                            <Picker.Item label="Blues" value="Blues" />
+                                        </Picker>
+                                    </View>
+                                    <Pressable
+                                        style={[styles.modalButton, styles.buttonClose]}
+                                        onPress={(event) => this.onSubmit(event)}
+                                    >
+                                        <Text style={styles.textStyle}>Submit</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        style={[styles.modalButton, styles.buttonClose]}
+                                        onPress={() => this.setModalVisible(!modalVisible)}
+                                    >
+                                        <Text style={styles.textStyle}>Close </Text>
+                                    </Pressable>
+
+                                </View>
+                            </View>
+                        )}
+                    </Modal>
                     <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
+                        style={[styles.button, styles.buttonOpen]}
+                        onPress={() => this.setModalVisible(true)}
                     >
-                        <Text style={styles.textStyle}>Close </Text>
+                        <Text style={styles.buttonText}>Add Music</Text>
                     </Pressable>
-                </View>
+                </ImageBackground>
             </View>
-        </Modal>
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-
     view: {
         textAlign: 'center',
         justifyContent: 'center'
     },
+    image: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#ADD8E6",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
+        backgroundColor: '#20B2AA'
     },
     buttonView: {
-        fontSize: 20,
+        fontSize: 30,
         justifyContent: 'center',
         textAlign: 'center',
         margin: 10
     },
     buttonText: {
-        fontSize: 20,
-        flexWrap: 'wrap',
+        fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -225,7 +274,21 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: 'black',
         width: 300
-    }
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        fontSize: 25,
+        width: 300,
+        borderRadius: 10
+    },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
 });
-
-export default AddMusicModal;

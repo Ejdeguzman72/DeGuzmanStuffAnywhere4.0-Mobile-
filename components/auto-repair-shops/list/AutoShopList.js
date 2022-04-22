@@ -22,21 +22,7 @@ const AutoShopList = () => {
     return (
         <ScrollView>
             <View style={styles.table}>
-                {autoshops &&
-                    autoshops.map((autoshops) => (
-                        <ListItem style={styles.container} key={autoshops.auto_shop_id} avatar>
-                            <Left>
-
-                            </Left>
-                            <Body>
-                                <Text>{autoshops.auto_shop_name}</Text>
-                                <Text note>{autoshops.address + ' ' + autoshops.city + ' ' + autoshops.state + ' ' + autoshops.zip}</Text>
-                            </Body>
-                            <Right style={{ justifyContent: 'center' }}>
-                                <Icon name="heart" style={{ paddingRight: 5, fontSize: 30 }} />
-                            </Right>
-                        </ListItem>
-                    ))}
+                
                 <Divider />
             </View>
         </ScrollView>

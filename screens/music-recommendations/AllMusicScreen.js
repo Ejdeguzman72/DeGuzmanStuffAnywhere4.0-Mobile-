@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
+import MusicList from '../../components/music/list/MusicList';
 import Title from '../../components/title/Title';
 
 const AllMusicScreen = () => {
@@ -8,6 +9,7 @@ const AllMusicScreen = () => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All Music</Text>
+                <MusicList />
             </ImageBackground>
         </View>
     )

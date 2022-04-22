@@ -18,21 +18,7 @@ const ContactList = () => {
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact) => (
-                        <ListItem style={styles.container} key={contact.contactid} avatar>
-                            <Left>
-                                
-                            </Left>
-                            <Body>
-                                <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                                <Text note>{`${contact.phone}`}</Text>
-                            </Body>
-                            <Right style={{ justifyContent: 'center' }}>
-                                <Icon name="heart" style={{ paddingRight: 5, fontSize: 30 }} />
-                            </Right>
-                        </ListItem>
-                    ))}
+                
                 <Divider />
             </View>
         </ScrollView>
