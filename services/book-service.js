@@ -1,39 +1,44 @@
-import http from '../http-common';
+import Axios from 'axios';
 
-const getAllBookInformation = (params) => {
-    return http.get('/all-books', { params } );
-};
-
-const getBookInformationById = (book_id) => {
-    return http.get(`/book/${book_id}`);
-};
-
-const findBookByName = (name) => {
-    return http.get(`/find-book-by-name/${name}`);
+const getAllBooks = () => {
+    return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/all');
 }
 
-const addBookInformation = (data) => {
-    return http.post(`/add-book-information`,data);
-};
+// const getAllBookInformation = (params) => {
+//     return http.get('/all-books', { params } );
+// };
 
-const updateBookInformation = (book_id,data) => {
-    return http.put(`/book/${book_id}`, data)
-};
+// const getBookInformationById = (book_id) => {
+//     return http.get(`/book/${book_id}`);
+// };
 
-const deleteBookInformation = (book_id) => {
-    return http.delete(`/delete-book/book/${book_id}`);
-};
+// const findBookByName = (name) => {
+//     return http.get(`/find-book-by-name/${name}`);
+// }
 
-const deleteAllBookInformation = () => {
-    return http.delete('/delete-all-books');
-}
+// const addBookInformation = (data) => {
+//     return http.post(`/add-book-information`,data);
+// };
+
+// const updateBookInformation = (book_id,data) => {
+//     return http.put(`/book/${book_id}`, data)
+// };
+
+// const deleteBookInformation = (book_id) => {
+//     return http.delete(`/delete-book/book/${book_id}`);
+// };
+
+// const deleteAllBookInformation = () => {
+//     return http.delete('/delete-all-books');
+// }
 
 export default {
-    getAllBookInformation,
-    getBookInformationById,
-    addBookInformation,
-    findBookByName,
-    updateBookInformation,
-    deleteBookInformation,
-    deleteAllBookInformation
+    getAllBooks,
+    // getAllBookInformation,
+    // getBookInformationById,
+    // addBookInformation,
+    // findBookByName,
+    // updateBookInformation,
+    // deleteBookInformation,
+    // deleteAllBookInformation
 }

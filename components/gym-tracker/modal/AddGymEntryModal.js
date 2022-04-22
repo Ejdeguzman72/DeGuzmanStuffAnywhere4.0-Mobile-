@@ -183,7 +183,23 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: 'black',
         width: 300
-    }
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        fontSize: 25,
+        width: 300,
+        borderRadius: 10
+    },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
 });
 
 

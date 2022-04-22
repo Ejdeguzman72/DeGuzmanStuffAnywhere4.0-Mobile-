@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import BookList from '../../components/books/list/BookList';
 
 const BookListScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Text>This is Book List Screen</Text>
+                <BookList />
             </ImageBackground>
         </View>
     )

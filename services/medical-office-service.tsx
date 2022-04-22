@@ -2,31 +2,31 @@ import React from 'react';
 import Axios from 'axios';
 
 const getAllMedicalOffices = () => {
-    return Axios.get('http://localhost:8080/app/medical-offices/all');
+    return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/all');
 }
 
 const getAllMedicalOfficeInfo = (params:any) => {
-    return Axios.get('http://localhost:8080/app/medical-offices/all-medical-offices', {params});
+    return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/all-medical-offices', {params});
 }
 
 const getMedicalOfficeById = (medicalOfficeId:any) => {
-    return Axios.get(`http://localhost:8080/app/medical-offices/medical-office/${medicalOfficeId}`);
+    return Axios.get(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/medical-office/${medicalOfficeId}`);
 }
 
 const addMedicalOffice = (newData: any) => {
-    return Axios.post("http://localhost:8080/app/medical-offices/add-medical-office-information", newData);
+    return Axios.post("http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/add-medical-office-information", newData);
 }
 
 const updateMedicalOfficeInformation = (medicalOfficeId:any,data:any) => {
-    return Axios.put(`http://localhost:8080/app/medical-offices/medical-office/${medicalOfficeId}`,data);
+    return Axios.put(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/medical-office/${medicalOfficeId}`,data);
 }
 
 const deleteMedicalOffice = (medicalOfficeId:any) => {
-    return Axios.delete(`http://localhost:8080/app/medical-offices/medical-office/${medicalOfficeId}`);
+    return Axios.delete(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/medical-office/${medicalOfficeId}`);
 }
 
 const deleteAllMedicalOffices = () => {
-    return Axios.delete('http://localhost:8080/app/medical-offices/delete-all-medical-offices');
+    return Axios.delete('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/delete-all-medical-offices');
 }
 
 

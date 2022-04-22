@@ -55,7 +55,7 @@ const AddRestaurantBtn = () => {
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Restaurant Type ID"
+                            placeholder="Restaurant Type ID" 
                             // value={this.state.descr}
                             // onChangeText={handleInputChange}
                             multiline={true}

@@ -1,32 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { ListItem, Left, Body, Right, Icon } from 'native-base';
-import ContactService from '../../../services/contact-service';
+import AutoShopService from '../../../services/autoshop-service';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const AutoShopList = () => {
+
+    const [autoshops, setAutoShops] = useState([]);
 
     useEffect(() => {
-        ContactService.getContactInfo().
-        then(response => {
-            console.log(response.data)
-        });
-        console.log(contacts);
-    }, [])
+        AutoShopService.getAllAutoShops()
+            .then((data) => setAutoShops(data.autoshops))
+            .then(console.log(data))
+            .catch((error) => {
+                console.log(error)
+            });
+
+            console.log(autoshops)
+    })
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact) => (
-                        <ListItem style={styles.container} key={contact.contactid} avatar>
+                {autoshops &&
+                    autoshops.map((autoshops) => (
+                        <ListItem style={styles.container} key={autoshops.auto_shop_id} avatar>
                             <Left>
-                                
+
                             </Left>
                             <Body>
-                                <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                                <Text note>{`${contact.phone}`}</Text>
+                                <Text>{autoshops.auto_shop_name}</Text>
+                                <Text note>{autoshops.address + ' ' + autoshops.city + ' ' + autoshops.state + ' ' + autoshops.zip}</Text>
                             </Body>
                             <Right style={{ justifyContent: 'center' }}>
                                 <Icon name="heart" style={{ paddingRight: 5, fontSize: 30 }} />
@@ -66,4 +70,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default AutoShopList;

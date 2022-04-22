@@ -8,7 +8,7 @@ class UploadGeneralFileUploadService {
         formData.append("file",file);
 
 
-        return Axios.post("http://localhost:8080/app/general-transaction-documents/upload", formData, {
+        return Axios.post("http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/general-transaction-documents/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -17,7 +17,7 @@ class UploadGeneralFileUploadService {
     }
 
     getGeneralFiles() {
-        return Axios.get('http://localhost:8080/app/general-transaction-documents/files');
+        return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/general-transaction-documents/files');
     }
 }
 

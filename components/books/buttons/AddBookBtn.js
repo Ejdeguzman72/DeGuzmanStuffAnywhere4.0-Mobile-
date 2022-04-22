@@ -2,8 +2,64 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
 import AddBookModal from "../modal/AddBookModal";
 
-const AddBookBtn = (props) => {
+const AddBookBtn = () => {
+
+    const initialState = {
+        book_id: 0,
+        name: "",
+        author: "",
+        descr: ""
+    }
+
+    const [books,setBooks] = useState(initialState);
     const [modalVisible, setModalVisible] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const newBook = () => {
+        setBooks(initialState);
+        setSubmitted(false);
+    }
+
+    const handleInputChange = (input) => {
+        const { name, value } = input
+        setBooks({...books, [name]: value })
+    }
+
+    const setModalVisible = (visible) => {
+        setModalVisible({ modalVisible: visible })
+    }
+
+    const onSubmit = () => {
+        const data = {
+            book_id: book.book_id,
+            name: book.name,
+            author: book.author,
+            descr: book.descr
+        }
+
+        try {
+            const response = await fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/all/app/books/add-book-information', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state)
+            });
+            const json = await response.json();
+            return this.setState({
+                book_id: json.book_id,
+                name: json.name,
+                author: json.author,
+                descr: json.descr,
+                submitted: true
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     return (
         <View style={styles.view}>
             <Modal
@@ -21,20 +77,20 @@ const AddBookBtn = (props) => {
                         <TextInput
                             style={styles.input}
                             placeholder="Title"
-                        // value={this.state.name}
-                        // onChangeText={handleInputChange}
+                        value={this.state.name}
+                        onChangeText={handleInputChange}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder="Author"
-                        // value={this.state.author}
-                        // onChangeText={handleInputChange}
+                        value={this.state.author}
+                        onChangeText={handleInputChange}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder="Description"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
+                            value={this.state.descr}
+                            onChangeText={handleInputChange}
                             multiline={true}
                             numberOfLines={4}
                         />
@@ -53,7 +109,6 @@ const AddBookBtn = (props) => {
                     </View>
                 </View>
             </Modal>
-            {/* <AddBookModal visible={props.modalVisible} /> */}
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(true)}

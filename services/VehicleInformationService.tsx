@@ -1,27 +1,27 @@
 import Axios from 'axios';
 
 const getAllVehicleInformation = () => {
-    return Axios.get('http://localhost:8080/app/vehicles/all');
+    return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/all');
 }
 
 const getAllVehicles = (params:any) => {
-    return Axios.get('http://localhost:8080/app/vehicles/all-vehicles', { params });
+    return Axios.get('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/all-vehicles', { params });
 }
 
 const getVehicleInformationById = (vehicleId:any) => {
-    return Axios.get(`http://localhost:8080/app/vehicles/vehicle/${vehicleId}`);
+    return Axios.get(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/vehicle/${vehicleId}`);
 }
 
 const updateVehicleInformation = (vehicleId:any,data:any) => {
-    return Axios.put(`http://localhost:8080/app/vehicles/vehicle/${vehicleId}`,data);
+    return Axios.put(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/vehicle/${vehicleId}`,data);
 }
 
 const deleteAllVehicles = () => {
-    return Axios.delete('http://localhost:8080/app/vehicles/delete-all-vehicles');
+    return Axios.delete('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/delete-all-vehicles');
 }
 
 const deleteVehicle = (vehicleId:any) => {
-    return Axios.delete(`http://localhost:8080/app/vehicles/vehicle/${vehicleId}`);
+    return Axios.delete(`http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/vehicle/${vehicleId}`);
 }
 
 export default {

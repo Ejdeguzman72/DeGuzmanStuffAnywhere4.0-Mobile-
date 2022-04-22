@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { ListItem, Left, Body, Right, Icon } from 'native-base';
-import ContactService from '../../../services/contact-service';
+import BookService from '../../../services/book-service';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const BookList = () => {
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        ContactService.getContactInfo().
-        then(response => {
-            console.log(response.data)
-        });
-        console.log(contacts);
-    }, [])
+        BookService.getAllBooks()
+            .then((data) => setBooks(data.books))
+            .catch((error) => {
+                console.log(error);
+            });
+            console.log(books)
+    }, []);
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact) => (
-                        <ListItem style={styles.container} key={contact.contactid} avatar>
+                {books &&
+                    books.map((book) => (
+                        <ListItem style={styles.container} key={book.book_id} avatar>
                             <Left>
                                 
                             </Left>
                             <Body>
-                                <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                                <Text note>{`${contact.phone}`}</Text>
+                                <Text>{`${book.title} ${book.author}`}</Text>
                             </Body>
                             <Right style={{ justifyContent: 'center' }}>
                                 <Icon name="heart" style={{ paddingRight: 5, fontSize: 30 }} />
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default BookList;
