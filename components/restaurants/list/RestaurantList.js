@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const RestaurantList = () => {
+    const [restaurants, setRestaurants] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/person-info/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/restaurants/all')
             .then((response) => response.json())
-            .then((json) => setContacts(json))
+            .then((json) => setRestaurants(json))
             .catch((error) => console.log(error))
     }, [])
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact, index) => (
-                        <TouchableOpacity style={styles.container} key={contact.person_id} avatar>
-                            <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                            <Text note>{`${contact.phone}`}</Text>
+                {restaurants &&
+                    restaurants.map((restaurant, index) => (
+                        <TouchableOpacity style={styles.container} key={restaurant.restaurant_id} avatar>
+                            <Text>{`${restaurant.name} ${restaurant.descr}`}</Text>
+                            <Text note>{`${restaurant.address} ${restaurant.city} ${restaurant.state}, ${restaurant.zip}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
             </View>
         </ScrollView>
     )
-}
+} 
 
 const styles = StyleSheet.create({
     table: {
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default RestaurantList;

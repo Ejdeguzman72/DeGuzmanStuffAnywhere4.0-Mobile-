@@ -9,7 +9,7 @@ const ViewAllBooksBtn = ({ navigation }) => {
                 title="View All"
                 onPress={() => navigation.navigate('All Books')}
             >
-                <Text style={styles.buttonText}>View All Books</Text>
+                <Text style={styles.buttonText}>View All</Text>
             </TouchableOpacity>
         </View>
     );
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 30,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',

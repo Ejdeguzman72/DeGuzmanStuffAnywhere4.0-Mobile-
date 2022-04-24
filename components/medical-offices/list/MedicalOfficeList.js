@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const MedicalOfficeList = () => {
+    const [offices,setOffices] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/person-info/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/all')
             .then((response) => response.json())
-            .then((json) => setContacts(json))
+            .then((json) => setOffices(json))
             .catch((error) => console.log(error))
     }, [])
+
+    console.log(offices)
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact, index) => (
-                        <TouchableOpacity style={styles.container} key={contact.person_id} avatar>
-                            <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                            <Text note>{`${contact.phone}`}</Text>
+                {offices &&
+                    offices.map((office, index) => (
+                        <TouchableOpacity style={styles.container} key={office.medical_office_id} avatar>
+                            <Text>{`${office.name}`}</Text>
+                            <Text>{`${office.address} ${office.city} ${office.state} ${office.zip}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -55,4 +57,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default MedicalOfficeList;

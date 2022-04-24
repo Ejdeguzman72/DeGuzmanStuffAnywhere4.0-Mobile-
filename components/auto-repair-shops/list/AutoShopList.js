@@ -9,20 +9,22 @@ const AutoShopList = () => {
     const [autoshops, setAutoShops] = useState([]);
 
     useEffect(() => {
-        AutoShopService.getAllAutoShops()
-            .then((data) => setAutoShops(data.autoshops))
-            .then(console.log(data))
-            .catch((error) => {
-                console.log(error)
-            });
-
-            console.log(autoshops)
-    })
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
+            .then((response) => response.json())
+            .then((json) => setAutoShops(json))
+            .catch((error) => console.log(error))
+    }, [])
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                
+                {autoshops &&
+                    autoshops.map((autoshop, index) => (
+                        <TouchableOpacity style={styles.container} key={autoshop.auto_shop_id} avatar>
+                            <Text>{`${autoshop.auto_shop_name}`}</Text>
+                            <Text note>{`${autoshop.address} ${autoshop.city} ${autoshop.state} ${autoshop.zip}`}</Text>
+                        </TouchableOpacity>
+                    ))}
                 <Divider />
             </View>
         </ScrollView>

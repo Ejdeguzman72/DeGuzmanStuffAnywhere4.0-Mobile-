@@ -1,25 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
-import { ListItem, Left, Body, Right, Icon } from 'native-base';
-import BookService from '../../../services/book-service';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        BookService.getAllBooks()
-            .then((data) => setBooks(data.books))
-            .catch((error) => {
-                console.log(error);
-            });
-            console.log(books)
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/all')
+            .then((response) => response.json())
+            .then((json) => setBooks(json))
+            .catch((error) => console.log(error));
     }, []);
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                
+                {books &&
+                    books.map((book, index) => (
+                        <TouchableOpacity style={styles.container} key={book.book_id} avatar>
+                            <Text>{`${book.title} ${book.author}`}</Text>
+                            <Text note>{`${book.descr}`}</Text>
+                        </TouchableOpacity>
+                    ))}
+                <Divider />
             </View>
         </ScrollView>
     )

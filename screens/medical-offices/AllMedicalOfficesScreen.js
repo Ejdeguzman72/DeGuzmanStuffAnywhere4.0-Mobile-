@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
+import MedicalOfficeList from '../../components/medical-offices/list/MedicalOfficeList';
 import Title from '../../components/title/Title';
 
 const AllMedicalOfficesScreen = () => {
@@ -8,6 +9,7 @@ const AllMedicalOfficesScreen = () => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All Medical Offices</Text>
+                <MedicalOfficeList />
             </ImageBackground>
         </View>
     )

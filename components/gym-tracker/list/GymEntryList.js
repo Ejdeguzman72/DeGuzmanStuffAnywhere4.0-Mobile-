@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const GymEntryList = () => {
+    const [entries,setEntries] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/person-info/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/gym-tracker/all')
             .then((response) => response.json())
-            .then((json) => setContacts(json))
+            .then((json) => setEntries(json))
             .catch((error) => console.log(error))
-    }, [])
+        }, [])
+
+    console.log(entries)
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact, index) => (
-                        <TouchableOpacity style={styles.container} key={contact.person_id} avatar>
-                            <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                            <Text note>{`${contact.phone}`}</Text>
+                {entries &&
+                    entries.map((entry, index) => (
+                        <TouchableOpacity style={styles.container} key={entry.exercise_id} avatar>
+                            <Text>{`${entry.sets} ${entry.reps} ${entry.exerciseName}`}</Text>
+                            <Text note>{`${entry.username}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -55,4 +57,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default GymEntryList;

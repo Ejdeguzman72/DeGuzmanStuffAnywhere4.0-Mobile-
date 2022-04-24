@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
+import GymEntryList from '../../components/gym-tracker/list/GymEntryList';
 import Title from '../../components/title/Title';
 
 const AllGymEntriesScreen = () => {
@@ -8,6 +9,7 @@ const AllGymEntriesScreen = () => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All Gym Entries</Text>
+                <GymEntryList />
             </ImageBackground>
         </View>
     )

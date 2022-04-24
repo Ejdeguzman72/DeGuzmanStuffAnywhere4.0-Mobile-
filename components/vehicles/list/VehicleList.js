@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-const ContactList = () => {
-    const [contacts, setContacts] = useState([]);
+const VehicleList = () => {
+    const [vehicles,setVehicles] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/person-info/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/all')
             .then((response) => response.json())
-            .then((json) => setContacts(json))
+            .then((json) => setVehicles(json))
             .catch((error) => console.log(error))
     }, [])
+
+    console.log(vehicles)
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {contacts &&
-                    contacts.map((contact, index) => (
-                        <TouchableOpacity style={styles.container} key={contact.person_id} avatar>
-                            <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
-                            <Text note>{`${contact.phone}`}</Text>
+                {vehicles &&
+                    vehicles.map((vehicle, index) => (
+                        <TouchableOpacity style={styles.container} key={vehicles.vehicle_id} avatar>
+                            <Text>{`${vehicle.year} ${vehicle.make} ${vehicle.model}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -55,4 +56,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ContactList;
+export default VehicleList;

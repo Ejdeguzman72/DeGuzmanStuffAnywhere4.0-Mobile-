@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
+import GeneralTrxList from '../../../components/finances/general/list/GeneralTrxList';
 import Title from '../../../components/title/Title';
 
 const AllGeneralTrxScreen = () => {
@@ -8,6 +9,7 @@ const AllGeneralTrxScreen = () => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All General Transactions</Text>
+                <GeneralTrxList />
             </ImageBackground>
         </View>
     )

@@ -4,19 +4,15 @@ import AddBookModal from "../modal/AddBookModal";
 
 const AddBookBtn = () => {
 
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
+    
+    const [books,setBooks] = useState([]);
 
     return (
         <View style={styles.view}>
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                // visible={modalVisible}
                 onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
@@ -28,20 +24,20 @@ const AddBookBtn = () => {
                         <TextInput
                             style={styles.input}
                             placeholder="Title"
-                        value={this.state.name}
-                        onChangeText={handleInputChange}
+                        // value={this.state.name}
+                        // onChangeText={handleInputChange}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder="Author"
-                        value={this.state.author}
-                        onChangeText={handleInputChange}
+                        // value={this.state.author}
+                        // onChangeText={handleInputChange}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder="Description"
-                            value={this.state.descr}
-                            onChangeText={handleInputChange}
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
                             multiline={true}
                             numberOfLines={4}
                         />
@@ -59,10 +55,10 @@ const AddBookBtn = () => {
                         </Pressable>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => setModalVisible(true)}
+                onPress={() => setModalVisible(false)}
             >
                 <Text style={styles.buttonText}>Add Book</Text>
             </TouchableOpacity>
@@ -93,7 +89,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 30,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',

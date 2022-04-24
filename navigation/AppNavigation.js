@@ -33,7 +33,6 @@ import RunTrackerScreen from '../screens/run-tracker/RunTrackerScreen';
 import BookListScreen from '../screens/book-recommendations/BookListScreen';
 import AllMusicScreen from '../screens/music-recommendations/AllMusicScreen';
 import AllContactsScreen from '../screens/contact-info/AllContactsScreen';
-import AllAutoShopsScreen from '../screens/auto-repair-shops/AllAutoShops';
 import AllRestaurantsScreen from '../screens/restaurant-recommendations/AllRestaurantsScreen';
 import AllRunsScreen from '../screens/run-tracker/AllRunsScreen';
 import AllGymEntriesScreen from '../screens/gym-tracker/AllGymEntriesScreen';
@@ -41,6 +40,7 @@ import AllVehiclesScreen from '../screens/vehicles/AllVehiclesScreen';
 import AllGeneralTrxScreen from '../screens/finance/general-finances/AllGeneralTrxScreen';
 import AllMedicalOfficesScreen from '../screens/medical-offices/AllMedicalOfficesScreen';
 import AllAutoTrxScreen from '../screens/finance/auto-finances/AllAutoTrxScreen';
+import AllAutoShopsScreen from '../screens/auto-repair-shops/AllAutoShopsScreen';
 import AllMedicalTrxScreen from '../screens/finance/medical-finances/AllMedicalTrxScreen';
 
 const Stack = createNativeStackNavigator();

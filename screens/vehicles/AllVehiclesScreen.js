@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
 import Title from '../../components/title/Title';
+import VehicleList from '../../components/vehicles/list/VehicleList';
 
 const AllVehiclesScreen = () => {
     return (
@@ -8,6 +9,7 @@ const AllVehiclesScreen = () => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All Vehicles</Text>
+                <VehicleList />
             </ImageBackground>
         </View>
     )

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
+import MedicalTrxList from '../../../components/finances/medical/list/MedicalTrxList';
 import Title from '../../../components/title/Title';
 
 const AllMedicalTrxScreen = () => {
@@ -8,6 +9,7 @@ const AllMedicalTrxScreen = () => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <Text>All Medical Transactions</Text>
+                <MedicalTrxList />
             </ImageBackground>
         </View>
     )
