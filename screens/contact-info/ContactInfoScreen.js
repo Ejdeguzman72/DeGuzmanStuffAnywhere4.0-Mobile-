@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import AddContactButton from '../../components/contact-info/buttons/AddContactButton';
 import ViewAllBUtton from '../../components/contact-info/buttons/ViewAllButton';
 import ContactDetailsCard from '../../components/contact-info/cards/ContactDetailsCard';
+import AddContactModal from '../../components/contact-info/modal/AddContactModal';
 import Title from '../../components/title/Title';
 
 const ContactInfoScreen = ({ navigation }) => {
@@ -11,8 +11,8 @@ const ContactInfoScreen = ({ navigation }) => {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddContactButton />
                     <ViewAllBUtton navigation={navigation} />
+                    <AddContactModal />
                 </View>
                 <ContactDetailsCard />
             </ImageBackground>

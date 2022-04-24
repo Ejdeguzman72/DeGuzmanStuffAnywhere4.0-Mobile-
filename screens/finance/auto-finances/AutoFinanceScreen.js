@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import AddAutoTrxBtn from '../../../components/finances/auto/buttons/AddAutoTrxBtn';
 import ViewAutoTrxBtn from '../../../components/finances/auto/buttons/ViewAutoTrxBtn';
+import AddAutoTrxModal from '../../../components/finances/auto/modal/AddAutoTrxModal';
 import Title from '../../../components/title/Title';
 
 const AutoFinanceScreen = ({ navigation }) => {
@@ -10,8 +10,8 @@ const AutoFinanceScreen = ({ navigation }) => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddAutoTrxBtn />
                     <ViewAutoTrxBtn navigation={navigation} />
+                    <AddAutoTrxModal />
                 </View>
             </ImageBackground>
         </View>

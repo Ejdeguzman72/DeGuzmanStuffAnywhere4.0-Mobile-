@@ -1,74 +1,90 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
 const AddRestaurantModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Restaurant</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Amount"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Payment Date"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Medical Office ID"
-                        // value={this.state.descr}
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Add Restaurant</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Name"
+                        // value={this.state.name}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Transaction Type ID"
-                        // value={this.state.descr}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Address"
+                        // value={this.state.author}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="User ID"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
-                    >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Close </Text>
-                    </Pressable>
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="City"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="State"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Zip"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Restaurant Type ID" 
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={(event) => onSubmit(event)}
+                        >
+                            <Text style={styles.textStyle}>Submit</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close </Text>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Restaurant</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
 
@@ -78,7 +94,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#663399",
         padding: 10,
         width: 160,
         height: 160,
@@ -185,6 +201,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
-
 
 export default AddRestaurantModal;

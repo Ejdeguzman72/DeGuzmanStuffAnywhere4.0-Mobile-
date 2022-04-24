@@ -1,75 +1,82 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal, Pressable } from "react-native";
 
-const AddRunModal = () => {
+const AddRunEntryModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Run</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Run Date"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Distance"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Time"
-                        // value={this.state.descr}
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Add Run</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Run Date"
+                        // value={this.state.name}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="User ID"
-                        // value={this.state.descr}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Distance"
+                        // value={this.state.author}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
-                    >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Close </Text>
-                    </Pressable>
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Time"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="User ID"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={(event) => onSubmit(event)}
+                        >
+                            <Text style={styles.textStyle}>Submit</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close </Text>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Run Infomration</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-
     view: {
         textAlign: 'center',
         justifyContent: 'center'
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#EE82EE",
         padding: 10,
         width: 160,
         height: 160,
@@ -91,8 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 20,
         textTransform: 'uppercase'
-    },
-    centeredView: {
+    },centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -177,5 +183,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
-export default AddRunModal;
+export default AddRunEntryModal;

@@ -1,82 +1,90 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
-const AddAutoTrxModal = () => {
+const AddAutoTrxModal = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Auto Transaction</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Auto Transaction Date"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Amount"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Auto Shop ID"
-                        // value={this.state.descr}
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Add Auto Transaction</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Auto Transaction Date"
+                        // value={this.state.name}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Transation Type ID"
-                        // value={this.state.descr}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Amount"
+                        // value={this.state.author}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Vehicle ID"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="User ID"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
-                    >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Close </Text>
-                    </Pressable>
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Auto Shop ID"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Transation Type ID"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Vehicle ID"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="User ID"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={(event) => onSubmit(event)}
+                        >
+                            <Text style={styles.textStyle}>Submit</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close </Text>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Auto Transaction</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
 
@@ -193,6 +201,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
-
 
 export default AddAutoTrxModal;

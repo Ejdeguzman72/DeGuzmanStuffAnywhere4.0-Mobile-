@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import Title from '../../../components/title/Title';
-import AddGeneralTrxBtn from '../../../components/finances/general/buttons/AddGeneralTrxBtn';
 import ViewGeneralTrxBtn from '../../../components/finances/general/buttons/ViewGeneralTrxBtn';
+import AddGeneralTrxModal from '../../../components/finances/general/modal/AddGeneralTrxModal';
 
 const GeneralFinanceScreen = ({ navigation }) => {
     return (
@@ -10,8 +10,8 @@ const GeneralFinanceScreen = ({ navigation }) => {
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
                 <View style={styles.row}>
-                    <AddGeneralTrxBtn />
                     <ViewGeneralTrxBtn navigation={navigation} />
+                    <AddGeneralTrxModal />
                 </View>
             </ImageBackground>
         </View>

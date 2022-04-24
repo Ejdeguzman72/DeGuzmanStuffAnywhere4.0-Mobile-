@@ -1,74 +1,82 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
-const AddAutoShopModal = () => {
+const AddAutoRepairShopModal = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Auto Repair Shop</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Auto Shop Name"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Address"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="City"
-                        // value={this.state.descr}
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Add Auto Repair Shop</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Auto Shop Name"
+                        // value={this.state.name}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="State"
-                        // value={this.state.descr}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Address"
+                        // value={this.state.author}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="ZipCode"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
-                    >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Close </Text>
-                    </Pressable>
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="City"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="State"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="ZipCode"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={(event) => onSubmit(event)}
+                        >
+                            <Text style={styles.textStyle}>Submit</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close </Text>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Auto Repair Shop</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
 
@@ -78,22 +86,22 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#ADD8E6",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
+        backgroundColor: '#FFEBCD'
     },
     buttonView: {
-        fontSize: 20,
+        fontSize: 30,
         justifyContent: 'center',
         textAlign: 'center',
         margin: 10
     },
     buttonText: {
-        fontSize: 20,
-        flexWrap: 'wrap',
+        fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -186,5 +194,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
-export default AddAutoShopModal;
+export default AddAutoRepairShopModal;

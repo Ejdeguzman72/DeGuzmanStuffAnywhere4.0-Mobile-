@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import AddGymEntryBtn from '../../components/gym-tracker/buttons/AddGymEntryBtn';
 import ViewAllGymEntriesBtn from '../../components/gym-tracker/buttons/ViewAllGymEntriesBtn';
 import GymTrackerDetailsCard from '../../components/gym-tracker/cards/GymTrackerDetailsCard';
+import AddGymEntryModal from '../../components/gym-tracker/modal/AddGymEntryModal';
 import Title from '../../components/title/Title';
 
 const GymTrackerScreen = ({ navigation }) => {
@@ -12,7 +13,7 @@ const GymTrackerScreen = ({ navigation }) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllGymEntriesBtn navigation={navigation} />
-                    <AddGymEntryBtn />
+                    <AddGymEntryModal />
                 </View>
                 <GymTrackerDetailsCard />
             </ImageBackground>

@@ -4,15 +4,28 @@ import { ImageBackground, StyleSheet, Text, View, Modal, TextInput } from 'react
 import {Picker} from '@react-native-picker/picker';
 
 export default class AddMusicModal extends React.Component {
+    constructor(props) {
+        super(props)
 
-    state = {
-        song_id: 0,
-        artist: "",
-        title: "",
-        genre: "",
-        modalVisible: false,
-        submitted: false
-    };
+        this.state = {
+            song_id: 0,
+            artist: "",
+            title: "",
+            genre: "",
+            modalVisible: false,
+            submitted: false
+        };
+    }
+
+    newSong = () => {
+        this.setState({
+            artist: "",
+            title: "",
+            genre: "",
+            modalVisible: false,
+            submitted: false
+        })
+    }
 
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
@@ -70,7 +83,6 @@ export default class AddMusicModal extends React.Component {
 
     render() {
         const { modalVisible } = this.state
-
         return (
             <View >
                 <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image} >
@@ -78,10 +90,9 @@ export default class AddMusicModal extends React.Component {
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
-                    // onRequestClose={() => {
-                    //     Alert.alert("Modal has been closed.");
-                    //     this.setModalVisible(!modalVisible);
-                    // }}
+                    onRequestClose={() => {
+                        this.setModalVisible(!modalVisible);
+                    }}
                     >
                         {this.state.submitted ? (
                             <View style={styles.addCenteredView}>
@@ -90,7 +101,7 @@ export default class AddMusicModal extends React.Component {
                                     <Text>{this.state.title} has been submitted!</Text>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                    // onPress={this.newBook}
+                                    onPress={this.newSong}
                                     >
                                         <Text style={styles.textStyle}>Add</Text>
                                     </Pressable>
@@ -119,32 +130,15 @@ export default class AddMusicModal extends React.Component {
                                         value={this.state.artist}
                                         onChangeText={(event) => this.onHandleArtistChange(event)}
                                     />
-                                    <View style={styles.pickerView}>
-                                        <Picker
-                                            style={styles.pickerstyles}
-                                            selectedValue={this.state.genre}
-                                            onValueChange={(
-                                                itemValue, itemPosition
-                                            ) => this.setState({
-                                                genre: itemValue, choosenIndex: itemPosition
-                                            })}
-                                        >
-                                            <Picker.Item label="Select a Genre" value="Selet a Genre" disabled={true} />
-                                            <Picker.Item label="Rock" value="Rock" />
-                                            <Picker.Item label="Pop" value="Pop" />
-                                            <Picker.Item label="Country" value="Country" />
-                                            <Picker.Item label="Classical" value="Classical" />
-                                            <Picker.Item label="Electronic" value="Electronic" />
-                                            <Picker.Item label="LoFi Beats" value="LoFi Beats" />
-                                            <Picker.Item label="Metal" value="Metal" />
-                                            <Picker.Item label="Rap" value="Rap" />
-                                            <Picker.Item label="Hip Hop" value="Hip Hop" />
-                                            {/* <Picker.Item label="R&B" value="R&B" /> */}
-                                            <Picker.Item label="Jazz" value="Jazz" />
-                                            <Picker.Item label="Indie" value="Indie" />
-                                            <Picker.Item label="Blues" value="Blues" />
-                                        </Picker>
-                                    </View>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Enter Genre"
+                                        value={this.state.genre}
+                                        onChangeText={(event) => this.onHandleGenreChange(event)}
+                                    />
+                                    {/* <View style={styles.pickerView}>
+                                        
+                                    </View> */}
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={(event) => this.onSubmit(event)}

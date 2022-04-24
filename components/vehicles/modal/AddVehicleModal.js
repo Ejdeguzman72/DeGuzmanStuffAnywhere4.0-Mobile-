@@ -1,92 +1,99 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, StyleSheet, Alert, Pressable, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
 const AddVehicleModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Add Vehicle</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Manufacturer"
-                    // value={this.state.name}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Make"
-                    // value={this.state.author}
-                    // onChangeText={handleInputChange}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Model"
-                        // value={this.state.descr}
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Add Vehicle</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Manufacturer"
+                        // value={this.state.name}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Year"
-                        // value={this.state.descr}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Make"
+                        // value={this.state.author}
                         // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Capacity"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Transmission"
-                        // value={this.state.descr}
-                        // onChangeText={handleInputChange}
-                        multiline={true}
-                        numberOfLines={4}
-                    />
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={(event) => onSubmit(event)}
-                    >
-                        <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                    <Pressable
-                        style={[styles.modalButton, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Close </Text>
-                    </Pressable>
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Model"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Year"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Capacity"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Transmission"
+                            // value={this.state.descr}
+                            // onChangeText={handleInputChange}
+                            multiline={true}
+                            numberOfLines={4}
+                        />
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={(event) => onSubmit(event)}
+                        >
+                            <Text style={styles.textStyle}>Submit</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.modalButton, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Close </Text>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Vehicle Information</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-
     view: {
         textAlign: 'center',
         justifyContent: 'center'
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#EE82EE",
         padding: 10,
         width: 160,
         height: 160,
@@ -193,6 +200,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
-
 
 export default AddVehicleModal;

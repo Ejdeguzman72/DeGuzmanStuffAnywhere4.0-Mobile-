@@ -4,6 +4,7 @@ import Title from '../../components/title/Title';
 import AddRestaurantBtn from '../../components/restaurants/buttons/AddRestaurantBtn';
 import ViewAllRestaurantsBtn from '../../components/restaurants/buttons/ViewAllRestaurantsBtn';
 import RestaurantDetailsCard from '../../components/restaurants/cards/RestaurantDetailsCard';
+import AddRestaurantModal from '../../components/restaurants/modal/AddRestaurantModal';
 
 const RestaurantScreen = ({ navigation }) => {
     return (
@@ -12,7 +13,7 @@ const RestaurantScreen = ({ navigation }) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllRestaurantsBtn navigation={navigation} />
-                    <AddRestaurantBtn />
+                    <AddRestaurantModal />
                 </View>
                 <RestaurantDetailsCard />
             </ImageBackground>

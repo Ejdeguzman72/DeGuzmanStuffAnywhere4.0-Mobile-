@@ -5,6 +5,7 @@ import AddAutoRepairShopBtn from '../../components/auto-repair-shops/buttons/Add
 import ViewAllAutoShopBtn from '../../components/auto-repair-shops/buttons/ViewAllAutoShops';
 import Title from '../../components/title/Title';
 import AutoShopDetailsCard from '../../components/auto-repair-shops/cards/AutoShopDetailsCard';
+import AddAutoRepairShopModal from '../../components/auto-repair-shops/modal/AddBookModal';
 
 const AutoShopScreen = ({ navigation }) => {
     return (
@@ -13,8 +14,8 @@ const AutoShopScreen = ({ navigation }) => {
                 <Title />
                 <Divider />
                 <View style={styles.row}>
-                    <AddAutoRepairShopBtn />
                     <ViewAllAutoShopBtn navigation={navigation} />
+                    <AddAutoRepairShopModal />
                 </View>
                 <AutoShopDetailsCard />
             </ImageBackground>

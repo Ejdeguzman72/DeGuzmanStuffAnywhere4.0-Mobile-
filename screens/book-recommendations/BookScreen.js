@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import Title from '../../components/title/Title';
-import AddBookBtn from '../../components/books/buttons/AddBookBtn';
 import ViewAllBooksBtn from '../../components/books/buttons/ViewAllBooksBtn';
 import BookDetailsCard from '../../components/books/card/BookDetailsCard';
+import AddBookModal from '../../components/books/modal/AddBookModal';
 
 const BookScreen = ({ navigation }, props) => {
     return (
@@ -12,7 +12,7 @@ const BookScreen = ({ navigation }, props) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllBooksBtn navigation={navigation} />
-                    <AddBookBtn />
+                    <AddBookModal />
                 </View>
                 <BookDetailsCard />
             </ImageBackground>

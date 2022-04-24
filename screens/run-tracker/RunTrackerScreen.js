@@ -4,7 +4,7 @@ import { Divider } from 'react-native-paper';
 import Title from '../../components/title/Title';
 import RunTrackerDetailsCard from '../../components/run-tracker/cards/RunTrackerDetailsCard';
 import ViewAllRunsBtn from '../../components/run-tracker/buttons/ViewAllRunsBtn';
-import AddRunEntryBtn from '../../components/run-tracker/buttons/AddRunBtn';
+import AddRunEntryModal from '../../components/run-tracker/modal/AddRunModal';
 
 const RunTrackerScreen = ({ navigation }) => {
     return (
@@ -14,7 +14,7 @@ const RunTrackerScreen = ({ navigation }) => {
                 <Divider />
                 <View style={styles.row}>
                     <ViewAllRunsBtn navigation={navigation} />
-                    <AddRunEntryBtn />
+                    <AddRunEntryModal />
                 </View>
                 <RunTrackerDetailsCard />
             </ImageBackground>

@@ -4,6 +4,7 @@ import Title from '../../components/title/Title';
 import AddVehicleBtn from '../../components/vehicles/buttons/AddVehicleBtn';
 import ViewAllVehiclesBtn from '../../components/vehicles/buttons/ViewAllVehicles';
 import VehicleDetailsCard from '../../components/vehicles/cards/VehicleDetailsCard';
+import AddVehicleModal from '../../components/vehicles/modal/AddVehicleModal';
 
 const VehicleScreen = ({ navigation }) => {
     return (
@@ -12,7 +13,7 @@ const VehicleScreen = ({ navigation }) => {
                 <Title />
                 <View style={styles.row}>
                     <ViewAllVehiclesBtn navigation={navigation} />
-                    <AddVehicleBtn />
+                    <AddVehicleModal />
                 </View>
                 <VehicleDetailsCard />
             </ImageBackground>
