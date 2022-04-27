@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import PotRoastRecipeModal from "../modals/slow-cooker-recipes/PotRoastRecipeModal";
+import PulledPorkRecipeModal from "../modals/slow-cooker-recipes/PulledPorkRecipeModal";
 
 const SlowCookerRecipeCategory = ({ navigation }) => {
 
@@ -10,6 +12,8 @@ const SlowCookerRecipeCategory = ({ navigation }) => {
       onPress={() => navigation.navigate('Slow Cooker Recipes')}
     >
       <Text style={styles.buttonText}>Slow Cooker Recipes</Text>
+      <PotRoastRecipeModal />
+      <PulledPorkRecipeModal />
     </TouchableOpacity>
   );
 };

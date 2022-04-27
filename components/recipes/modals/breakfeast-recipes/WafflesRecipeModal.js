@@ -1,39 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, Alert } from "react-native";
 
-const AddBookModal = () => {
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
-
-    const [books, setBooks] = useState([]);
+const WafflesRecipeModal = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState)
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({ ...books, [name]: value })
-    }
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(books)
-        }).then(() => {
-            console.log("Added new song information")
-        }).catch((error) => console.log(error))
-    }
 
     return (
         <View style={styles.view}>
@@ -45,49 +14,43 @@ const AddBookModal = () => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Book</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Title"
-                            value={books.title}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Author"
-                            value={books.author}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Description"
-                            value={books.descr}
-                            onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Buttermilk French Toast</Text>
+                            <Text style={styles.modalText}>Ingredients</Text>
+                            <Text>1 3/4 cups milk</Text>
+                            <Text>2 eggs</Text>
+                            <Text>2 cups all-purpose flour</Text>
+                            <Text>1/4 cup granulated sugar</Text>
+                            <Text>1/4 teaspoon salt</Text>
+                            <Text>1/2 cup of vegetable oil</Text>
+                            <Text>4 Tbsp baking powder</Text>
+                            <Text>2 Tbsp melted butter</Text>
+                            <Text>1 tbsp of vanilla extract</Text>
+                            <Text>2 1/2 tbsp of ground cinnamon</Text>
+                            <Text style={styles.modalText}>Directions</Text>
+                            <Text style={styles.directionsText}>Whisk flour, white sugar, brown sugar, cinnamon, baking powder, and salt together in a bowl until no lumps remain.</Text>
+                            <Text style={styles.directionsText}>Pour milk, vegetable oil, and vanilla extract into the flour mixture; stir until just combined.</Text>
+                            <Text style={styles.directionsText}>Beat egg whites until foamy in a large glass or metal mixing bowl until soft peaks form. Lift your beater or whisk straight up: the egg whites will form soft mounds rather than a sharp peak.</Text>
+                            <Text style={styles.directionsText}>Fold the the beaten egg whites into the batter.</Text>
+                            <Text style={styles.directionsText}>Preheat a waffle iron and coat with cooking spray.</Text>
+                            <Text style={styles.directionsText}>Pour batter onto waffle iron in batches and cook until crisp and golden brown, about 2 minutes; repeat until all batter is used.</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
             >
-                <Text style={styles.buttonText}>Add Book</Text>
+                <Text style={styles.buttonText}>Waffles</Text>
             </TouchableOpacity>
         </View>
     );
@@ -101,13 +64,10 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
-        padding: 10,
-        width: 160,
-        height: 160,
+        backgroundColor: "#FFEBCD",
+        width: 340,
         borderRadius: 50,
         margin: 10,
-        backgroundColor: '#20B2AA'
     },
     buttonView: {
         fontSize: 30,
@@ -116,7 +76,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: 21,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -207,6 +167,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    directionsText: {
+        margin: 10
+    }
 });
 
-export default AddBookModal;
+export default WafflesRecipeModal;

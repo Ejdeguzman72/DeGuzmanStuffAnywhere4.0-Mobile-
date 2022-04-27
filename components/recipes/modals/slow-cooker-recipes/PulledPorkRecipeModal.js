@@ -1,39 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, Alert } from "react-native";
 
-const AddBookModal = () => {
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
-
-    const [books, setBooks] = useState([]);
+const PulledPorkRecipeModal = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState)
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({ ...books, [name]: value })
-    }
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(books)
-        }).then(() => {
-            console.log("Added new song information")
-        }).catch((error) => console.log(error))
-    }
 
     return (
         <View style={styles.view}>
@@ -45,49 +14,37 @@ const AddBookModal = () => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Book</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Title"
-                            value={books.title}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Author"
-                            value={books.author}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Description"
-                            value={books.descr}
-                            onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Pulled Pork</Text>
+                            <Text style={styles.modalText}>Ingredients</Text>
+                            <Text>Boston Butt</Text>
+                            <Text>Pork rub</Text>
+                            <Text>BBQ Sauce</Text>
+                            <Text>Buns</Text>
+                            <Text style={styles.modalText}>Directions</Text>
+                            <Text style={styles.directionsText}>Apply generous amount of rub onto butt</Text>
+                            <Text style={styles.directionsText}>Place butt into slow cooker</Text>
+                            <Text style={styles.directionsText}>Set on low and allow to sit for 6to 8 hours</Text>
+                            <Text style={styles.directionsText}>Take butt out of slow cooker and place into a pan</Text>
+                            <Text style={styles.directionsText}>Using forks, shred the meat off of the bone</Text>
+                            <Text style={styles.directionsText}>Add BBQ sauce</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
             >
-                <Text style={styles.buttonText}>Add Book</Text>
+                <Text style={styles.buttonText}>Pulled Pork</Text>
             </TouchableOpacity>
         </View>
     );
@@ -101,13 +58,10 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
-        padding: 10,
-        width: 160,
-        height: 160,
+        backgroundColor: "#2F4F4F",
+        width: 340,
         borderRadius: 50,
         margin: 10,
-        backgroundColor: '#20B2AA'
     },
     buttonView: {
         fontSize: 30,
@@ -116,7 +70,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: 21,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -207,6 +161,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    directionsText: {
+        margin: 10
+    }
 });
 
-export default AddBookModal;
+export default PulledPorkRecipeModal;

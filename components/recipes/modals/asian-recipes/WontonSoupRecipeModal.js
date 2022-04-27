@@ -1,39 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, Alert } from "react-native";
 
-const AddBookModal = () => {
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
-
-    const [books, setBooks] = useState([]);
+const WontonSoupRecipeModal = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState)
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({ ...books, [name]: value })
-    }
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(books)
-        }).then(() => {
-            console.log("Added new song information")
-        }).catch((error) => console.log(error))
-    }
 
     return (
         <View style={styles.view}>
@@ -45,49 +14,41 @@ const AddBookModal = () => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Book</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Title"
-                            value={books.title}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Author"
-                            value={books.author}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Description"
-                            value={books.descr}
-                            onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Wonton Soup</Text>
+                            <Text style={styles.modalText}>Ingredients</Text>
+                            <Text>8 cups low sodium chicken broth</Text>
+                            <Text>¼ cup low sodium soy sauce</Text>
+                            <Text>3 tbsp rice vinegar</Text>
+                            <Text>1 tbsp fresh ginger, minced</Text>
+                            <Text>1 tbsp sesame oil</Text>
+                            <Text>1/2 tbsp sambal oelek</Text>
+                            <Text>A bunch of potstickers</Text>
+                            <Text>8oz mushrooms, sliced</Text>
+                            <Text>6oz raw baby spinach</Text>
+                            <Text>rice noodles, 1 package (whatever you want, I don't care)</Text>
+                            <Text style={styles.modalText}>Directions</Text>
+                            <Text style={styles.directionsText}>In a large pot over high heat, bring chicken broth, soy sauce, rice vinegar, ginger, sesame oil and sambal oelek to a boil, stirring occasionally.</Text>
+                            <Text style={styles.directionsText}>One boiling, add frozen dumplings/potstickers, mushrooms, and baby spinach to the boiling broth and simmer for 35 minutes until dumplings are warmed through and spinach is wilted and mushrooms are tender.</Text>
+                            <Text style={styles.directionsText}>Heat up a wok with enough oil, deep-fry pork slices for 5 minutes, or until color changes to golden brown and slightly crispy. Dish up, drain with paper towels and set aside.</Text>
+                            <Text style={styles.directionsText}>Divide noodles between four bowls and cover with equal parts of the wonton soup.</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
             >
-                <Text style={styles.buttonText}>Add Book</Text>
+                <Text style={styles.buttonText}>Wonton Soup</Text>
             </TouchableOpacity>
         </View>
     );
@@ -101,13 +62,10 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
-        padding: 10,
-        width: 160,
-        height: 160,
+        backgroundColor: "#663399",
+        width: 340,
         borderRadius: 50,
         margin: 10,
-        backgroundColor: '#20B2AA'
     },
     buttonView: {
         fontSize: 30,
@@ -116,7 +74,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: 21,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -207,6 +165,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    directionsText: {
+        margin: 10
+    }
 });
 
-export default AddBookModal;
+export default WontonSoupRecipeModal;

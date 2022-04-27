@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Divider } from 'react-native-paper';
+import AllGeneralTrxScreen from '../../../screens/finance/general-finances/AllGeneralTrxScreen';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -9,7 +10,7 @@ const BookList = () => {
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/all')
             .then((response) => response.json())
             .then((json) => setBooks(json))
-            .catch((error) => console.log(error));
+            .catch((error) => console.log(error) && Alert.alert(error));
     }, []);
 
     return (

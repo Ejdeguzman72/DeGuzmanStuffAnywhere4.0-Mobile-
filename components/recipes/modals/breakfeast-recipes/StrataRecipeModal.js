@@ -1,39 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, Alert } from "react-native";
 
-const AddBookModal = () => {
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
-
-    const [books, setBooks] = useState([]);
+const StrataRecipeModal = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState)
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({ ...books, [name]: value })
-    }
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(books)
-        }).then(() => {
-            console.log("Added new song information")
-        }).catch((error) => console.log(error))
-    }
 
     return (
         <View style={styles.view}>
@@ -45,49 +14,40 @@ const AddBookModal = () => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Book</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Title"
-                            value={books.title}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Author"
-                            value={books.author}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Description"
-                            value={books.descr}
-                            onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Breakfeast Strata</Text>
+                            <Text style={styles.modalText}>Ingredients</Text>
+                            <Text>1 loaf (1 pound) herb or cheese bakery bread, cubed</Text>
+                            <Text>1 pound bulk pork sausage</Text>
+                            <Text>1 medium green pepper, chopped</Text>
+                            <Text>1 medium onion, chopped</Text>
+                            <Text>1 cup shredded cheddar cheese</Text>
+                            <Text>2 teaspoons grated fresh ginger</Text>
+                            <Text>6 large eggs</Text>
+                            <Text>2 cups 2% milk</Text>
+                            <Text style={styles.modalText}>Directions</Text>
+                            <Text style={styles.directionsText}>Place bread cubes in a greased 13x9-in. baking dish. In a large skillet, cook and crumble sausage with pepper and onion over medium-high heat until no longer pink, 5-7 minutes. With a slotted spoon, place sausage mixture over bread. Sprinkle with cheese.</Text>
+                            <Text style={styles.directionsText}>In a separate small bowl, whisk together the remaining 1 tablespoon cornstarch with the soy sauce, brown sugar, garlic and ginger. Set the sauce aside.</Text>
+                            <Text style={styles.directionsText}>In a large bowl, whisk together eggs, mustard and milk; pour over top. Refrigerate, covered, overnight.</Text>
+                            <Text style={styles.directionsText}>Preheat oven to 350°. Remove strata from refrigerator while oven heats.</Text>
+                            <Text style={styles.directionsText}>Bake, uncovered, until a knife inserted in center comes out clean, 30-35 minutes. Let stand 5 minutes before cutting.</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
             >
-                <Text style={styles.buttonText}>Add Book</Text>
+                <Text style={styles.buttonText}>Breakfeast Strata</Text>
             </TouchableOpacity>
         </View>
     );
@@ -101,13 +61,10 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
-        padding: 10,
-        width: 160,
-        height: 160,
+        backgroundColor: "#FFEBCD",
+        width: 340,
         borderRadius: 50,
         margin: 10,
-        backgroundColor: '#20B2AA'
     },
     buttonView: {
         fontSize: 30,
@@ -116,7 +73,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: 21,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -207,6 +164,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    directionsText: {
+        margin: 10
+    }
 });
 
-export default AddBookModal;
+export default StrataRecipeModal;

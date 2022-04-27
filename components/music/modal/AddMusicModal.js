@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable } from 'react-native';
 import { ImageBackground, StyleSheet, Text, View, Modal, TextInput } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 export default class AddMusicModal extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ export default class AddMusicModal extends React.Component {
     }
 
     onSubmit = async (event) => {
-
+        event.preventDefault();
         const data = {
             song_id: this.state.song_id,
             artist: this.state.artist,
@@ -58,27 +58,13 @@ export default class AddMusicModal extends React.Component {
             genre: this.state.genre,
         }
 
-        try {
-            const response = await fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/music/add-music', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.state)
-            });
-            console.log(json);
-            const json = await response.json();
-            return this.setState({
-                song_id: json.song_id,
-                title: json.title,
-                artist: json.artist,
-                genre: json.genre,
-                submitted: true
-            });
-        } catch (error) {
-            console.log(error);
-        }
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/music/add-song-information', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(() => {
+            console.log("Added new song information")
+        }).catch((error) => console.log(error))
     }
 
     render() {
@@ -90,9 +76,9 @@ export default class AddMusicModal extends React.Component {
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
-                    onRequestClose={() => {
-                        this.setModalVisible(!modalVisible);
-                    }}
+                        onRequestClose={() => {
+                            this.setModalVisible(!modalVisible);
+                        }}
                     >
                         {this.state.submitted ? (
                             <View style={styles.addCenteredView}>
@@ -101,7 +87,7 @@ export default class AddMusicModal extends React.Component {
                                     <Text>{this.state.title} has been submitted!</Text>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newSong}
+                                        onPress={this.newSong}
                                     >
                                         <Text style={styles.textStyle}>Add</Text>
                                     </Pressable>

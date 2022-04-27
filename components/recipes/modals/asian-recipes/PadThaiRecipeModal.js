@@ -1,39 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, Alert } from "react-native";
 
-const AddBookModal = () => {
-    const initialState = {
-        book_id: 0,
-        name: "",
-        author: "",
-        descr: ""
-    }
-
-    const [books, setBooks] = useState([]);
+const PadThaiRecipeModal = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [submitted, setSubmitted] = useState(false);
-
-    const newBook = () => {
-        setBooks(initialState)
-        setSubmitted(false);
-    }
-
-    const handleInputChange = (input) => {
-        const { name, value } = input
-        setBooks({ ...books, [name]: value })
-    }
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(books)
-        }).then(() => {
-            console.log("Added new song information")
-        }).catch((error) => console.log(error))
-    }
 
     return (
         <View style={styles.view}>
@@ -45,49 +14,46 @@ const AddBookModal = () => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Book</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Title"
-                            value={books.title}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Author"
-                            value={books.author}
-                            onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Description"
-                            value={books.descr}
-                            onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Pad Thai</Text>
+                            <Text style={styles.modalText}>Ingredients</Text>
+                            <Text>Large package of chicken/beef</Text>
+                            <Text>Shrimp</Text>
+                            <Text>package of savory tofu</Text>
+                            <Text>3 eggs</Text>
+                            <Text>egg noodles</Text>
+                            <Text>Nature's seasoning</Text>
+                            <Text>Liquid Tamarin</Text>
+                            <Text>green onions</Text>
+                            <Text>onion sprouts</Text>
+                            <Text style={styles.modalText}>Directions</Text>
+                            <Text style={styles.directionsText}>Chop onion</Text>
+                            <Text style={styles.directionsText}>Chop green pepper</Text>
+                            <Text style={styles.directionsText}>In mixing bowl place ground beef, half of the chopped onion, half of the chopped green pepper, 2 eggs, nature’s seasoning and mix well</Text>
+                            <Text style={styles.directionsText}>Divide mixture in half and form loaf. Repeat with other half</Text>
+                            <Text style={styles.directionsText}>Place in fry pan and brown all sides</Text>
+                            <Text style={styles.directionsText}>When browning last side, add onions to pan to cook</Text>
+                            <Text style={styles.directionsText}>Add green pepper and allow to cook for about a minute or two.</Text>
+                            <Text style={styles.directionsText}>Pour crushed tomatoes over loaves</Text>
+                            <Text style={styles.directionsText}>3/4 fill empty can with water, swirl and pour into fry pan</Text>
+                            <Text style={styles.directionsText}>Let simmer for about 45 minutes</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
             >
-                <Text style={styles.buttonText}>Add Book</Text>
+                <Text style={styles.buttonText}>Pad Thai</Text>
             </TouchableOpacity>
         </View>
     );
@@ -101,13 +67,10 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#ADD8E6",
-        padding: 10,
-        width: 160,
-        height: 160,
+        backgroundColor: "#663399",
+        width: 340,
         borderRadius: 50,
         margin: 10,
-        backgroundColor: '#20B2AA'
     },
     buttonView: {
         fontSize: 30,
@@ -116,7 +79,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: 21,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -207,6 +170,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    directionsText: {
+        margin: 10
+    }
 });
 
-export default AddBookModal;
+export default PadThaiRecipeModal;
