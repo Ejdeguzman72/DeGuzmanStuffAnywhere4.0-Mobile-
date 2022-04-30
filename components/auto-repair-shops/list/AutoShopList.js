@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
-import { ListItem, Left, Body, Right, Icon } from 'native-base';
-import AutoShopService from '../../../services/autoshop-service';
 
 const AutoShopList = () => {
 

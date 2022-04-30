@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
-import AddAutoRepairShopBtn from '../../components/auto-repair-shops/buttons/AddAutoShopBtn';
 import ViewAllAutoShopBtn from '../../components/auto-repair-shops/buttons/ViewAllAutoShops';
 import Title from '../../components/title/Title';
 import AutoShopDetailsCard from '../../components/auto-repair-shops/cards/AutoShopDetailsCard';
-import AddAutoRepairShopModal from '../../components/auto-repair-shops/modal/AddBookModal';
+import AddAutoRepairShopModal from '../../components/auto-repair-shops/modal/AddAutoShopModal';
 
 const AutoShopScreen = ({ navigation }) => {
     return (

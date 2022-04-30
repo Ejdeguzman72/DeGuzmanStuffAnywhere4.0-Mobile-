@@ -1,65 +1,87 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
-export default class AddAutoTrxModal extends React.Component {
+export default class AddAutoRepairShopModal extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
-            auto_transaction_id: 0,
-            amount: 0,
-            auto_transaction_date: "",
             auto_shop_id: 0,
-            vehicle_id: 0,
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false,
-            modalVisible: false
-        }
+            name: "",
+            address: "",
+            city: "",
+            state: "",
+            zip: "",
+            modalVisible: false,
+            submitted: false
+        };
     }
 
-    newTransaction = () => {
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+
+    onHandleNameChange = (input) => {
         this.setState({
-            auto_tranasction_id: 0,
-            amount: 0,
-            auto_transaction_date: "",
-            auto_shop_id: 0,
-            vehicle_id: 0,
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false
+            name: input
         })
     }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible }) }
-    onHandleAmountChange = (input) => { this.setState({ amount: input }) }
-    onHandleDateChange = (input) => { this.setState({ auto_transaction_date: input }) }
-    onHandleAutoShopChange = (input) => { this.setState({ auto_shop_id: input }) }
-    onHandleVehicleChange = (input) => { this.setState({ vehicle_id: input }) }
-    onHandleTransactionTypeChange = (input) => { this.setState({ transaction_type_id: input }) }
-    onhandleUserChange = (input) => { this.setState({ user_id: input }) }
+    onHandleAddressChange = (input) => {
+        this.setState({
+            address: input
+        })
+    }
 
-    onSubmit = (event) => {
+    onHandleCityChange = (input) => {
+        this.setState({
+            city: input
+        })
+    }
+
+    onHandleStateChange = (input) => {
+        this.setState({
+            state: input
+        })
+    }
+
+    onHandleZipChange = (input) => {
+        this.setState({
+            zip: input
+        })
+    }
+
+    onSubmit = async (event) => {
         event.preventDefault();
-
         const data = {
-            auto_transaction_id: this.state.auto_tranasction_id,
-            amount: this.state.amount,
-            auto_transaction_date: this.state.auto_transaction_date,
             auto_shop_id: this.state.auto_shop_id,
-            vehicle_id: this.state.vehicle_id,
-            transaction_type_id: this.state.transaction_type_id,
-            user_id: this.state.user_id
+            name: this.state.name,
+            address: this.state.address,
+            city: this.state.city,
+            state: this.state.state,
+            zip: this.state.zip
         }
 
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-transactions/add-auto-transaction-information', {
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-repair-shops/add-auto-shop', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(() => {
-            console.log(data)
-            this.setState({ submitted: true })
+            console.log("Added new auto repair shop")
+            this.setState({
+                submitted: true
+            })
         }).catch((error) => console.log(error))
+    }
+
+    newAutoShop = () => {
+        this.setState({
+            name: "",
+            address: "",
+            city: "",
+            state: "",
+            zip: ""
+        })
     }
 
     render() {
@@ -78,11 +100,11 @@ export default class AddAutoTrxModal extends React.Component {
                     {this.state.submitted ? (
                         <View style={styles.addCenteredView}>
                             <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Transaction</Text>
-                                <Text>{this.state.amount} has been submitted!</Text>
+                                <Text style={styles.modalText}>Add Auto Repair Shop</Text>
+                                <Text>{this.state.name} has been submitted!</Text>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newTransaction}
+                                    onPress={this.newSong}
                                 >
                                     <Text style={styles.textStyle}>Add</Text>
                                 </Pressable>
@@ -97,42 +119,42 @@ export default class AddAutoTrxModal extends React.Component {
                     ) : (
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Add Auto Transaction</Text>
+                                <Text style={styles.modalText}>Add Auto Repair Shop</Text>
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Auto Transaction Date"
-                                    value={this.state.auto_transaction_date}
-                                    onChangeText={(event) => this.onHandleDateChange(event)}
+                                    placeholder="Auto Shop Name"
+                                    value={this.state.name}
+                                    onChangeText={(event) => this.onHandleNameChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Amount"
-                                    value={this.state.amount}
-                                    onChangeText={(event) => this.onHandleAmountChange(event)}
+                                    placeholder="Address"
+                                    value={this.state.address}
+                                    onChangeText={(event) => this.onHandleAddressChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Auto Shop ID"
-                                    value={this.state.auto_shop_id}
-                                    onChangeText={(event) => this.onHandleAutoShopChange(event)}
+                                    placeholder="City"
+                                    value={this.state.city}
+                                    onChangeText={(event) => this.onHandleCityChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
                                 />
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Transation Type ID"
-                                    value={this.state.transaction_type_id}
-                                    onChangeText={(event) => this.onHandleTransactionTypeChange(event)}
+                                    placeholder="State"
+                                    value={this.state.state}
+                                    onChangeText={(event) => this.onHandleStateChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
                                 />
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Vehicle ID"
-                                    value={this.state.vehicle_id}
-                                    onChangeText={(event) => this.onHandleVehicleChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="User ID"
-                                    value={this.state.user_id}
-                                    onChangeText={(event) => this.onhandleUserChange(event)}
+                                    placeholder="ZipCode"
+                                    value={this.state.zip}
+                                    onChangeText={(event) => this.onHandleZipChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
                                 />
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
@@ -154,11 +176,12 @@ export default class AddAutoTrxModal extends React.Component {
                     style={styles.button}
                     onPress={() => this.setModalVisible(true)}
                 >
-                    <Text style={styles.buttonText}>Add Auto Transaction</Text>
+                    <Text style={styles.buttonText}>Add Auto Repair Shop</Text>
                 </TouchableOpacity>
             </View>
         );
     }
+
 };
 
 const styles = StyleSheet.create({
@@ -169,22 +192,22 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#ADD8E6",
         padding: 10,
         width: 160,
         height: 160,
         borderRadius: 50,
         margin: 10,
+        backgroundColor: '#FFEBCD'
     },
     buttonView: {
-        fontSize: 20,
+        fontSize: 30,
         justifyContent: 'center',
         textAlign: 'center',
         margin: 10
     },
     buttonText: {
-        fontSize: 20,
-        flexWrap: 'wrap',
+        fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',

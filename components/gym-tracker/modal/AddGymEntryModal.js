@@ -1,97 +1,140 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 
-const AddGymEntryModal = () => {
-    const [modalVisible, setModalVisible] = useState(false);
-    return (
-        <View style={styles.view}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Gym Entry</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Exercise Name"
-                        // value={this.state.name}
-                        // onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Sets"
-                        // value={this.state.author}
-                        // onChangeText={handleInputChange}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Reps"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Weight"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Date"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Exercise Type ID"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="User ID"
-                            // value={this.state.descr}
-                            // onChangeText={handleInputChange}
-                            multiline={true}
-                            numberOfLines={4}
-                        />
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={(event) => onSubmit(event)}
-                        >
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.modalButton, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Close </Text>
-                        </Pressable>
+export default class AddGymEntryModal extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            exercise_id: 0,
+            date: "",
+            exerciseName: "",
+            sets: 0,
+            reps: 0,
+            weight: 0,
+            exercise_type_id: 0,
+            user_id: 0,
+            submitted: false,
+            modalVisible: false
+        }
+    }
+
+    newEntry = () => {
+        this.setState({
+            exercise_id: 0,
+            exerciseName: "",
+            date:"",
+            sets: 0,
+            reps: 0,
+            weight: 0,
+            exercise_type_id: 0,
+            user_id: 0,
+            submitted: false,
+
+        })
+    }
+
+    setModalVisible = (visible) => { this.setState({ modalVisible: visible })}
+    onHandleExerciseNameChange = (input) => { this.setState({ exerciseName: input })}
+    onHandleSetsChange = (input) => { this.setState({ sets: input })}
+    onHandleRepsChange = (input) => { this.setState({ reps: input })}
+    onHandleWeightChange = (input) => { this.setState({ weight: input })}
+    onHandleDateChange = (input) => { this.setState({ date: input })}
+    onHandleExerciseTypeChange = (input) => { this.setState({ exercise_type_id: input })}
+    onHandleUserChange = (input) => { this.setState({ user_id: input })}
+
+    render() {
+        const { modalVisible } = this.state
+        return (
+            <View style={styles.view}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        this.setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Add Gym Entry</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Exercise Name"
+                            value={this.state.exerciseName}
+                            onChangeText={(event) => this.onHandleExerciseNameChange(event)}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Sets"
+                            value={this.state.sets}
+                            onChangeText={(event) => this.onHandleSetsChange(event)}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Reps"
+                                value={this.state.reps}
+                                onChangeText={(event) => this.onHandleRepsChange(event)}
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Weight"
+                                value={this.state.weight}
+                                onChangeText={(event) => this.onHandleWeightChange(event)}
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Date"
+                                value={this.state.date}
+                                onChangeText={(event) => this.onHandleDateChange(event)}
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Exercise Type ID"
+                                value={this.state.exercise_type_id}
+                                onChangeText={(event) => this.onHandleExerciseTypeChange(event)}
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="User ID"
+                                value={this.state.user_id}
+                                onChangeText={(event) => this.onHandleUserChange(event)}
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={(event) => this.onSubmit(event)}
+                            >
+                                <Text style={styles.textStyle}>Submit</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => this.setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => setModalVisible(true)}
-            >
-                <Text style={styles.buttonText}>Add Gym Entry</Text>
-            </TouchableOpacity>
-        </View>
-    );
+                </Modal>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.setModalVisible(true)}
+                >
+                    <Text style={styles.buttonText}>Add Gym Entry</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 };
 
 const styles = StyleSheet.create({
@@ -209,5 +252,3 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
-
-export default AddGymEntryModal;

@@ -64,6 +64,9 @@ export default class AddMusicModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log("Added new song information")
+            this.setState({
+                submitted: true
+            })
         }).catch((error) => console.log(error))
     }
 
@@ -83,7 +86,7 @@ export default class AddMusicModal extends React.Component {
                         {this.state.submitted ? (
                             <View style={styles.addCenteredView}>
                                 <View style={styles.addModalView}>
-                                    <Text style={styles.modalText}>Add Book</Text>
+                                    <Text style={styles.modalText}>Add Music</Text>
                                     <Text>{this.state.title} has been submitted!</Text>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
