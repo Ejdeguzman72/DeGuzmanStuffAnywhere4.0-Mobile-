@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import BlackEyedPeasModal from '../../../components/recipes/modals/slow-cooker-recipes/BlackEyedPeasModal';
 import PotRoastRecipeModal from '../../../components/recipes/modals/slow-cooker-recipes/PotRoastRecipeModal';
+import PulledPorkRecipeModal from '../../../components/recipes/modals/slow-cooker-recipes/PulledPorkRecipeModal';
+import StuffedGreenPepeprsModal from '../../../components/recipes/modals/slow-cooker-recipes/StuffedGreenPeppersModal';
 
 const SlowCookerRecipeScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Slow Cooker Recipes Screen</Text>
+                <BlackEyedPeasModal />
+                <StuffedGreenPepeprsModal />
+                <PulledPorkRecipeModal />
                 <PotRoastRecipeModal />
             </ImageBackground>
         </View>

@@ -22,7 +22,6 @@ export default class AddMusicModal extends React.Component {
             artist: "",
             title: "",
             genre: "",
-            modalVisible: false,
             submitted: false
         })
     }

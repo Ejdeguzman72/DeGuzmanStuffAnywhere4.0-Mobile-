@@ -4,7 +4,16 @@ import { Divider } from 'react-native-paper';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
-    const [modalVisible, setModalVisible] = useState([]);
+    const [currentBook, setCurrentBook] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(-1);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const setActiveBook = (book, index) => {
+        console.log('This index ' + index)
+        setCurrentBook(book);
+        setCurrentIndex(index);
+        setModalVisible(!modalVisible);
+    }
 
     useEffect(() => {
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/all')
@@ -18,37 +27,43 @@ const BookList = () => {
             <View style={styles.table}>
                 {books &&
                     books.map((book, index) => (
-                        <View>
-                            {/* <Modal
-                                animation="slide"
-                                transparent={true}
-                                visible={modalVisible}
-                                onRequestClose={() => { setModalVisible(!modalVisible) }}
-                            >
-                                <View style={styles.centeredView}>
-                                    <View stlye={styles.modalView}>
-                                        <Text style={styles.modalText}>{book.title}</Text>
-                                        <Text style={styles.modalText}>{book.author}</Text>
-                                        <Text style={styles.modalText}>{book.descr}</Text>
-                                        <Pressable
-                                            style={[styles.modalButton, styles.buttonClose]}
-                                            onPress={() => setModalVisible(!modalVisible)}
-                                        >
-                                            <Text style={styles.textStyle}>Close </Text>
-                                        </Pressable>
-                                    </View>
-                                </View>
-                            </Modal> */}
-                            <TouchableOpacity
-                                style={styles.container}
-                                key={book.book_id}
-                                onPress={() => setModalVisible(true)}
-                                avatar>
-                                <Text>{`${book.title}`}</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveBook(book, index)}>
+                            <Text>{`${book.title} ${book.author}`}</Text>
+                            <Text note>{`${book.descr}`}</Text>
+                        </TouchableOpacity>
                     ))}
                 <Divider />
+                {currentBook ? (
+                    <View style={styles.view}>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => setModalVisible(!modalVisible)}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.modalText}>Book Information</Text>
+                                    <View style={styles.indexText}>
+                                        <Text>Title:</Text><Text>{currentBook.title}</Text>
+                                    </View>
+                                    <View style={styles.indexText}>
+                                        <Text>Author:</Text><Text>{currentBook.author}</Text>
+                                    </View>
+                                    <View style={styles.indexText}>
+                                        <Text>Description:</Text><Text>{currentBook.descr}</Text>
+                                    </View>
+                                    <Pressable
+                                        style={[styles.modalButton, styles.buttonClose]}
+                                        onPress={() => setModalVisible(!modalVisible)}
+                                    >
+                                        <Text style={styles.textStyle}>Close </Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal>
+                    </View>
+                ) : null}
             </View>
         </ScrollView>
     )
@@ -59,9 +74,14 @@ const styles = StyleSheet.create({
         padding: 10,
         flex: 1
     },
+    view: {
+        textAlign: 'center',
+        justifyContent: 'center'
+    },
     container: {
         backgroundColor: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: 20
     },
     contact: {
         flex: 1,
@@ -101,10 +121,36 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
     },
+    buttonClose: {
+        backgroundColor: 'black',
+        width: 350,
+        margin: 10,
+        padding: 10
+    },
+    modalButton: {
+        // width: 200,
+        borderRadius: 20,
+        padding: 10,
+        margin: 10
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
     modalText: {
         marginBottom: 15,
         textAlign: "center",
         fontSize: 30
+    },
+    indexText: {
+        height: 100,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        fontSize: 35,
+        width: 300,
+        textAlign: 'center',
+        justifyContent: 'center'
     },
 })
 

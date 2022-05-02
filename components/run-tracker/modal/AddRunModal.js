@@ -33,7 +33,7 @@ export default class AddRunEntryModal extends React.Component {
     onHandleTimeChange = (input) => { this.setState({ runTime: input })}
     onHandleUserChange = (input) => { this.setState({ user_id: input })}
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
 
         const data = {

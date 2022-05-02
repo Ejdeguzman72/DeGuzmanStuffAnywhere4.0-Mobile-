@@ -40,7 +40,7 @@ export default class AddGeneralTrxModal extends React.Component {
         event.preventDefault();
 
         const data = {
-            auto_transaction_id: this.state.transaction_id,
+            transaction_id: this.state.transaction_id,
             amount: this.state.amount,
             paymentDate: this.state.paymentDate,
             entity: this.state.entity,
