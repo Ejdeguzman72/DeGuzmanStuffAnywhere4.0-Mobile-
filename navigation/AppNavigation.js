@@ -42,6 +42,8 @@ import AllMedicalOfficesScreen from '../screens/medical-offices/AllMedicalOffice
 import AllAutoTrxScreen from '../screens/finance/auto-finances/AllAutoTrxScreen';
 import AllAutoShopsScreen from '../screens/auto-repair-shops/AllAutoShopsScreen';
 import AllMedicalTrxScreen from '../screens/finance/medical-finances/AllMedicalTrxScreen';
+import LoginScreen from '../screens/authentication/LoginScreen';
+import RegisterScreen from '../screens/authentication/RegistrationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +53,9 @@ const AppNavigation = () => {
             <Stack.Navigator intialRouteName="Home">
                 <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
                 <Stack.Screen name='Details' component={DetailsScreen} options={{ title: 'Details' }} />
+
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
 
                 <Stack.Screen name="Books" component={BookScreen} options={{ title: 'Book'}} />
                 <Stack.Screen name="All Books" component={BookListScreen} options={{ title: 'All Books'}} />

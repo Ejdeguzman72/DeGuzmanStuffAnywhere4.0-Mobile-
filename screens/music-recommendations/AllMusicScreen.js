@@ -8,7 +8,6 @@ const AllMusicScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Music</Text>
                 <MusicList />
             </ImageBackground>
         </View>

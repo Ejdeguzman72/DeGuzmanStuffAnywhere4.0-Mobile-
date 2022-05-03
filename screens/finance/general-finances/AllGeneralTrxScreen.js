@@ -8,7 +8,6 @@ const AllGeneralTrxScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All General Transactions</Text>
                 <GeneralTrxList />
             </ImageBackground>
         </View>

@@ -8,7 +8,6 @@ const AllContactsScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Contacts</Text>
                 <ContactList />
             </ImageBackground>
         </View>

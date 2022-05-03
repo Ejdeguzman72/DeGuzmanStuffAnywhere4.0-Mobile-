@@ -8,7 +8,6 @@ const AllRestaurantsScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Restaurants</Text>
                 <RestaurantList />
             </ImageBackground>
         </View>

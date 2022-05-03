@@ -8,7 +8,6 @@ const AllMedicalTrxScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Medical Transactions</Text>
                 <MedicalTrxList />
             </ImageBackground>
         </View>

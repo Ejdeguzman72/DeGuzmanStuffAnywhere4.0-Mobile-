@@ -8,7 +8,6 @@ const AllRunsScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Runs</Text>
                 <RunEntryList />
             </ImageBackground>
         </View>

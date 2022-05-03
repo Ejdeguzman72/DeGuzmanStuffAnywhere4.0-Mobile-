@@ -8,7 +8,6 @@ const AllMedicalOfficesScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Medical Offices</Text>
                 <MedicalOfficeList />
             </ImageBackground>
         </View>

@@ -6,7 +6,6 @@ const BookListScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Book List Screen</Text>
                 <BookList />
             </ImageBackground>
         </View>
