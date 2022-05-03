@@ -9,7 +9,6 @@ const MusicList = () => {
     const [modalVisible, setModalVisible] = useState(!modalVisible)
 
     setActiveMusic = (music, index) => {
-        console.log('This is index: ' + index);
         setCurrentMusic(music);
         setCurrentIndex(index)
         setModalVisible(!modalVisible)

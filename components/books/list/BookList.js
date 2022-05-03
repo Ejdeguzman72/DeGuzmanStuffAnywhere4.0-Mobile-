@@ -9,7 +9,6 @@ const BookList = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const setActiveBook = (book, index) => {
-        console.log('This index ' + index)
         setCurrentBook(book);
         setCurrentIndex(index);
         setModalVisible(!modalVisible);

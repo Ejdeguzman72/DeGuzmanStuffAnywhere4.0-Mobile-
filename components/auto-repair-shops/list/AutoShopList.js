@@ -10,7 +10,6 @@ const AutoShopList = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
     setActiveShop = (autoShop, index) => {
-        console.log('This is index: ' + index)
         setCurrentShop(autoShop);
         setCurrentIndex(index);
         setModalVisible(!modalVisible)

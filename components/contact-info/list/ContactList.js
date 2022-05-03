@@ -9,7 +9,6 @@ const ContactList = () => {
     const [modalVisible, setModalVisible] = useState(false)
 
     const setActiveContact = (contact, index) => {
-        console.log('This is index: ' + index)
         setCurrentContact(contact);
         setCurrentIndex(index);
         setModalVisible(!modalVisible)
@@ -27,7 +26,7 @@ const ContactList = () => {
             <View style={styles.table}>
                 {contacts &&
                     contacts.map((contact, index) => (
-                        <TouchableOpacity style={styles.container} key={contact.person_id} avatar onPress={() => setActiveContact(contact,index)}>
+                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveContact(contact,index)}>
                             <Text>{`${contact.firstname} ${contact.lastname}`}</Text>
                             <Text note>{`${contact.phone}`}</Text>
                         </TouchableOpacity>

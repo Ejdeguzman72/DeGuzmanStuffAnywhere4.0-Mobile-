@@ -21,8 +21,6 @@ const GymEntryList = () => {
             .catch((error) => console.log(error))
         }, [])
 
-    console.log(entries)
-
     return (
         <ScrollView>
             <View style={styles.table}>

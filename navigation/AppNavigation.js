@@ -50,12 +50,12 @@ const Stack = createNativeStackNavigator();
 const AppNavigation = () => {    
     return (
         <NavigationContainer>
-            <Stack.Navigator intialRouteName="Home">
-                <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
-                <Stack.Screen name='Details' component={DetailsScreen} options={{ title: 'Details' }} />
-
+            <Stack.Navigator intialRouteName="Login">
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
+
+                <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+                <Stack.Screen name='Details' component={DetailsScreen} options={{ title: 'Details' }} />
 
                 <Stack.Screen name="Books" component={BookScreen} options={{ title: 'Book'}} />
                 <Stack.Screen name="All Books" component={BookListScreen} options={{ title: 'All Books'}} />

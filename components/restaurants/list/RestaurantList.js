@@ -9,7 +9,6 @@ const RestaurantList = () => {
     const [modalVisible, setModalVisible] = useState(!modalVisible)
 
     const setActiveRestaurant = (restaurant, index) => {
-        console.log('This is index: ' + index)
         setCurrentRestaurant(restaurant)
         setCurrentIndex(index)
         setModalVisible(!modalVisible)

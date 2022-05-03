@@ -9,7 +9,6 @@ const VehicleList = () => {
     const [modalVisible, setModalVisible] = useState(!modalVisible)
 
     const setActiveVehicle = (vehicle, index) => {
-        console.log('This is index: ' + index);
         setCurrentVehicle(vehicle);
         setCurrentIndex(index)
         setModalVisible(!modalVisible)
