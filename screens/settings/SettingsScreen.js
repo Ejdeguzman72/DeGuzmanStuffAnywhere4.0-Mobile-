@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import BlogList from '../../components/social-media/BlogList';
 import Title from '../../components/title/Title';
 
-const SocialMediaScreen = () => {
+const SettingsScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <BlogList />
             </ImageBackground>
         </View>
     )
@@ -24,4 +22,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SocialMediaScreen;
+export default SettingsScreen;

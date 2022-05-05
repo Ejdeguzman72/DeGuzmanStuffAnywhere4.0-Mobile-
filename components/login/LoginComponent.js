@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useState } from 'react'
 import { Alert, Button, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Axios from 'axios';
@@ -66,7 +67,7 @@ export default function LoginComponent({ navigation }) {
                 </Pressable>
                 <Pressable
                     style={[styles.modalButton, styles.buttonClose]}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('Root Tab')}
                 >
                     <Text style={styles.textStyle}>Home</Text>
                 </Pressable>

@@ -2,38 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-const AutoShopList = () => {
-
-    const [autoshops, setAutoShops] = useState([]);
-    const [currentShop, setCurrentShop] = useState(null);
+const BlogList = () => {
+    const [blogs, setBlogs] = useState([]);
+    const [currentBlog, setCurrentBlog] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [modalVisible, setModalVisible] = useState(false);
 
-    setActiveShop = (autoShop, index) => {
-        setCurrentShop(autoShop);
-        setCurrentIndex(index);
+    useEffect(() => {
+        fetch('http://ec2-54-162-1-238.compute-1.amazonaws.com:8080/app/posts/all')
+            .then((response) => response.json())
+            .then((json) => setBlogs(json))
+            .catch((error) => console.log(error))
+    })
+
+    const setActiveBlog = (blog, index) => {
+        setCurrentBlog(blog);
+        setCurrentIndex(index)
         setModalVisible(!modalVisible)
     }
 
-    useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
-            .then((response) => response.json())
-            .then((json) => setAutoShops(json))
-            .catch((error) => console.log(error))
-    }, [])
+    console.log(blogs)
 
     return (
         <ScrollView>
             <View style={styles.table}>
-                {autoshops &&
-                    autoshops.map((autoshop, index) => (
-                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveShop(autoshop,index)}>
-                            <Text>{`${autoshop.auto_shop_name}`}</Text>
-                            <Text note>{`${autoshop.address} ${autoshop.city} ${autoshop.state} ${autoshop.zip}`}</Text>
+                {blogs &&
+                    blogs.map((blog, index) => (
+                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setBlogs(blog,index)}>
+                            <Text>{`${blog.content}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
-                {currentShop ? (
+                {currentBlog ? (
                     <View style={styles.view}>
                     <Modal
                         animationType="slide"
@@ -43,21 +43,15 @@ const AutoShopList = () => {
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Book Information</Text>
+                                <Text style={styles.modalText}>Post Information</Text>
                                 <View style={styles.indexText}>
-                                    <Text>Name:</Text><Text>{currentShop.auto_shop_name}</Text>
+                                    <Text>Name:</Text><Text>{blog.username}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Address:</Text><Text>{currentShop.address}</Text>
+                                    <Text>Date:</Text><Text>{blog.createdDate}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>City:</Text><Text>{currentShop.city}</Text>
-                                </View>
-                                <View style={styles.indexText}>
-                                    <Text>State:</Text><Text>{currentShop.state}</Text>
-                                </View>
-                                <View style={styles.indexText}>
-                                    <Text>Zip:</Text><Text>{currentShop.zip}</Text>
+                                    <Text>Content:</Text><Text>{blog.content}</Text>
                                 </View>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
@@ -160,4 +154,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AutoShopList;
+export default BlogList;
