@@ -12,7 +12,6 @@ const AsianRecipesScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Asian Recipes Screen</Text>
                 <BeefAndBrocolliModal />
                 <EggFuYungRecipeModal />
                 <KoreanStyleRibsModal />

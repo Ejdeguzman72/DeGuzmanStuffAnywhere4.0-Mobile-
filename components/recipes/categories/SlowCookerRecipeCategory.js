@@ -12,8 +12,6 @@ const SlowCookerRecipeCategory = ({ navigation }) => {
       onPress={() => navigation.navigate('Slow Cooker Recipes')}
     >
       <Text style={styles.buttonText}>Slow Cooker Recipes</Text>
-      <PotRoastRecipeModal />
-      <PulledPorkRecipeModal />
     </TouchableOpacity>
   );
 };

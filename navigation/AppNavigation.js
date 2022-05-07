@@ -57,7 +57,15 @@ const Tab = createBottomTabNavigator();
 
 function Root() {
     return (
-        <Drawer.Navigator useLegacyImplementation={true}>
+        <Drawer.Navigator useLegacyImplementation={true} drawerStyle={{
+            backgroundColor: 'rgb(40,44,53)',
+          }}
+          drawerContentOptions={{
+            fontSize: 30,
+            activeTintColor: '#fff', /* font color for active screen label */
+            activeBackgroundColor: '#68f', /* bg color for active screen */
+            inactiveTintColor: 'white', /* Font color for inactive screens' labels */
+          }}>
             <Drawer.Screen name="Home" component={HomeScreen} screenOptions={{ headerShown: false, tabBarIconStyle: false }}/>
             <Drawer.Screen name="Books" component={BookScreen} />
             <Drawer.Screen name="Finances" component={FinanceScreen} />
