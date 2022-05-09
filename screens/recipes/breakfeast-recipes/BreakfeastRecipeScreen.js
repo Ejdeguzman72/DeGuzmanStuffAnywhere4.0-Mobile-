@@ -5,12 +5,13 @@ import FrenchToastRecipeModal from '../../../components/recipes/modals/breakfeas
 import PancakeRecipeModal from '../../../components/recipes/modals/breakfeast-recipes/PancakeRecipeModal';
 import StrataRecipeModal from '../../../components/recipes/modals/breakfeast-recipes/StrataRecipeModal';
 import WafflesRecipeModal from '../../../components/recipes/modals/breakfeast-recipes/WafflesRecipeModal';
+import Title from '../../../components/title/Title';
 
 const BreakfeastRecipeScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                <Text>This is Breakfeast Recipes Screen</Text>
+                <Title />
                 <StrataRecipeModal />
                 <CornedBeefRecipeModal />
                 <PancakeRecipeModal />

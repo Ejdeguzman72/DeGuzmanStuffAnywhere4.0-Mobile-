@@ -26,12 +26,12 @@ const SalisburySteaksRecipeModal = () => {
                             <Text>Mushrooms</Text>
                             <Text style={styles.modalText}>Directions</Text>
                             <Text style={styles.directionsText}>In mixing bowl, mix ground beef and nature's seasoning</Text>
-                            <Test style={styles.directionsText}>Make meat patties</Test>
-                            <Test style={styles.directionsText}>Place meat patties in frypan and brown sides</Test>
-                            <Test style={styles.directionsText}>After browning first side, place choppedonions into pan while browning the second side</Test>
+                            <Text style={styles.directionsText}>Make meat patties</Text>
+                            <Text style={styles.directionsText}>Place meat patties in frypan and brown sides</Text>
+                            <Text style={styles.directionsText}>After browning first side, place choppedonions into pan while browning the second side</Text>
                             <Text style={styles.directionsText}>Slice mushrooms</Text>
-                            <Test style={styles.directionsText}>Place brown gravy mix in cup, add water and mix</Test>
-                            <Test style={styles.directionsText}>Place mushrooms on top</Test>
+                            <Text style={styles.directionsText}>Place brown gravy mix in cup, add water and mix</Text>
+                            <Text style={styles.directionsText}>Place mushrooms on top</Text>
                             <Text style={styles.directionsText}>Add some nature's seasoning and cover</Text>
                             <Text style={styles.directionsText}>Allow to simmer</Text>
                             <Pressable

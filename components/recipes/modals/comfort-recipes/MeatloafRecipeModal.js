@@ -28,16 +28,16 @@ const MeatloafRecipeModal = () => {
                             <Text>Can of crushed tomatoes</Text>
                             <Text style={styles.modalText}>Directions</Text>
                             <Text style={styles.directionsText}>Chop onion</Text>
-                            <Test style={styles.directionsText}>Chop green pepper</Test>
-                            <Test style={styles.directionsText}>In mixing bowl place ground beef, half of the chopped onion, half of the chopped green pepper, 2 eggs, nature’s seasoning and mix well</Test>
-                            <Test style={styles.directionsText}>Divide mixture in half and form loaf. Repeat with other half</Test>
+                            <Text style={styles.directionsText}>Chop green pepper</Text>
+                            <Text style={styles.directionsText}>In mixing bowl place ground beef, half of the chopped onion, half of the chopped green pepper, 2 eggs, nature’s seasoning and mix well</Text>
+                            <Text style={styles.directionsText}>Divide mixture in half and form loaf. Repeat with other half</Text>
                             <Text style={styles.directionsText}>Place in fry pan and brown all sides</Text>
-                            <Test style={styles.directionsText}>When browning last side, add onions to pan to cook</Test>
-                            <Test style={styles.directionsText}>Add green pepper and allow to cook for about a minute or two.</Test>
+                            <Text style={styles.directionsText}>When browning last side, add onions to pan to cook</Text>
+                            <Text style={styles.directionsText}>Add green pepper and allow to cook for about a minute or two.</Text>
                             <Text style={styles.directionsText}>Pour Crushed Tomatoes over leaves</Text>
                             <Text style={styles.directionsText}>3/4 fill empty can with water, swirl and pour into fry pan</Text>
                             <Text style={styles.directionsText}>Let simmer for about 45 minutes</Text>
-                            vegetables<Test style={styles.directionsText}></Test>
+                            <Text style={styles.directionsText}></Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}

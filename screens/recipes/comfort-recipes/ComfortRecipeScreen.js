@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, ScrollView, ImageBackground, StyleSheet } from 'react-native';
 import BeefaroniRecipeModal from '../../../components/recipes/modals/comfort-recipes/BeefaroniRecipeModal';
 import BeefStewRecipeModal from '../../../components/recipes/modals/comfort-recipes/BeefStewRecipeModal';
 import ChickenNoodleSoupRecipeModal from '../../../components/recipes/modals/comfort-recipes/ChickenNoodleSoupRecipeModa';
@@ -9,22 +9,26 @@ import HoneyGarlicPorkRecipeModal from '../../../components/recipes/modals/comfo
 import MeatloafRecipeModal from '../../../components/recipes/modals/comfort-recipes/MeatloafRecipeModal';
 import QuicheRecipeModal from '../../../components/recipes/modals/comfort-recipes/QuicheRecipeModal';
 import SalisburySteaksRecipeModal from '../../../components/recipes/modals/comfort-recipes/SalisburySteaksRecipeModal';
+import Title from '../../../components/title/Title';
 
 const ComfortRecipeScreen = () => {
     return (
-        <View style={styles.screen}>
-            <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                <BeefaroniRecipeModal />
-                <BeefStewRecipeModal />
-                <ChickenNoodleSoupRecipeModal />
-                <ChickenPotPieRecipeModal />
-                <ChilliRecipeModal />
-                <HoneyGarlicPorkRecipeModal />
-                <MeatloafRecipeModal />
-                <SalisburySteaksRecipeModal />
-                <QuicheRecipeModal />
-            </ImageBackground>
-        </View>
+        <ScrollView>
+            <View style={styles.screen}>
+                <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
+                    <Title />
+                    <BeefaroniRecipeModal />
+                    <BeefStewRecipeModal />
+                    <ChickenNoodleSoupRecipeModal />
+                    <ChickenPotPieRecipeModal />
+                    <ChilliRecipeModal />
+                    <HoneyGarlicPorkRecipeModal />
+                    <MeatloafRecipeModal />
+                    <SalisburySteaksRecipeModal />
+                    <QuicheRecipeModal />
+                </ImageBackground>
+            </View>
+        </ScrollView>
     )
 }
 
