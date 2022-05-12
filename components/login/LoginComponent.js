@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { createContext, useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Title from '../title/Title';
-import AsyncStorage from '@react-native-community/async-storage';
+import deviceStorage from '../../helper/DeviceStorage';
 
 export default function LoginComponent({ navigation }) {
     const [username, setUsername] = useState("");
