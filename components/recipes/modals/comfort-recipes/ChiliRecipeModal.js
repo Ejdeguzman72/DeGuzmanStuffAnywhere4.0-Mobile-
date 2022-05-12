@@ -31,15 +31,15 @@ const ChilliRecipeModal = () => {
                             <Text>2-3 cans of dark red kidney beans</Text>
                             <Text style={styles.modalText}>Directions</Text>
                             <Text style={styles.directionsText}>Mince garlic</Text>
-                            <Test style={styles.directionsText}>Chop onion</Test>
-                            <Test style={styles.directionsText}>In pot, place a little of oil and saute garlic and onion</Test>
-                            <Test style={styles.directionsText}>Put in ground beef, and allow to brown. Mix frequently to break up the champs of the ground beef</Test>
-                            <Test style={styles.directionsText}>Drain off some of the liquid</Test>
-                            <Test style={styles.directionsText}>Add in nature's seasoning, chili powder, red pepper flakes, and crushed cayenne pepper to taste.</Test>
-                            <Test style={styles.directionsText}>Drain the liquid from the cans of kidney beans and then add beans only to the pot</Test>
-                            <Test style={styles.directionsText}>Stir in the crushed tomatoes</Test>
-                            <Test style={styles.directionsText}>3/4 fill the crushed tomatoes can with water and swirl. Add to pot and stir to mix</Test>
-                            <Test style={styles.directionsText}>Allow to simmer. Can eat as is or served with rice</Test>
+                            <Text style={styles.directionsText}>Chop onion</Text>
+                            <Text style={styles.directionsText}>In pot, place a little of oil and saute garlic and onion</Text>
+                            <Text style={styles.directionsText}>Put in ground beef, and allow to brown. Mix frequently to break up the champs of the ground beef</Text>
+                            <Text style={styles.directionsText}>Drain off some of the liquid</Text>
+                            <Text style={styles.directionsText}>Add in nature's seasoning, chili powder, red pepper flakes, and crushed cayenne pepper to taste.</Text>
+                            <Text style={styles.directionsText}>Drain the liquid from the cans of kidney beans and then add beans only to the pot</Text>
+                            <Text style={styles.directionsText}>Stir in the crushed tomatoes</Text>
+                            <Text style={styles.directionsText}>3/4 fill the crushed tomatoes can with water and swirl. Add to pot and stir to mix</Text>
+                            <Text style={styles.directionsText}>Allow to simmer. Can eat as is or served with rice</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}

@@ -33,12 +33,12 @@ const HoneyGarlicPorkRecipeModal = () => {
                             <Text>1/2 cup of honey</Text>
                             <Text style={styles.modalText}>Directions</Text>
                             <Text style={styles.directionsText}>Preheat oven to 350 degrees Fahrenheit</Text>
-                            <Test style={styles.directionsText}>Mix sauce ingredients together</Test>
-                            <Test style={styles.directionsText}>Mix rub ingredients and sprinkle over pork</Test>
-                            <Test style={styles.directionsText}>Heat oil in a large oven proff skillet over high heat. </Test>
-                            <Test style={styles.directionsText}>Add pork and sear until golden pour sauce in, turn pork once and then immediately transfer to oven</Test>
-                            <Test style={styles.directionsText}>Roast 15-18 minutes</Test>
-                            <Test style={styles.directionsText}>Place skillet with sauce on stove over medium high heat, simmer rapidly for 3 minutes until liquid reduces down to thin syrup</Test>
+                            <Text style={styles.directionsText}>Mix sauce ingredients together</Text>
+                            <Text style={styles.directionsText}>Mix rub ingredients and sprinkle over pork</Text>
+                            <Text style={styles.directionsText}>Heat oil in a large oven proff skillet over high heat. </Text>
+                            <Text style={styles.directionsText}>Add pork and sear until golden pour sauce in, turn pork once and then immediately transfer to oven</Text>
+                            <Text style={styles.directionsText}>Roast 15-18 minutes</Text>
+                            <Text style={styles.directionsText}>Place skillet with sauce on stove over medium high heat, simmer rapidly for 3 minutes until liquid reduces down to thin syrup</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}

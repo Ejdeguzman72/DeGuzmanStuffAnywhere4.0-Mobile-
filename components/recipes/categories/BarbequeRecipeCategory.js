@@ -7,7 +7,7 @@ const BarbequeRecipeCategory = ({ navigation }) => {
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.navigate('American')}
+      onPress={() => navigation.navigate('Barbeque Recipes')}
     >
       <Text style={styles.buttonText}>Barbeque Recipes</Text>
     </TouchableOpacity>

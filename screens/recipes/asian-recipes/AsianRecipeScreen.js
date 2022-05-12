@@ -7,11 +7,13 @@ import PadThaiRecipeModal from '../../../components/recipes/modals/asian-recipes
 import PanFriedNoodlesRecipeModal from '../../../components/recipes/modals/asian-recipes/PanFriedNoodlesRecipeModal';
 import PekingStylePorkChopsModal from '../../../components/recipes/modals/asian-recipes/PekingStylePorkRecipeModal';
 import WontonSoupRecipeModal from '../../../components/recipes/modals/asian-recipes/WontonSoupRecipeModal';
+import Title from '../../../components/title/Title';
 
 const AsianRecipesScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
+                <Title />
                 <BeefAndBrocolliModal />
                 <EggFuYungRecipeModal />
                 <KoreanStyleRibsModal />

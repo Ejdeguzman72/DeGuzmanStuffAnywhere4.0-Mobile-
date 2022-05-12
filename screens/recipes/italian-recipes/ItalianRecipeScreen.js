@@ -8,11 +8,13 @@ import MarinaraRecipeModal from '../../../components/recipes/modals/italian-reci
 import MeatballRecipeModal from '../../../components/recipes/modals/italian-recipes/MeatballRecipeModal';
 import MeatSauceRecipeModal from '../../../components/recipes/modals/italian-recipes/MeatSauceRecipeModal';
 import StuffedShellsRecipeModal from '../../../components/recipes/modals/italian-recipes/StuffedShellsRecipeModal';
+import Title from '../../../components/title/Title';
 
 const ItalianRecipeScreen = () => {
     return (
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
+                <Title />
                 <ChickenMarsalaRecipeModal />
                 <ChickenParmesanRecipeModal />
                 <CreamyMushroomPastaRecipeModal />
