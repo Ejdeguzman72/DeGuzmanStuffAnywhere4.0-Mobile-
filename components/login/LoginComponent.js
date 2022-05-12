@@ -1,10 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react'
-import { Alert, Button, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import Axios from 'axios';
-// import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
-import { AlertDialog } from 'native-base';
+import React, { createContext, useState, useContext } from 'react'
+import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Title from '../title/Title';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function LoginComponent({ navigation }) {
     const [username, setUsername] = useState("");
@@ -22,18 +20,18 @@ export default function LoginComponent({ navigation }) {
     }
 
     const onSubmit = () => {
-        Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signin', {
-            username: username,
-            password: password
-        }).then((resposne) => {
-            // deviceStorage.saveKey(token, response.data.token);
-            // if (jwt) {
-            //     Alert.alert(`${username}: you have logged in`)
-            //     navigation.navigate('Home')
-            // } else {
-            //     Alert.alert('Invalid Credentials')
-            // }
-        }).catch((error) => console.log(error))
+        // Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signin', {
+        //     username: username,
+        //     password: password
+        // }).then((resposne) => {
+        //     deviceStorage.saveKey(token, response.data.token);
+        //     if (jwt) {
+        //         Alert.alert(`${username}: you have logged in`)
+        //         navigation.navigate('Root Tab')
+        //     } else {
+        //         Alert.alert('Invalid Credentials')
+        //     }
+        // }).catch((error) => console.log(error))
     }
 
     return (
@@ -55,7 +53,7 @@ export default function LoginComponent({ navigation }) {
                 />
                 <Pressable
                     style={[styles.modalButton, styles.buttonClose]}
-                    // onPress={onPressLogin}
+                    onPress={onSubmit}
                 >
                     <Text style={styles.textStyle}>Submit</Text>
                 </Pressable>
