@@ -1,81 +1,87 @@
-import React, { useState } from 'react-native';
+import React, { useState } from 'react';
 import { Alert, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Axios from 'axios';
 
 const RegisterComponent = ({ navigation }) => {
-    // const [username, setUsername] = useState("");
-    // const [password, setPassword] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [submitted, setSubmitted] = useState(false)
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [name, setName] = useState("");
+    const [submitted, setSubmitted] = useState(false)
 
-    // const onHandleUsernameChange = (input) => {
-    //     setUsername(input)
-    // }
+    const onHandleUsernameChange = (input) => {
+        setUsername(input)
+    }
 
-    // const onHandlePasswordChange = (input) => {
-    //     setPassword(input)
-    // }
+    const onHandlePasswordChange = (input) => {
+        setPassword(input)
+    }
 
-    // const onHandleEmailChange = (input) => {
-    //     setEmail(input)
-    // }
+    const onHandleEmailChange = (input) => {
+        setEmail(input)
+    }
 
-    // const onSubmit = () => {
-    //     Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signup', {
-    //         username: username, password: password, email: email
-    //     }).then((response) => {
-    //         setSubmitted(true)
-    //         if (submitted) {
-    //             Alert.alert(`${username} has been registered`)
-    //         }
-    //         navigation.navigation('Login')
-    //         console.log(response.data)
-    //     })
-    //         .catch((error) => console.log(error))
-    // }
+    const onHandleNameChange = (input) => {
+        setName(input)
+    }
+
+    const onSubmit = () => {
+        Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signup', {
+            username: username, password: password, email: email
+        }).then((response) => {
+            setSubmitted(true)
+            if (submitted) {
+                Alert.alert(`${username} has been registered`)
+            }
+            navigation.navigate('Login')
+            console.log(response.data)
+        })
+            .catch((error) => console.log(error))
+    }
 
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
-                <View style={styles.boxWithShadow}>
+                <View>
                     <View style={styles.titleContainer}>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter Username"
-                            // onChangeText={onHandleUsernameChange}
-                            // value={username}
+                            placeholder="Username"
+                            onChangeText={onHandleUsernameChange}
+                            value={username}
                             keyboardAppearance='dark'
                             autoFocus={true}
                         />
                         <TextInput
                             style={styles.input}
                             secureTextEntry={true}
-                            // onChangeText={onHandlePasswordChange}
-                            // value={password}
-                            placeholder="Enter Password"
+                            onChangeText={onHandlePasswordChange}
+                            value={password}
+                            placeholder="Password"
                             keyboardAppearance='dark'
                             autoFocus={true}
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter Name"
-                            // onChangeText={onHandleNameChange}
-                            // value={name}
+                            onChangeText={onHandleNameChange}
+                            value={name}
+                            placeholder="Email"
+                            keyboardType="name"
                             keyboardAppearance='dark'
                             autoFocus={true}
                         />
                         <TextInput
                             style={styles.input}
-                            // onChangeText={onHandleEmailChange}
-                            // value={email}
-                            placeholder="Enter Email"
+                            onChangeText={onHandleEmailChange}
+                            value={email}
+                            placeholder="Name"
                             keyboardType="email-address"
                             keyboardAppearance='dark'
                             autoFocus={true}
                         />
                         <Pressable
                             style={[styles.modalButton, styles.buttonClose]}
-                            // onPress={registerUser}
+                            onPress={onSubmit}
                         >
                             <Text style={styles.textStyle}>Register</Text>
                         </Pressable>

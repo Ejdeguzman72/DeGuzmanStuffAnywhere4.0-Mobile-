@@ -1,4 +1,4 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const deviceStorage = {
 
@@ -29,7 +29,7 @@ const deviceStorage = {
     deleteJwt() {
         try {
             AsyncStorage.removeItem('DeguzmanStuffAnywhere_Mobile_Token');
-            setJwt("");
+            // setJwt("");
         } catch(error) {
             console.log(error);
         }

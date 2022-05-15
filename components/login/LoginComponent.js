@@ -1,12 +1,17 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react'
-import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Title from '../title/Title';
 import deviceStorage from '../../helper/DeviceStorage';
+import Axios from 'axios';
+import { jwtHelper } from '../../helper/jwtHelper';
 
 export default function LoginComponent({ navigation }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+
+    const jwt = jwtHelper();
+    const token = "DeGuzmanStuffAnywhere_Mobile_Token";
+    const [username, setUsername] = useState("global");
+    const [password, setPassword] = useState("global");
     const [submitted, setSubmitted] = useState(false);
     const [authorized, setAuthorized] = useState(false);
     const [loading, setLoading] = useState(false)
@@ -20,18 +25,18 @@ export default function LoginComponent({ navigation }) {
     }
 
     const onSubmit = () => {
-        // Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signin', {
-        //     username: username,
-        //     password: password
-        // }).then((resposne) => {
-        //     deviceStorage.saveKey(token, response.data.token);
-        //     if (jwt) {
-        //         Alert.alert(`${username}: you have logged in`)
-        //         navigation.navigate('Root Tab')
-        //     } else {
-        //         Alert.alert('Invalid Credentials')
-        //     }
-        // }).catch((error) => console.log(error))
+        Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signin', {
+            username: username,
+            password: password
+        }).then((response) => {
+            deviceStorage.saveKey(token, response.data.token);
+            if (jwt) {
+                Alert.alert(`${username}: you have logged in`)
+                navigation.navigate('Root Tab')
+            } else {
+                Alert.alert('Invalid Credentials')
+            }
+        }).catch((error) => console.log(error))
     }
 
     return (
@@ -63,12 +68,12 @@ export default function LoginComponent({ navigation }) {
                 >
                     <Text style={styles.textStyle}>Register</Text>
                 </Pressable>
-                <Pressable
+                {/* <Pressable
                     style={[styles.modalButton, styles.buttonClose]}
                     onPress={() => navigation.navigate('Root Tab')}
                 >
                     <Text style={styles.textStyle}>Home</Text>
-                </Pressable>
+                </Pressable> */}
             </ImageBackground>
         </View>
     )
