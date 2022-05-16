@@ -6,7 +6,6 @@ const RegisterComponent = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    const [name, setName] = useState("");
     const [submitted, setSubmitted] = useState(false)
 
     const onHandleUsernameChange = (input) => {
@@ -19,10 +18,6 @@ const RegisterComponent = ({ navigation }) => {
 
     const onHandleEmailChange = (input) => {
         setEmail(input)
-    }
-
-    const onHandleNameChange = (input) => {
-        setName(input)
     }
 
     const onSubmit = () => {
@@ -63,18 +58,9 @@ const RegisterComponent = ({ navigation }) => {
                         />
                         <TextInput
                             style={styles.input}
-                            onChangeText={onHandleNameChange}
-                            value={name}
-                            placeholder="Email"
-                            keyboardType="name"
-                            keyboardAppearance='dark'
-                            autoFocus={true}
-                        />
-                        <TextInput
-                            style={styles.input}
                             onChangeText={onHandleEmailChange}
                             value={email}
-                            placeholder="Name"
+                            placeholder="Email"
                             keyboardType="email-address"
                             keyboardAppearance='dark'
                             autoFocus={true}
@@ -115,7 +101,6 @@ const styles = StyleSheet.create({
     },
     boxWithShadow: {
         borderColor: 'black',
-        // borderWidth: 3,
         justifyContent: 'center',
         textAlign: 'center',
         shadowColor: '#000',
@@ -125,7 +110,6 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     titleContainer: {
-        // backgroundColor: 'lightblue',
         padding: 10,
         borderRadius: 20,
         margin: 10

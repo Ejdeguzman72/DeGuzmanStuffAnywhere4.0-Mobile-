@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
-import { View, Pressable, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const UserPicker = () => {
+const UserPicker = (props) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
 
-    const [user,setUser] = useState("")
+//   useEffect(() => {
+//       fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/users/all')
+//         .then((response) => setItems(response.data))
+//         .then((error) => console.log(error))
+//   }, [])
 
-    return (
-        <Picker selectedValue={user}>
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-        </Picker>
-    )
+//   const handleChange = (input) => {
+//     props.handleUser(input);
+//     console.log(input)
+//   }
+
+  return (
+    <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+    />
+  );
 }
 
 export default UserPicker;
