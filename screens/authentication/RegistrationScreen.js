@@ -5,36 +5,6 @@ import RegisterComponent from '../../components/registration/RegistrationCompone
 import Title from '../../components/title/Title';
 
 const RegisterScreen = ({ navigation }) => {
-    // const [username, setUsername] = useState("");
-    // const [password, setPassword] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [submitted, setSubmitted] = useState(false)
-
-    // const onHandleUsernameChange = (input) => {
-    //     setUsername(input)
-    // }
-
-    // const onHandlePasswordChange = (input) => {
-    //     setPassword(input)
-    // }
-
-    // const onHandleEmailChange = (input) => {
-    //     setEmail(input)
-    // }
-
-    // const onSubmit = () => {
-    //     Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signup', {
-    //         username: username, password: password, email: email
-    //     }).then((response) => {
-    //         setSubmitted(true)
-    //         if (submitted) {
-    //             Alert.alert(`${username} has been registered`)
-    //         }
-    //         // navigation.navigation('Login')
-    //         console.log(response.data)
-    //     })
-    //         .catch((error) => console.log(error))
-    // }
 
     return (
         <View style={styles.container}>

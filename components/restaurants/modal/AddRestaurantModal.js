@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import RestaurantTypeDropDown from "../../pickers/RestaurantTypeDropDown";
+import RestaurantDropDown from '../../pickers/RestaurantTypeDropDown';
 
 export default class AddRestaurantModal extends React.Component {
     constructor(props) {
@@ -26,6 +28,12 @@ export default class AddRestaurantModal extends React.Component {
     onHandleStateChange = (input) => { this.setState({ state: input }) }
     onHandleZipChange = (input) => { this.setState({ zip: input }) }
     onHandleRestaurantTypeChange = (input) => { this.setState({ restaurant_type_id: input }) }
+
+    onHandleRestaurantType = (restaurant_type_id) => {
+        this.setState({
+            restaurant_type_id:restaurant_type_id
+        })
+    }
 
     onSubmit = (event) => {
         event.preventDefault();
@@ -120,6 +128,7 @@ export default class AddRestaurantModal extends React.Component {
                                     value={this.state.restaurant_type_id}
                                     onChangeText={(event) => this.onHandleRestaurantTypeChange(event)}
                                 />
+                                <RestaurantTypeDropDown />
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
                                     onPress={(event) => this.onSubmit(event)}

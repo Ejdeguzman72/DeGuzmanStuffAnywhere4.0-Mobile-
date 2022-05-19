@@ -124,9 +124,6 @@ export default class AddMusicModal extends React.Component {
                                         value={this.state.genre}
                                         onChangeText={(event) => this.onHandleGenreChange(event)}
                                     />
-                                    {/* <View style={styles.pickerView}>
-                                        
-                                    </View> */}
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={(event) => this.onSubmit(event)}

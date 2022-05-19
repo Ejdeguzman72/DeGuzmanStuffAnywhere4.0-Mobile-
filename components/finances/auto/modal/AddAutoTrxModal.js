@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import AutoShopPicker from "../../../pickers/AutoShopPicker";
 import UserPicker from "../../../pickers/UserPicker";
 
 export default class AddAutoTrxModal extends React.Component {
@@ -135,7 +136,11 @@ export default class AddAutoTrxModal extends React.Component {
                                     value={this.state.user_id}
                                     onChangeText={(event) => this.onhandleUserChange(event)}
                                 />
+
+                                <AutoShopPicker />
                                 <UserPicker />
+
+                                
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
                                     onPress={(event) => this.onSubmit(event)}

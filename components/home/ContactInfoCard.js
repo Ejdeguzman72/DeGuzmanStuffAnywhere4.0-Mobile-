@@ -10,7 +10,7 @@ const ContactInfoCard = ({ navigation }) => {
                     <Card.Title title="Contacts" subtitle="Family Contact Information" />
                     <Card.Content>
                         <Button
-                            color='rgb(40,44,53)' title="Contacts" onPress={() => navigation.navigate('Contact Info')}
+                            color='rgb(40,44,53)' title="Contacts" onPress={() => navigation.navigate('Contacts')}
                         />
                     </Card.Content>
                     <Card.Cover source={require('../../assets/home-screen-pics/landline.jpeg')} style={styles.cardCoverImg} />

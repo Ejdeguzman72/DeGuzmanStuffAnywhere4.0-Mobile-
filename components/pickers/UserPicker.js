@@ -1,32 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Alert, StyleSheet } from 'react-native';
+import { Picker } from "@react-native-picker/picker";
 
-const UserPicker = (props) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([]);
+function UserPicker() {
+  const [users, setUsers] = useState([]);
 
-//   useEffect(() => {
-//       fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/users/all')
-//         .then((response) => setItems(response.data))
-//         .then((error) => console.log(error))
-//   }, [])
 
-//   const handleChange = (input) => {
-//     props.handleUser(input);
-//     console.log(input)
-//   }
+  useEffect(() => {
+    fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/users/all')
+      .then((response) => response.json())
+      .then((json) => setUsers(json))
+      .catch((error) => {
+        console.log(error)
+        Alert.alert(`Application facing issue: ${error}` )
+      })
+  }, [])
+
+  console.log(users + ' this is users')
+
+  const onHandleUserChange = (input) => {
+    setUsers(input)
+  }
 
   return (
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-    />
+    <Picker
+      selectedValue={users}
+      onValueChange={onHandleUserChange}
+      mode="dropdown"
+      style={styles.picker}
+    >
+      <Picker.Item label="Choose User" value="Choose User" />
+      {users &&
+        users.map((user,index) => {
+          return (
+            <Picker.Item value={user.user_id} label={user.username} key={index} />
+          )
+        })}
+    </Picker>
   );
 }
+
+const styles = StyleSheet.create({
+  picker: {
+    marginVertical: 30,
+    width: 300,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#666",
+  }
+})
 
 export default UserPicker;

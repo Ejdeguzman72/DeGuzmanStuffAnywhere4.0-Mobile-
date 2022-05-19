@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 export default class AddMedicalOfficeModal extends React.Component {
     constructor(props) {

@@ -1,3 +1,4 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, TextInput } from "react-native";
 
@@ -71,7 +72,7 @@ export default class AddContactModal extends React.Component {
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/person-info/add-person-information', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(() => {
             console.log('Added contact information')
@@ -122,14 +123,14 @@ export default class AddContactModal extends React.Component {
                                     <TextInput
                                         style={styles.input}
                                         placeholder="First Name"
-                                    value={this.state.name}
-                                    onChangeText={(event) => this.onHandleFirstnameChange(event)}
+                                        value={this.state.name}
+                                        onChangeText={(event) => this.onHandleFirstnameChange(event)}
                                     />
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Middle Initial"
-                                    value={this.state.middle_initial}
-                                    onChangeText={(event) => this.onHandleMiddleInitialChange(event)}
+                                        value={this.state.middle_initial}
+                                        onChangeText={(event) => this.onHandleMiddleInitialChange(event)}
                                     />
                                     <TextInput
                                         style={styles.input}
@@ -163,14 +164,71 @@ export default class AddContactModal extends React.Component {
                                         multiline={true}
                                         numberOfLines={4}
                                     />
-                                    <TextInput
+                                    {/* <TextInput
                                         style={styles.input}
                                         placeholder="State"
                                         value={this.state.state}
                                         onChangeText={(event) => this.onHandleStateChange(event)}
                                         multiline={true}
                                         numberOfLines={4}
-                                    />
+                                    /> */}
+                                    <Picker
+                                        selectedValue={this.state.state}
+                                        onValueChange={(event) => this.onHandleStateChange(event)}
+                                        mode="dropdown"
+                                        style={styles.picker}
+                                    >
+                                        <Picker.Item value="Alabama" label="Alabama" />
+                                        <Picker.Item value="Alaska" label="Alaska" />
+                                        <Picker.Item value="Arizona" label="Arizona" />
+                                        <Picker.Item value="Arkansas" label="Arkansas" />
+                                        <Picker.Item value="California" label="California" />
+                                        <Picker.Item value="Colorado" label="Colorado" />
+                                        <Picker.Item value="Conneticut" label="Conneticut" />
+                                        <Picker.Item value="Delaware" label="Delaware" />
+                                        <Picker.Item value="Florida" label="Florida" />
+                                        <Picker.Item value="Georgia" label="Georgia" />
+                                        <Picker.Item value="Hawaii" label="Hawaii" />
+                                        <Picker.Item value="Idaho" label="Idaho" />
+                                        <Picker.Item value="Illinois" label="Illinois" />
+                                        <Picker.Item value="Indiana" label="Indiana" />
+                                        <Picker.Item value="Iowa" label="Iowa" />
+                                        <Picker.Item value="Kansas" label="Kansas" />
+                                        <Picker.Item value="Kentucky" label="Kentucky" />
+                                        <Picker.Item value="Louisiana" label="Louisiana" />
+                                        <Picker.Item value="Maine" label="Maine" />
+                                        <Picker.Item value="Maryland" label="Maryland" />
+                                        <Picker.Item value="Massachussetts" label="Massachussetts" />
+                                        <Picker.Item value="Michigan" label="Michigan" />
+                                        <Picker.Item value="Minnesota" label="Minnesota" />
+                                        <Picker.Item value="Mississippi" label="Mississippi" />
+                                        <Picker.Item value="Missouri" label="Missouri" />
+                                        <Picker.Item value="Montana" label="Montana" />
+                                        <Picker.Item value="Nebraska" label="Nebraska" />
+                                        <Picker.Item value="Nevaada" label="Nevada" />
+                                        <Picker.Item value="New Hampshire" label="New Hampshire" />
+                                        <Picker.Item value="New Jersey" label="New Jersey" />
+                                        <Picker.Item value="New Mexico" label="New Mexico" />
+                                        <Picker.Item value="New York" label="New York" />
+                                        <Picker.Item value="North Carolina" label="North Carolina" />
+                                        <Picker.Item value="North Dakota" label="North Dakota" />
+                                        <Picker.Item value="Ohio" label="Ohio" />
+                                        <Picker.Item value="Oklahoma" label="Oklahoma" />
+                                        <Picker.Item value="Oregon" label="Oregon" />
+                                        <Picker.Item value="Pennsylvania" label="Pennsylvania" />
+                                        <Picker.Item value="Rhode Island" label="Rhode Island" />
+                                        <Picker.Item value="South Carolina" label="South Carolina" />
+                                        <Picker.Item value="South Dakota" label="South Dakota" />
+                                        <Picker.Item value="Tennessee" label="Tennessee" />
+                                        <Picker.Item value="Texas" label="Texas" />
+                                        <Picker.Item value="Utah" label="Utah" />
+                                        <Picker.Item value="Vermont" label="Vermont" />
+                                        <Picker.Item value="Virginia" label="Virginia" />
+                                        <Picker.Item value="Washington" label="Washington" />
+                                        <Picker.Item value="West Virginia" label="West Virginia" />
+                                        <Picker.Item value="Wisconsin" label="Wisconsin" />
+                                        <Picker.Item value="Wyoming" label="Wyoming" />
+                                    </Picker>
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Zipcode"
@@ -354,4 +412,11 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#666",
+    }
 });
