@@ -1,5 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import MedicalOfficePicker from "../../../pickers/MedicalOfficePicker";
+import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
+import UserPicker from "../../../pickers/UserPicker";
 
 export default class AddMedicalTrxModal extends React.Component {
     constructor(props) {
@@ -106,24 +109,34 @@ export default class AddMedicalTrxModal extends React.Component {
                                     value={this.state.amount}
                                     onChangeText={(event) => this.onHandleAmountChange(event)}
                                 />
-                                <TextInput
+
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="Medical Office"
                                     value={this.state.medical_office_id}
                                     onChangeText={(event) => this.onHandleOfficeChange(event)}
-                                />
-                                <TextInput
+                                /> */}
+
+                                <MedicalOfficePicker />
+
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="Transation Type ID"
                                     value={this.state.transaction_type_id}
                                     onChangeText={(event) => this.onHandleTransactionTypeChange(event)}
-                                />
-                                <TextInput
+                                /> */}
+
+                                <TransactionTypePicker />
+
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="User ID"
                                     value={this.state.user_id}
                                     onChangeText={(event) => this.onhandleUserChange(event)}
-                                />
+                                /> */}
+
+                                <UserPicker />
+
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
                                     onPress={(event) => this.onSubmit(event)}

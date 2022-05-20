@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
+import UserPicker from "../../../pickers/UserPicker";
 
 export default class AddGeneralTrxModal extends React.Component {
     constructor(props) {
@@ -112,18 +114,24 @@ export default class AddGeneralTrxModal extends React.Component {
                                     value={this.state.entity}
                                     onChangeText={(event) => this.onHandleEntityChange(event)}
                                 />
-                                <TextInput
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="Transation Type ID"
                                     value={this.state.transaction_type_id}
                                     onChangeText={(event) => this.onHandleTransactionTypeChange(event)}
-                                />
-                                <TextInput
+                                /> */}
+
+                                <TransactionTypePicker />
+
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="User ID"
                                     value={this.state.user_id}
                                     onChangeText={(event) => this.onhandleUserChange(event)}
-                                />
+                                /> */}
+
+                                <UserPicker />
+
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
                                     onPress={(event) => this.onSubmit(event)}

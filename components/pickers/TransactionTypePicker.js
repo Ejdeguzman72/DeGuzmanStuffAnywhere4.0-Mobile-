@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 
-function RestaurantTypeDropDown() {
-
-    const [types, setTypes] = useState([]);
-
-    const handleChange = (input) => {
-        setTypes(input)
-    }
+function TransactionTypePicker() {
+    const [selectedValue,setSelectedValue] = useState('Choose a Transaction Type')
+    const [types,setTypes] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/restaurant-types/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/transaction-types/all')
             .then((response) => response.json())
             .then((json) => setTypes(json))
             .catch((error) => {
@@ -20,19 +16,23 @@ function RestaurantTypeDropDown() {
             })
     }, [])
 
+    const handleValueChange = (input) => {
+        setSelectedValue(input)
+    }
+
     console.log(types)
 
     return (
         <Picker
-            selectedValue={types}
-            onValueChange={handleChange}
+            selectedValue={selectedValue}
+            onValueChange={handleValueChange}
             mode="dropdown"
             style={styles.picker}
         >
-            <Picker.Item label="Choose A Restaurant Type" value="Choose A Restaurant Type" />
-            {types.map((type,index) => {
+            <Picker.Item label="Choose A Transaction Type" value="Choose A Transaction Type" />
+            {types && types.map((type,index) => {
                 return (
-                    <Picker.Item key={index} value={type.restaurant_type_id} label={type.descr} />
+                    <Picker.Item label={type.transaction_type_descr} value={type.transaction_type_id} index={index} />
                 )
             })}
         </Picker>
@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
         borderColor: "#666",
         textAlign: 'center'
     },
+    pickerItem: {
+        color: 'black'
+    }
 })
 
-export default RestaurantTypeDropDown;
+export default TransactionTypePicker;

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
 import AutoShopPicker from "../../../pickers/AutoShopPicker";
+import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
 import UserPicker from "../../../pickers/UserPicker";
+import VehiclePicker from "../../../pickers/VehiclePicker";
 
 export default class AddAutoTrxModal extends React.Component {
     constructor(props) {
@@ -112,7 +114,7 @@ export default class AddAutoTrxModal extends React.Component {
                                     value={this.state.amount}
                                     onChangeText={(event) => this.onHandleAmountChange(event)}
                                 />
-                                <TextInput
+                                {/* <TextInput
                                     style={styles.input}
                                     placeholder="Auto Shop ID"
                                     value={this.state.auto_shop_id}
@@ -135,8 +137,10 @@ export default class AddAutoTrxModal extends React.Component {
                                     placeholder="User ID"
                                     value={this.state.user_id}
                                     onChangeText={(event) => this.onhandleUserChange(event)}
-                                />
+                                /> */}
 
+                                <TransactionTypePicker />
+                                <VehiclePicker />
                                 <AutoShopPicker />
                                 <UserPicker />
 
