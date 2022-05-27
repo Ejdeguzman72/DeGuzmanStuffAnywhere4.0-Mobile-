@@ -22,7 +22,7 @@ function RestaurantTypeDropDown(props) {
 
     return (
         <Picker
-            selectedValue={selectedValue}
+            selectedValue={types}
             onValueChange={handleValueChange}
             mode="dropdown"
             style={styles.picker}

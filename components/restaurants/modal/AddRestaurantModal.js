@@ -114,6 +114,7 @@ const AddRestaurantModal = ({ props }) => {
                                     mode="dropdown"
                                     style={styles.picker}
                                 >
+                                    <Picker.Item value="State" label="Choose A State" />
                                     <Picker.Item value="Alabama" label="Alabama" />
                                     <Picker.Item value="Alaska" label="Alaska" />
                                     <Picker.Item value="Arizona" label="Arizona" />
