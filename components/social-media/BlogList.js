@@ -21,8 +21,6 @@ const BlogList = () => {
         setModalVisible(!modalVisible)
     }
 
-    console.log(blogs)
-
     return (
         <ScrollView>
             <View style={styles.table}>

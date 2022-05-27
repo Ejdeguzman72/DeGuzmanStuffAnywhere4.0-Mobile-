@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 
-function TransactionTypePicker(props) {
-    const [selectedValue,setSelectedValue] = useState('Choose a Transaction Type')
+function ExerciseTypePicker(props) {
+    const [selectedValue,setSelectedValue] = useState('')
     const [types,setTypes] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/transaction-types/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/exercise-type/all')
             .then((response) => response.json())
             .then((json) => setTypes(json))
             .catch((error) => {
@@ -17,7 +17,7 @@ function TransactionTypePicker(props) {
     }, [])
 
     const handleValueChange = (input) => {
-        props.onHandleTransactionTypeChange(input)
+        props.onHandleExerciseTypeChange(input)
     }
 
     return (
@@ -27,10 +27,10 @@ function TransactionTypePicker(props) {
             mode="dropdown"
             style={styles.picker}
         >
-            <Picker.Item label="Choose A Transaction Type" value="Choose A Transaction Type" />
+            <Picker.Item label="Choose an Exercise Type" value="Choose an Exercise Type" />
             {types && types.map((type,index) => {
                 return (
-                    <Picker.Item label={type.transaction_type_descr} value={type.transaction_type_id} key={index} />
+                    <Picker.Item label={type.exercise_type_name} value={type.exercise_type_id} key={index} />
                 )
             })}
         </Picker>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TransactionTypePicker;
+export default ExerciseTypePicker;

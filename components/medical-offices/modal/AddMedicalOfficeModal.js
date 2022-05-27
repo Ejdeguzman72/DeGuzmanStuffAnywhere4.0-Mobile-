@@ -1,66 +1,35 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-export default class AddMedicalOfficeModal extends React.Component {
-    constructor(props) {
-        super(props);
+const AddMedicalOfficeModal = () => {
 
-        this.state = {
-            medical_office_id: 0,
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: "",
-            modalVisible: false,
-            submitted: false
-        };
-    }
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
-    setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
-    }
+    const onHandleNameChange = (input) => { setName(input) }
 
-    onHandleNameChange = (input) => {
-        this.setState({
-            name: input
-        })
-    }
+    const onHandleAddressChange = (input) => { setAddress(input) }
 
-    onHandleAddressChange = (input) => {
-        this.setState({
-            address: input
-        })
-    }
+    const onHandleCityChange = (input) => { setCity(input) }
 
-    onHandleCityChange = (input) => {
-        this.setState({
-            city: input
-        })
-    }
+    const onHandleStateChange = (input) => { setState(input) }
 
-    onHandleStateChange = (input) => {
-        this.setState({
-            state: input
-        })
-    }
+    const onHandleZipChange = (input) => { setZip(input) }
 
-    onHandleZipChange = (input) => {
-        this.setState({
-            zip: input
-        })
-    }
-
-    onSubmit = async (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            auto_shop_id: this.state.auto_shop_id,
-            name: this.state.name,
-            address: this.state.address,
-            city: this.state.city,
-            state: this.state.state,
-            zip: this.state.zip
+            name: name,
+            address: address,
+            city: city,
+            state: state,
+            zip: zip
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/add-medical-office-information', {
@@ -69,119 +38,164 @@ export default class AddMedicalOfficeModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log("Added new medical office")
-            this.setState({
-                submitted: true
-            })
+            setSubmitted(true)
         }).catch((error) => console.log(error))
     }
 
-    newOffice = () => {
-        this.setState({
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: ""
-        })
+    const newOffice = () => {
+        setName('');
+        setAddress('');
+        setCity('');
+        setState('');
+        setZip('');
+        setSubmitted(false)
     }
 
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Medical Office</Text>
-                                <Text>{this.state.name} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newOffice}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Medical Office</Text>
+                            <Text>{name} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newOffice}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
+                    </View>
+                ) : (
+                    <ScrollView>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Add Medical Office</Text>
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Medical Office Name"
-                                    value={this.state.name}
-                                    onChangeText={(event) => this.onHandleNameChange(event)}
+                                    value={name}
+                                    onChangeText={(event) => onHandleNameChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Address"
-                                    value={this.state.address}
-                                    onChangeText={(event) => this.onHandleAddressChange(event)}
+                                    value={address}
+                                    onChangeText={(event) => onHandleAddressChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="City"
-                                    value={this.state.city}
-                                    onChangeText={(event) => this.onHandleCityChange(event)}
+                                    value={city}
+                                    onChangeText={(event) => onHandleCityChange(event)}
                                     multiline={true}
                                     numberOfLines={4}
                                 />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="State"
-                                    value={this.state.state}
-                                    onChangeText={(event) => this.onHandleStateChange(event)}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                />
+                                <Picker
+                                    selectedValue={state}
+                                    onValueChange={(event) => onHandleStateChange(event)}
+                                    mode="dropdown"
+                                    style={styles.picker}
+                                >
+                                    <Picker.Item value="Alabama" label="Alabama" />
+                                    <Picker.Item value="Alaska" label="Alaska" />
+                                    <Picker.Item value="Arizona" label="Arizona" />
+                                    <Picker.Item value="Arkansas" label="Arkansas" />
+                                    <Picker.Item value="California" label="California" />
+                                    <Picker.Item value="Colorado" label="Colorado" />
+                                    <Picker.Item value="Conneticut" label="Conneticut" />
+                                    <Picker.Item value="Delaware" label="Delaware" />
+                                    <Picker.Item value="Florida" label="Florida" />
+                                    <Picker.Item value="Georgia" label="Georgia" />
+                                    <Picker.Item value="Hawaii" label="Hawaii" />
+                                    <Picker.Item value="Idaho" label="Idaho" />
+                                    <Picker.Item value="Illinois" label="Illinois" />
+                                    <Picker.Item value="Indiana" label="Indiana" />
+                                    <Picker.Item value="Iowa" label="Iowa" />
+                                    <Picker.Item value="Kansas" label="Kansas" />
+                                    <Picker.Item value="Kentucky" label="Kentucky" />
+                                    <Picker.Item value="Louisiana" label="Louisiana" />
+                                    <Picker.Item value="Maine" label="Maine" />
+                                    <Picker.Item value="Maryland" label="Maryland" />
+                                    <Picker.Item value="Massachussetts" label="Massachussetts" />
+                                    <Picker.Item value="Michigan" label="Michigan" />
+                                    <Picker.Item value="Minnesota" label="Minnesota" />
+                                    <Picker.Item value="Mississippi" label="Mississippi" />
+                                    <Picker.Item value="Missouri" label="Missouri" />
+                                    <Picker.Item value="Montana" label="Montana" />
+                                    <Picker.Item value="Nebraska" label="Nebraska" />
+                                    <Picker.Item value="Nevaada" label="Nevada" />
+                                    <Picker.Item value="New Hampshire" label="New Hampshire" />
+                                    <Picker.Item value="New Jersey" label="New Jersey" />
+                                    <Picker.Item value="New Mexico" label="New Mexico" />
+                                    <Picker.Item value="New York" label="New York" />
+                                    <Picker.Item value="North Carolina" label="North Carolina" />
+                                    <Picker.Item value="North Dakota" label="North Dakota" />
+                                    <Picker.Item value="Ohio" label="Ohio" />
+                                    <Picker.Item value="Oklahoma" label="Oklahoma" />
+                                    <Picker.Item value="Oregon" label="Oregon" />
+                                    <Picker.Item value="Pennsylvania" label="Pennsylvania" />
+                                    <Picker.Item value="Rhode Island" label="Rhode Island" />
+                                    <Picker.Item value="South Carolina" label="South Carolina" />
+                                    <Picker.Item value="South Dakota" label="South Dakota" />
+                                    <Picker.Item value="Tennessee" label="Tennessee" />
+                                    <Picker.Item value="Texas" label="Texas" />
+                                    <Picker.Item value="Utah" label="Utah" />
+                                    <Picker.Item value="Vermont" label="Vermont" />
+                                    <Picker.Item value="Virginia" label="Virginia" />
+                                    <Picker.Item value="Washington" label="Washington" />
+                                    <Picker.Item value="West Virginia" label="West Virginia" />
+                                    <Picker.Item value="Wisconsin" label="Wisconsin" />
+                                    <Picker.Item value="Wyoming" label="Wyoming" />
+                                </Picker>
                                 <TextInput
                                     style={styles.input}
                                     placeholder="ZipCode"
-                                    value={this.state.zip}
-                                    onChangeText={(event) => this.onHandleZipChange(event)}
+                                    value={zip}
+                                    onChangeText={(event) => onHandleZipChange(event)}
                                     multiline={true}
                                     numberOfLines={4}
+                                    keyboardType='number-pad'
                                 />
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={(event) => this.onSubmit(event)}
+                                    onPress={(event) => onSubmit(event)}
                                 >
                                     <Text style={styles.textStyle}>Submit</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
+                                    onPress={() => setModalVisible(!modalVisible)}
                                 >
                                     <Text style={styles.textStyle}>Close </Text>
                                 </Pressable>
                             </View>
                         </View>
-                    )}
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Medical Office</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                    </ScrollView>
+                )}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Medical Office</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
 };
 
@@ -299,4 +313,13 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#666",
+    }
 });
+
+export default AddMedicalOfficeModal;

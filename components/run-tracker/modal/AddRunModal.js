@@ -1,47 +1,37 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal, Pressable } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal, Pressable, ScrollView } from "react-native";
+import UserPicker from "../../pickers/UserPicker";
 
-export default class AddRunEntryModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddRunEntryModal = (props) => {
 
-        this.state = {
-            run_id: 0,
-            runDate: "",
-            runDistance: 0,
-            runTime: "",
-            user_id: 0,
-            submitted: false,
-            modalVisible: false
-        }
+    const [modalVisible, setModalVisible] = useState(false);
+    const [runDate, setRunDate] = useState('');
+    const [runDistance, setRunDistance] = useState(0);
+    const [runTime, setRunTime] = useState('');
+    const [user_id, setUser] = useState(0);
+    const [submitted, setSubmitted] = useState(false)
+
+    const newEntry = () => {
+        setRunDate('');
+        setRunTime('');
+        setUser(0);
+        setSubmitted(false);
     }
 
-    newEntry = () => {
-        this.setState({
-            run_id: 0,
-            runDate: "",
-            runDistance: 0,
-            runTime: "",
-            user_id: 0,
-            submitted: false
-        })
-    }
+    const onHandleDateChange = (input) => { setRunDate(input) }
+    const onHandleDistanceChange = (input) => { setRunDistance(input) }
+    const onHandleTimeChange = (input) => { setRunTime(input) }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible })}
-    onHandleDateChange = (input) => { this.setState({ date: input })}
-    onHandleDistanceChange = (input) => { this.setState({ runDistance: input })}
-    onHandleTimeChange = (input) => { this.setState({ runTime: input })}
-    onHandleUserChange = (input) => { this.setState({ user_id: input })}
+    const onHandleUserChange = (user_id) => { setUser(user_id) }
 
-    onSubmit = async (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            run_id: this.state.run_id,
-            runDate: this.state.runDate,
-            runDistance: this.state.runDistance,
-            runTime: this.state.runTime,
-            user_id: this.state.user_id
+            runDate: runDate,
+            runDistance: runDistance,
+            runTime: runTime,
+            user_id: user_id
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/run-tracker-app/add-run-tracker-info', {
@@ -50,80 +40,95 @@ export default class AddRunEntryModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log(data)
-            this.setState({
-                submitted: true
-            })
+            setSubmitted(true)
         }).catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Add Run</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Run Date"
-                            value={this.state.runDate}
-                            onChangeText={(event) => this.onHandleDateChange(event)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Distance"
-                            value={this.state.runDistance}
-                            onChangeText={(event) => this.onHandleDistanceChange(event)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Time"
-                                value={this.state.runTime}
-                                onChangeText={this.onHandleTimeChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="User ID"
-                                value={this.state.user_id}
-                                onChangeText={(event) => this.onHandleUserChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Run Entry</Text>
+                            <Text>{`${runDate} ${runDistance} `} has been submitted!</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
-                                onPress={(event) => this.onSubmit(event)}
+                                onPress={newEntry}
                             >
-                                <Text style={styles.textStyle}>Submit</Text>
+                                <Text style={styles.textStyle}>Add</Text>
                             </Pressable>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
-                                onPress={() => this.setModalVisible(!modalVisible)}
+                                onPress={() => setModalVisible(!modalVisible)}
                             >
                                 <Text style={styles.textStyle}>Close </Text>
                             </Pressable>
                         </View>
                     </View>
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Run Infomration</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                ) : (
+                    <ScrollView>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.modalText}>Add Run</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Run Date"
+                                    value={runDate}
+                                    onChangeText={(event) => onHandleDateChange(event)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Distance"
+                                    value={runDistance}
+                                    onChangeText={(event) => onHandleDistanceChange(event)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Time"
+                                    value={runTime}
+                                    onChangeText={(event) => onHandleTimeChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                />
+
+                                <UserPicker
+                                    onHandleUserChange={onHandleUserChange}
+                                />
+
+                                <Pressable
+                                    style={[styles.modalButton, styles.buttonClose]}
+                                    onPress={(event) => onSubmit(event)}
+                                >
+                                    <Text style={styles.textStyle}>Submit</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={[styles.modalButton, styles.buttonClose]}
+                                    onPress={() => setModalVisible(!modalVisible)}
+                                >
+                                    <Text style={styles.textStyle}>Close </Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </ScrollView>
+                )}
+
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Run Infomration</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -240,3 +245,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
+
+export default AddRunEntryModal;

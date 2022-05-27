@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { StyleSheet, Alert, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-function AutoShopPicker() {
+function AutoShopPicker(props) {
     const [selectedValue,setSelectedValue] = useState('')
     const [autoshops,setAutoShops] = useState([])
     
@@ -21,7 +21,7 @@ function AutoShopPicker() {
     }
 
     const handleValueChange = (input) => {
-        setSelectedValue(input)
+        props.onHandleAutoShopChange(input)
     }
 
     const renderAutoShopList = () => {

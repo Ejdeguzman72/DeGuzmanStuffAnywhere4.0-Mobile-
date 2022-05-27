@@ -20,7 +20,7 @@ const GeneralTrxList = () => {
             .then((json) => setTransactions(json))
             .catch((error) => console.log(error))
     }, []);
-
+    console.log(transactions)
     return (
         <ScrollView>
             <View style={styles.table}>
@@ -36,7 +36,7 @@ const GeneralTrxList = () => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Transaction Information</Text>
                         <View style={styles.indexText}>
-                            <Text>Amouunt:</Text><Text>{currentTransaction.title}</Text>
+                            <Text>Amouunt:</Text><Text>{currentTransaction.amount}</Text>
                         </View>
                         <View style={styles.indexText}>
                             <Text>Payment Date:</Text><Text>{currentTransaction.payment_date}</Text>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
 
 const RunEntryList = () => {
@@ -15,13 +15,11 @@ const RunEntryList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/gym-tracker/all')
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/run-tracker-app/all')
             .then((response) => response.json())
             .then((json) => setEntries(json))
             .catch((error) => console.log(error))
     }, [])
-
-    console.log(entries)
 
     return (
         <ScrollView>
@@ -29,7 +27,7 @@ const RunEntryList = () => {
                 {entries &&
                     entries.map((entry, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveEntry(entry, index)}>
-                            <Text>{`${entry.runTime} ${entry.runDistance} ${entry.runDate}`}</Text>
+                            <Text>{`${entry.run_time} ${entry.run_distance} ${entry.run_date}`}</Text>
                             <Text note>{`${entry.username}`}</Text>
                         </TouchableOpacity>
                     ))}
@@ -46,13 +44,13 @@ const RunEntryList = () => {
                                 <View style={styles.modalView}>
                                     <Text style={styles.modalText}>Run Information</Text>
                                     <View style={styles.indexText}>
-                                        <Text>Run Time:</Text><Text>{currentEntry.runTime}</Text>
+                                        <Text>Run Time:</Text><Text>{currentEntry.run_time}</Text>
                                     </View>
                                     <View style={styles.indexText}>
-                                        <Text>Run Distance:</Text><Text>{currentEntry.runDistance}</Text>
+                                        <Text>Run Distance:</Text><Text>{currentEntry.run_distance}</Text>
                                     </View>
                                     <View style={styles.indexText}>
-                                        <Text>Date:</Text><Text>{currentEntry.runDate}</Text>
+                                        <Text>Date:</Text><Text>{currentEntry.run_date}</Text>
                                     </View>
                                     <View style={styles.indexText}>
                                         <Text>Username:</Text><Text>{currentEntry.username}</Text>

@@ -48,6 +48,7 @@ export default function LoginComponent({ navigation }) {
                     placeholder="Username"
                     onChangeText={onHandleUsernameChange}
                     value={username}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}
@@ -55,6 +56,7 @@ export default function LoginComponent({ navigation }) {
                     secureTextEntry={true}
                     onChangeText={onHandlePasswordChange}
                     value={password}
+                    autoCapitalize='none'
                 />
                 <Pressable
                     style={[styles.modalButton, styles.buttonClose]}

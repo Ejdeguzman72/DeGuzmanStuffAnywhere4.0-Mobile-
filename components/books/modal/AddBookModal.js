@@ -1,53 +1,44 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
+import Axios from 'axios';
 
-export default class AddBookModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddBookModal = () => {
 
-        this.state = {
-            book_id: 0,
-            title: "",
-            author: "",
-            descr: "",
-            submitted: false,
-            modalVisible: false
-        }
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [descr, setDescr] = useState('');
+    const [submitted, setSubmitted] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
+
+    // const setModalVisible = (visible) => {
+    //     setModalVisible(visible)
+    // }
+
+    const onHandleTitleChange = (input) => {
+        setTitle(input)
     }
 
-    setModalVisible = (visible) => {
-        this.setState({modalVisible: visible})
+    const onHandleAuthorChange = (input) => {
+        setAuthor(input)
     }
 
-    onHandleTitleChange = (input) => {
-        this.setState({ title: input })
+    const onHandleDescrChange = (input) => {
+        setDescr(input)
     }
 
-    onHandleAuthorChange = (input) => {
-        this.setState({ author: input})
+    const newBook = () => {
+        setTitle('');
+        setAuthor('');
+        setDescr('');
+        setSubmitted(false);
     }
 
-    onHandleDescrChange = (input) => {
-        this.setState({ descr: input})
-    }
-
-    newBook = () => {
-        this.setState({
-            title: "",
-            author: "",
-            descr: "",
-            submitted: false,
-            modalVisible: false
-        })
-    }
-
-    onSubmit = async (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
         const data = {
-            book_id: this.state.book_id,
-            title: this.state.title,
-            author: this.state.author,
-            descr: this.state.descr
+            title: title,
+            author: author,
+            descr: descr,
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/books/add-book-information', {
@@ -56,93 +47,87 @@ export default class AddBookModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log("Added new book information")
-            this.setState({
-                submitted: true
-            })
+            setSubmitted(true)
         }).catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Book</Text>
-                                <Text>{this.state.title} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newBook}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Book</Text>
+                            <Text>{title} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newBook}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
-                        <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Add Book</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Title"
-                                    value={this.state.title}
-                                    onChangeText={(event) => this.onHandleTitleChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Author"
-                                    value={this.state.author}
-                                    onChangeText={(event) => this.onHandleAuthorChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Description"
-                                    value={this.state.descr}
-                                    onChangeText={(event) => this.onHandleDescrChange(event)}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                />
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.onSubmit}
-                                >
-                                    <Text style={styles.textStyle}>Submit</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close</Text>
-                                </Pressable>
-                            </View>
+                    </View>
+                ) : (
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Add Book</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Title"
+                                value={title}
+                                onChangeText={onHandleTitleChange}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Author"
+                                value={author}
+                                onChangeText={onHandleAuthorChange}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Description"
+                                value={descr}
+                                onChangeText={onHandleDescrChange}
+                                multiline={true}
+                                numberOfLines={9}
+                            />
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={onSubmit}
+                            >
+                                <Text style={styles.textStyle}>Submit</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
                         </View>
-                    )}
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(!modalVisible)}
-                >
-                    <Text style={styles.buttonText}>Add Book</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                    </View>
+                )}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Book</Text>
+            </TouchableOpacity>
+        </View>
+    )
 
 };
 
@@ -261,3 +246,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
+
+export default AddBookModal;

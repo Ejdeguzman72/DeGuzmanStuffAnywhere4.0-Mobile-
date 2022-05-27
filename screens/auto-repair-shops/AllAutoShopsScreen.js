@@ -8,7 +8,6 @@ const AllAutoShopsScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <Text>All Auto Repair Shops</Text>
                 <AutoShopList />
             </ImageBackground>
         </View>

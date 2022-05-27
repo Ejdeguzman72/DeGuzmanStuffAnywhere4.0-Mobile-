@@ -43,7 +43,7 @@ const AutoShopList = () => {
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Book Information</Text>
+                                <Text style={styles.modalText}>Auto Repair Shop Information</Text>
                                 <View style={styles.indexText}>
                                     <Text>Name:</Text><Text>{currentShop.auto_shop_name}</Text>
                                 </View>

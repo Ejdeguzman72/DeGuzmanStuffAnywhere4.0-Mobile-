@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 
-function RestaurantTypeDropDown() {
+function RestaurantTypeDropDown(props) {
     const [selectedValue,setSelectedValue] = useState('')
     const [types,setTypes] = useState([]);
 
@@ -17,7 +17,7 @@ function RestaurantTypeDropDown() {
     }, [])
 
     const handleValueChange = (input) => {
-        setSelectedValue(input)
+        props.onHandleRestaurantType(input)
     }
 
     return (
@@ -30,7 +30,7 @@ function RestaurantTypeDropDown() {
             <Picker.Item label="Choose A Restaurant Type" value="Choose A Restaurant Type" />
             {types && types.map((type,index) => {
                 return (
-                    <Picker.Item label={type.descr} value={type.restaurant_type_id} index={index} />
+                    <Picker.Item label={type.descr} value={type.restaurant_type_id} key={index} />
                 )
             })}
         </Picker>

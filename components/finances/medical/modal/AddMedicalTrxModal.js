@@ -1,54 +1,46 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import MedicalOfficePicker from "../../../pickers/MedicalOfficePicker";
 import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
 import UserPicker from "../../../pickers/UserPicker";
 
-export default class AddMedicalTrxModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddMedicalTrxModal = (props) => {
 
-        this.state = {
-            medical_transaction_id: 0,
-            amount: 0,
-            medical_transaction_date: "",
-            medical_office_id: "",
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false,
-            modalVisible: false
-        }
+    const [modalVisible, setModalVisible] = useState(false)
+    const [amount, setAmount] = useState(0);
+    const [medical_transaction_date, setMedicalTransactionDate] = useState('');
+    const [medical_office_id, setMedicalOffice] = useState(0);
+    const [transaction_type_id, setTransactionType] = useState(0);
+    const [user_id, setUser] = useState(0);
+    const [submitted, setSubmitted]= useState(false)
+
+    const newTransaction = () => {
+        setAmount(0);
+        setMedicalTransactionDate('');
+        setMedicalOffice(0);
+        setTransactionType(0);
+        setUser(0);
+        setSubmitted(false)
     }
 
-    newTransaction = () => {
-        this.setState({
-            medical_transaction_id: 0,
-            amount: 0,
-            medical_transaction_date: "",
-            medical_office_id: "",
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false
-        })
-    }
+    const onHandleAmountChange = (input) => { setAmount(input) }
+    const onHandleDateChange = (input) => { setMedicalTransactionDate(input) }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible }) }
-    onHandleAmountChange = (input) => { this.setState({ amount: input }) }
-    onHandleDateChange = (input) => { this.setState({ medical_transaction_date: input }) }
-    onHandleOfficeChange = (input) => { this.setState({ medical_office_id: input })}
-    onHandleTransactionTypeChange = (input) => { this.setState({ transaction_type_id: input }) }
-    onhandleUserChange = (input) => { this.setState({ user_id: input }) }
+    const onHandleOfficeChange = (medical_office_id) => { setMedicalOffice(medical_office_id) }
 
-    onSubmit = (event) => {
+    const onHandleTransactionTypeChange = (transaction_type_id) => { setTransactionType(transaction_type_id) }
+
+    const onHandleUserChange = (user_id) => { setUser(user_id) }
+
+    const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            medical_transaction_id: this.state.medical_transaction_id,
-            amount: this.state.amount,
-            medical_transaction_date: this.state.medical_transaction_date,
-            medical_office_id: this.state.medical_office_id,
-            transaction_type_id: this.state.transaction_type_id,
-            user_id: this.state.user_id
+            amount: amount,
+            medical_transaction_date: medical_transaction_date,
+            medical_office_id: medical_office_id,
+            transaction_type_id: transaction_type_id,
+            user_id: user_id
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-transactions/add-medical-transaction', {
@@ -56,112 +48,95 @@ export default class AddMedicalTrxModal extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(() => {
-            console.log(data)
-            this.setState({ submitted: true })
+            setSubmitted(true)
         }).catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Medical Transaction</Text>
-                                <Text>{this.state.amount} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newTransaction}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Medical Transaction</Text>
+                            <Text>{amount} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newTransaction}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
-                        <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
-                                <Text style={styles.modalText}>Add Medical Transaction</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Medical Transaction Date"
-                                    value={this.state.medical_transaction_date}
-                                    onChangeText={(event) => this.onHandleDateChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Amount"
-                                    value={this.state.amount}
-                                    onChangeText={(event) => this.onHandleAmountChange(event)}
-                                />
+                    </View>
+                ) : (
+                    <ScrollView>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Add Medical Transaction</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Medical Transaction Date"
+                                value={medical_transaction_date}
+                                onChangeText={(event) => onHandleDateChange(event)}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Amount"
+                                value={amount}
+                                keyboardType='decimal-pad'
+                                onChangeText={(event) => onHandleAmountChange(event)}
+                            />
 
-                                {/* <TextInput
-                                    style={styles.input}
-                                    placeholder="Medical Office"
-                                    value={this.state.medical_office_id}
-                                    onChangeText={(event) => this.onHandleOfficeChange(event)}
-                                /> */}
+                            <MedicalOfficePicker 
+                                onHandleOfficeChange={onHandleOfficeChange}
+                            />
 
-                                <MedicalOfficePicker />
+                            <TransactionTypePicker 
+                                onHandleTransactionTypeChange={onHandleTransactionTypeChange}
+                            />
 
-                                {/* <TextInput
-                                    style={styles.input}
-                                    placeholder="Transation Type ID"
-                                    value={this.state.transaction_type_id}
-                                    onChangeText={(event) => this.onHandleTransactionTypeChange(event)}
-                                /> */}
+                            <UserPicker 
+                                onHandleUserChange={onHandleUserChange}
+                            />
 
-                                <TransactionTypePicker />
-
-                                {/* <TextInput
-                                    style={styles.input}
-                                    placeholder="User ID"
-                                    value={this.state.user_id}
-                                    onChangeText={(event) => this.onhandleUserChange(event)}
-                                /> */}
-
-                                <UserPicker />
-
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={(event) => this.onSubmit(event)}
-                                >
-                                    <Text style={styles.textStyle}>Submit</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={(event) => onSubmit(event)}
+                            >
+                                <Text style={styles.textStyle}>Submit</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    )}
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Medical Transaction</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                    </View>
+                    </ScrollView>
+                )}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Medical Transaction</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -278,4 +253,13 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#666",
+    }
 });
+
+export default AddMedicalTrxModal;

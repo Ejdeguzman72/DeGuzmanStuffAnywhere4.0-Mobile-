@@ -1,59 +1,52 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import AutoShopPicker from "../../../pickers/AutoShopPicker";
 import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
 import UserPicker from "../../../pickers/UserPicker";
 import VehiclePicker from "../../../pickers/VehiclePicker";
 
-export default class AddAutoTrxModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddAutoTrxModal = () => {
 
-        this.state = {
-            auto_transaction_id: 0,
-            amount: 0,
-            auto_transaction_date: "",
-            auto_shop_id: 0,
-            vehicle_id: 0,
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false,
-            modalVisible: false
-        }
+    const [modalVisible, setModalVisible] = useState(false)
+    const [amount, setAmount] = useState(0);
+    const [auto_transaction_date, setAutoTrxDate] = useState('');
+    const [auto_shop_id, setAutoShop] = useState(0);
+    const [vehicle_id, setVehicle] = useState(0);
+    const [transaction_type_id, setTransactionType] = useState(0);
+    const [user_id, setUser] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
+
+    const newTransaction = () => {
+        setAmount(0);
+        setAutoTrxDate('');
+        setAutoShop(0);
+        setVehicle(0);
+        setTransactionType(0);
+        setUser(0);
+        setSubmitted(false);
     }
 
-    newTransaction = () => {
-        this.setState({
-            auto_tranasction_id: 0,
-            amount: 0,
-            auto_transaction_date: "",
-            auto_shop_id: 0,
-            vehicle_id: 0,
-            transaction_type_id: 0,
-            user_id: 0,
-            submitted: false
-        })
-    }
+    const onHandleAmountChange = (input) => { setAmount(input) }
+    const onHandleDateChange = (input) => { setAutoTrxDate(input) }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible }) }
-    onHandleAmountChange = (input) => { this.setState({ amount: input }) }
-    onHandleDateChange = (input) => { this.setState({ auto_transaction_date: input }) }
-    onHandleAutoShopChange = (input) => { this.setState({ auto_shop_id: input }) }
-    onHandleVehicleChange = (input) => { this.setState({ vehicle_id: input }) }
-    onHandleTransactionTypeChange = (input) => { this.setState({ transaction_type_id: input }) }
-    onhandleUserChange = (input) => { this.setState({ user_id: input }) }
+    const onHandleAutoShopChange = (auto_shop_id) => { setAutoShop(auto_shop_id) }
 
-    onSubmit = (event) => {
+    const onHandleVehicleChange = (vehicle_id) => { setVehicle(vehicle_id) }
+
+    const onHandleTransactionTypeChange = (transaction_type_id) => { setTransactionType(transaction_type_id) }
+
+    const onHandleUserChange = (user_id) => { setUser(user_id) }
+
+    const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            auto_transaction_id: this.state.auto_tranasction_id,
-            amount: this.state.amount,
-            auto_transaction_date: this.state.auto_transaction_date,
-            auto_shop_id: this.state.auto_shop_id,
-            vehicle_id: this.state.vehicle_id,
-            transaction_type_id: this.state.transaction_type_id,
-            user_id: this.state.user_id
+            amount: amount,
+            auto_transaction_date: auto_transaction_date,
+            auto_shop_id: auto_shop_id,
+            vehicle_id: vehicle_id,
+            transaction_type_id: transaction_type_id,
+            user_id: user_id
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-transactions/add-auto-transaction-information', {
@@ -62,114 +55,98 @@ export default class AddAutoTrxModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log(data)
-            this.setState({ submitted: true })
+            setSubmitted(false)
         }).catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Transaction</Text>
-                                <Text>{this.state.amount} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newTransaction}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Transaction</Text>
+                            <Text>{this.state.amount} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newTransaction}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
+                    </View>
+                ) : (
+                    <ScrollView>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Add Auto Transaction</Text>
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Auto Transaction Date"
-                                    value={this.state.auto_transaction_date}
-                                    onChangeText={(event) => this.onHandleDateChange(event)}
+                                    value={auto_transaction_date}
+                                    onChangeText={(event) => onHandleDateChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Amount"
-                                    value={this.state.amount}
-                                    onChangeText={(event) => this.onHandleAmountChange(event)}
+                                    value={amount}
+                                    onChangeText={(event) => onHandleAmountChange(event)}
                                 />
-                                {/* <TextInput
-                                    style={styles.input}
-                                    placeholder="Auto Shop ID"
-                                    value={this.state.auto_shop_id}
-                                    onChangeText={(event) => this.onHandleAutoShopChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Transation Type ID"
-                                    value={this.state.transaction_type_id}
-                                    onChangeText={(event) => this.onHandleTransactionTypeChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Vehicle ID"
-                                    value={this.state.vehicle_id}
-                                    onChangeText={(event) => this.onHandleVehicleChange(event)}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="User ID"
-                                    value={this.state.user_id}
-                                    onChangeText={(event) => this.onhandleUserChange(event)}
-                                /> */}
 
-                                <TransactionTypePicker />
-                                <VehiclePicker />
-                                <AutoShopPicker />
-                                <UserPicker />
+                                <TransactionTypePicker
+                                    onHandleTransactionTypeChange={onHandleTransactionTypeChange}
+                                />
 
-                                
+                                <VehiclePicker
+                                    onHandleVehicleChange={onHandleVehicleChange}
+                                />
+
+                                <AutoShopPicker
+                                    onHandleAutoShopChange={onHandleAutoShopChange}
+                                />
+
+                                <UserPicker
+                                    onHandleUserChange={onHandleUserChange}
+                                />
+
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={(event) => this.onSubmit(event)}
+                                    onPress={(event) => onSubmit(event)}
                                 >
                                     <Text style={styles.textStyle}>Submit</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
+                                    onPress={() => setModalVisible(!modalVisible)}
                                 >
                                     <Text style={styles.textStyle}>Close </Text>
                                 </Pressable>
                             </View>
                         </View>
-                    )}
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Auto Transaction</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                    </ScrollView>
+                )}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Auto Transaction</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -287,3 +264,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
+
+export default AddAutoTrxModal;

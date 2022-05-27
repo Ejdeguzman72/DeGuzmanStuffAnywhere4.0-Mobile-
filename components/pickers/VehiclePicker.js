@@ -2,13 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 
-const VehiclePicker = () => {
+function VehiclePicker(props) {
     const [selectedValue, setSelectedValue] = useState('Choose a Vehicle')
     const [vehicles,setVehicles] = useState([])
-
-    const handleValueChange = (input) =>  {
-        setSelectedValue(input)
-    }
 
     useEffect(() => {
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/all')
@@ -20,6 +16,11 @@ const VehiclePicker = () => {
             })
     }, [])
 
+    const handleValueChange = (input) =>  {
+        props.onHandleVehicleChange(input)
+        console.log(input)
+    }
+
     return (
         <Picker
             selectedValue={selectedValue}
@@ -30,7 +31,7 @@ const VehiclePicker = () => {
             <Picker.Item label="Choose a Vehicle" value="Choose a Vehicle" />
             {vehicles && vehicles.map((vehicle,index) => {
                 return (
-                    <Picker.Item label={`${vehicle.year + ' ' +  vehicle.make + ' ' + vehicle.model}`} value={vehicle.vehicle_id} key={index} />
+                    <Picker.Item label={`${vehicle.year + ' ' +  vehicle.make + ' ' + vehicle.model}`} value={vehicle.vehicleId} key={index} />
                 )
             })}
         </Picker>

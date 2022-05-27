@@ -1,60 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable } from 'react-native';
 import { ImageBackground, StyleSheet, Text, View, Modal, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import GenresPicker from '../../pickers/GenresPicker';
 
-export default class AddMusicModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddMusicModal = () => {
+    
+    const [title, setTitle] = useState('');
+    const [artist, setArtist] = useState('');
+    const [genre, setGenre] = useState('');
+    const [submitted, setSubmitted] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
-        this.state = {
-            song_id: 0,
-            artist: "",
-            title: "",
-            genre: "",
-            modalVisible: false,
-            submitted: false
-        };
+    const newSong = () => {
+        setTitle('');
+        setArtist('');
+        setGenre('');
+        setSubmitted(false);
     }
 
-    newSong = () => {
-        this.setState({
-            artist: "",
-            title: "",
-            genre: "",
-            submitted: false
-        })
-    }
+    const onHandleTitleChange = (input) => { setTitle(input) }
 
-    setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
-    }
+    const onHandleArtistChange = (input) => { setArtist(input) }
 
-    onHandleArtistChange = (input) => {
-        this.setState({
-            artist: input
-        })
-    }
+    const onHandleGenreChange = (input) => { setGenre(input) }
 
-    onHandleTitleChange = (input) => {
-        this.setState({
-            title: input
-        })
-    }
-
-    onHandleGenreChange = (input) => {
-        this.setState({
-            genre: input
-        })
-    }
-
-    onSubmit = async (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
         const data = {
-            song_id: this.state.song_id,
-            artist: this.state.artist,
-            title: this.state.title,
-            genre: this.state.genre,
+            artist: artist,
+            title: title,
+            genre: genre,
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/music/add-song-information', {
@@ -63,14 +39,10 @@ export default class AddMusicModal extends React.Component {
             body: JSON.stringify(data)
         }).then(() => {
             console.log("Added new song information")
-            this.setState({
-                submitted: true
-            })
+            setSubmitted(true)
         }).catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
         return (
             <View >
                 <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image} >
@@ -79,23 +51,23 @@ export default class AddMusicModal extends React.Component {
                         transparent={true}
                         visible={modalVisible}
                         onRequestClose={() => {
-                            this.setModalVisible(!modalVisible);
+                            setModalVisible(!modalVisible);
                         }}
                     >
-                        {this.state.submitted ? (
+                        {submitted ? (
                             <View style={styles.addCenteredView}>
                                 <View style={styles.addModalView}>
                                     <Text style={styles.modalText}>Add Music</Text>
-                                    <Text>{this.state.title} has been submitted!</Text>
+                                    <Text>{title} has been submitted!</Text>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                        onPress={this.newSong}
+                                        onPress={newSong}
                                     >
                                         <Text style={styles.textStyle}>Add</Text>
                                     </Pressable>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                        onPress={() => this.setModalVisible(!modalVisible)}
+                                        onPress={() => setModalVisible(!modalVisible)}
                                     >
                                         <Text style={styles.textStyle}>Close </Text>
                                     </Pressable>
@@ -109,30 +81,28 @@ export default class AddMusicModal extends React.Component {
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Enter Title"
-                                        value={this.state.title}
-                                        onChangeText={(event) => this.onHandleTitleChange(event)}
+                                        value={title}
+                                        onChangeText={(event) => onHandleTitleChange(event)}
                                     />
+                                    
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Enter Artist"
-                                        value={this.state.artist}
-                                        onChangeText={(event) => this.onHandleArtistChange(event)}
+                                        value={artist}
+                                        onChangeText={(event) => onHandleArtistChange(event)}
                                     />
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Enter Genre"
-                                        value={this.state.genre}
-                                        onChangeText={(event) => this.onHandleGenreChange(event)}
-                                    />
+                                    
+                                    <GenresPicker />
+
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                        onPress={(event) => this.onSubmit(event)}
+                                        onPress={(event) => onSubmit(event)}
                                     >
                                         <Text style={styles.textStyle}>Submit</Text>
                                     </Pressable>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
-                                        onPress={() => this.setModalVisible(!modalVisible)}
+                                        onPress={() => setModalVisible(!modalVisible)}
                                     >
                                         <Text style={styles.textStyle}>Close </Text>
                                     </Pressable>
@@ -143,14 +113,14 @@ export default class AddMusicModal extends React.Component {
                     </Modal>
                     <Pressable
                         style={[styles.button, styles.buttonOpen]}
-                        onPress={() => this.setModalVisible(true)}
+                        onPress={() => setModalVisible(true)}
                     >
                         <Text style={styles.buttonText}>Add Music</Text>
                     </Pressable>
                 </ImageBackground>
             </View>
         )
-    }
+    
 }
 
 const styles = StyleSheet.create({
@@ -271,3 +241,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
+
+export default AddMusicModal;

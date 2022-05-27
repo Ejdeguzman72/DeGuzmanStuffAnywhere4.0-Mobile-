@@ -1,159 +1,209 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import RestaurantTypePicker from '../../pickers/RestaurantTypePicker';
+import { Picker } from "@react-native-picker/picker";
 
-export default class AddRestaurantModal extends React.Component {
-    constructor(props) {
-        super(props);
+const AddRestaurantModal = ({ props }) => {
 
-        this.state = {
-            restaurant_id: 0,
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: "",
-            restaurant_type_id: 0,
-            submitted: false,
-            modalVisible: false
-        }
+    const [modalVisible, setModalVisible] = useState(false)
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
+    const [restaurant_type_id, setRestaurantTypeId] = useState(0)
+    const [submitted, setSubmitted] = useState(false)
+
+    const newRestaurant = () => {
+        setName('');
+        setAddress('');
+        setCity('');
+        setState('');
+        setZip('');
+        setRestaurantTypeId(0)
+        setSubmitted(false)
     }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible })}
-    newRestaurant = () => { this.setState({ name: "", address: "", city: "", state: "", zip: "", restaurant_type_id: 0 })}
-    onHandleNameChange = (input) => { this.setState({ name: input }) }
-    onHandleAddressChange = (input) => { this.setState({ address: input }) }
-    onHandleCityChange = (input) => { this.setState({ city: input }) }
-    onHandleStateChange = (input) => { this.setState({ state: input }) }
-    onHandleZipChange = (input) => { this.setState({ zip: input }) }
-    onHandleRestaurantTypeChange = (input) => { this.setState({ restaurant_type_id: input }) }
+    const onHandleNameChange = (input) => { setName(input) }
+    const onHandleAddressChange = (input) => { setAddress(input) }
+    const onHandleCityChange = (input) => { setCity(input) }
+    const onHandleStateChange = (input) => { setState(input) }
+    const onHandleZipChange = (input) => { setZip(input) }
 
-    onHandleRestaurantType = (restaurant_type_id) => {
-        this.setState({
-            restaurant_type_id:restaurant_type_id
-        })
+    const onHandleRestaurantType = (restaurant_type_id) => {
+        setRestaurantTypeId(restaurant_type_id)
     }
 
-    onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            name: this.state.name,
-            address: this.state.address,
-            city: this.state.city,
-            state: this.state.state,
-            zip: this.state.zip,
-            restaurant_type_id: this.state.restaurant_type_id
+            name: name,
+            address: address,
+            city: city,
+            state: state,
+            zip: zip,
+            restaurant_type_id: restaurant_type_id
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/restaurants/add-restaurant-information', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
-        }).then(() => this.setState({ submitted: true})).catch((error) => console.log(error))
+        }).then(() => setSubmitted(true))
+            .catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Restaurant</Text>
-                                <Text>{this.state.name} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newRestaurant}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Restaurant</Text>
+                            <Text>{name} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newRestaurant}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
+                    </View>
+                ) : (
+                    <ScrollView>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Add Restaurant</Text>
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Address"
-                                    value={this.state.address}
-                                    onChangeText={(event) => this.onHandleNameChange(event)}
+                                    placeholder="Name"
+                                    value={name}
+                                    onChangeText={(event) => onHandleNameChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Address"
-                                    value={this.state.author}
-                                    onChangeText={(event) => this.onHandleAddressChange(event)}
+                                    value={address}
+                                    onChangeText={(event) => onHandleAddressChange(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="City"
-                                    value={this.state.city}
-                                    onChangeText={(event) => this.onHandleCityChange(event)}
+                                    value={city}
+                                    onChangeText={(event) => onHandleCityChange(event)}
                                     multiline={true}
                                     numberOfLines={4}
                                 />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="State"
-                                    value={this.state.state}
-                                    onChangeText={(event) => this.onHandleStateChange(event)}
-                                />
+                                <Picker
+                                    selectedValue={state}
+                                    onValueChange={(event) => onHandleStateChange(event)}
+                                    mode="dropdown"
+                                    style={styles.picker}
+                                >
+                                    <Picker.Item value="Alabama" label="Alabama" />
+                                    <Picker.Item value="Alaska" label="Alaska" />
+                                    <Picker.Item value="Arizona" label="Arizona" />
+                                    <Picker.Item value="Arkansas" label="Arkansas" />
+                                    <Picker.Item value="California" label="California" />
+                                    <Picker.Item value="Colorado" label="Colorado" />
+                                    <Picker.Item value="Conneticut" label="Conneticut" />
+                                    <Picker.Item value="Delaware" label="Delaware" />
+                                    <Picker.Item value="Florida" label="Florida" />
+                                    <Picker.Item value="Georgia" label="Georgia" />
+                                    <Picker.Item value="Hawaii" label="Hawaii" />
+                                    <Picker.Item value="Idaho" label="Idaho" />
+                                    <Picker.Item value="Illinois" label="Illinois" />
+                                    <Picker.Item value="Indiana" label="Indiana" />
+                                    <Picker.Item value="Iowa" label="Iowa" />
+                                    <Picker.Item value="Kansas" label="Kansas" />
+                                    <Picker.Item value="Kentucky" label="Kentucky" />
+                                    <Picker.Item value="Louisiana" label="Louisiana" />
+                                    <Picker.Item value="Maine" label="Maine" />
+                                    <Picker.Item value="Maryland" label="Maryland" />
+                                    <Picker.Item value="Massachussetts" label="Massachussetts" />
+                                    <Picker.Item value="Michigan" label="Michigan" />
+                                    <Picker.Item value="Minnesota" label="Minnesota" />
+                                    <Picker.Item value="Mississippi" label="Mississippi" />
+                                    <Picker.Item value="Missouri" label="Missouri" />
+                                    <Picker.Item value="Montana" label="Montana" />
+                                    <Picker.Item value="Nebraska" label="Nebraska" />
+                                    <Picker.Item value="Nevaada" label="Nevada" />
+                                    <Picker.Item value="New Hampshire" label="New Hampshire" />
+                                    <Picker.Item value="New Jersey" label="New Jersey" />
+                                    <Picker.Item value="New Mexico" label="New Mexico" />
+                                    <Picker.Item value="New York" label="New York" />
+                                    <Picker.Item value="North Carolina" label="North Carolina" />
+                                    <Picker.Item value="North Dakota" label="North Dakota" />
+                                    <Picker.Item value="Ohio" label="Ohio" />
+                                    <Picker.Item value="Oklahoma" label="Oklahoma" />
+                                    <Picker.Item value="Oregon" label="Oregon" />
+                                    <Picker.Item value="Pennsylvania" label="Pennsylvania" />
+                                    <Picker.Item value="Rhode Island" label="Rhode Island" />
+                                    <Picker.Item value="South Carolina" label="South Carolina" />
+                                    <Picker.Item value="South Dakota" label="South Dakota" />
+                                    <Picker.Item value="Tennessee" label="Tennessee" />
+                                    <Picker.Item value="Texas" label="Texas" />
+                                    <Picker.Item value="Utah" label="Utah" />
+                                    <Picker.Item value="Vermont" label="Vermont" />
+                                    <Picker.Item value="Virginia" label="Virginia" />
+                                    <Picker.Item value="Washington" label="Washington" />
+                                    <Picker.Item value="West Virginia" label="West Virginia" />
+                                    <Picker.Item value="Wisconsin" label="Wisconsin" />
+                                    <Picker.Item value="Wyoming" label="Wyoming" />
+                                </Picker>
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Zip"
-                                    value={this.state.zip}
-                                    onChangeText={(event) => this.onHandleZipChange(event)}
+                                    value={zip}
+                                    keyboardType='number-pad'
+                                    onChangeText={(event) => onHandleZipChange(event)}
                                 />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Restaurant Type ID"
-                                    value={this.state.restaurant_type_id}
-                                    onChangeText={(event) => this.onHandleRestaurantTypeChange(event)}
+
+                                <RestaurantTypePicker
+                                    onHandleRestaurantType={onHandleRestaurantType}
                                 />
-                                <RestaurantTypePicker />
+
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={(event) => this.onSubmit(event)}
+                                    onPress={(event) => onSubmit(event)}
                                 >
                                     <Text style={styles.textStyle}>Submit</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
+                                    onPress={() => setModalVisible(!modalVisible)}
                                 >
                                     <Text style={styles.textStyle}>Close </Text>
                                 </Pressable>
                             </View>
                         </View>
-                    )}
+                    </ScrollView>
+                )}
 
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Restaurant</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Restaurant</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
 
 }
 
@@ -271,4 +321,13 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#666",
+    }
 });
+
+export default AddRestaurantModal;

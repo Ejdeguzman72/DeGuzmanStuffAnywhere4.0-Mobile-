@@ -68,11 +68,13 @@ function Root() {
           }}>
             <Drawer.Screen name="Home" component={HomeScreen} screenOptions={{ headerShown: false, tabBarIconStyle: false }}/>
             <Drawer.Screen name="Books" component={BookScreen} />
-            <Drawer.Screen name="Finances" component={FinanceScreen} />
-            <Drawer.Screen name="Music" component={MusicScreen} />
-            <Drawer.Screen name="Restaurants" component={RestaurantScreen} />
             <Drawer.Screen name="Contacts" component={ContactInfoScreen} />
+            <Drawer.Screen name="Finances" component={FinanceScreen} />
+            <Drawer.Screen name="Gym Tracker" component={GymTrackerScreen} />
+            <Drawer.Screen name="Music" component={MusicScreen} />
             <Drawer.Screen name="Recipes" component={RecipeScreen} />    
+            <Drawer.Screen name="Restaurants" component={RestaurantScreen} />
+            <Drawer.Screen name="Run Tracker" component={RunTrackerScreen} />
         </Drawer.Navigator>
     )
 }

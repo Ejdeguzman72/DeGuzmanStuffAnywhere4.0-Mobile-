@@ -1,140 +1,169 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
+import ExerciseTypePicker from "../../pickers/ExerciseTypePicker";
+import UserPicker from "../../pickers/UserPicker";
 
-export default class AddGymEntryModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddGymEntryModal = () => {
 
-        this.state = {
-            exercise_id: 0,
-            date: "",
-            exerciseName: "",
-            sets: 0,
-            reps: 0,
-            weight: 0,
-            exercise_type_id: 0,
-            user_id: 0,
-            submitted: false,
-            modalVisible: false
+    const [modalVisible, setModalVisible] = useState(false);
+    const [exerciseName, setExerciseName] = useState('');
+    const [date, setDate] = useState('');
+    const [sets, setSets] = useState(0);
+    const [reps, setReps] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [exercise_type_id, setExerciseType] = useState(0);
+    const [user_id, setUser] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
+
+    const newEntry = () => {
+        setExerciseName('');
+        setDate('');
+        setSets('');
+        setReps('');
+        setWeight('');
+        setWeight('');
+        setExerciseType('');
+        setUser('');
+        setSubmitted(false);
+    }
+
+    const onHandleExerciseNameChange = (input) => { setExerciseName(input) }
+    const onHandleSetsChange = (input) => { setSets(input) }
+    const onHandleRepsChange = (input) => { setReps(input) }
+    const onHandleWeightChange = (input) => { setWeight(input) }
+    const onHandleDateChange = (input) => { setDate(input) }
+
+    const onHandleExerciseTypeChange = (exercise_type_id) => { setExerciseType(exercise_type_id) }
+
+    const onHandleUserChange = (user_id) => { setUser(user_id) }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+
+        data = {
+            exerciseName: exerciseName,
+            date: date,
+            sets: sets,
+            reps: reps,
+            weight: weight,
+            exercise_type_id: exercise_type_id,
+            user_id: user_id,
         }
+
+        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/gym-tracker/add-exercise-information', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(() => {
+            setSubmitted(true)
+        }).catch((error) => console.log(error))
     }
 
-    newEntry = () => {
-        this.setState({
-            exercise_id: 0,
-            exerciseName: "",
-            date:"",
-            sets: 0,
-            reps: 0,
-            weight: 0,
-            exercise_type_id: 0,
-            user_id: 0,
-            submitted: false,
-
-        })
-    }
-
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible })}
-    onHandleExerciseNameChange = (input) => { this.setState({ exerciseName: input })}
-    onHandleSetsChange = (input) => { this.setState({ sets: input })}
-    onHandleRepsChange = (input) => { this.setState({ reps: input })}
-    onHandleWeightChange = (input) => { this.setState({ weight: input })}
-    onHandleDateChange = (input) => { this.setState({ date: input })}
-    onHandleExerciseTypeChange = (input) => { this.setState({ exercise_type_id: input })}
-    onHandleUserChange = (input) => { this.setState({ user_id: input })}
-
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
                             <Text style={styles.modalText}>Add Gym Entry</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Exercise Name"
-                            value={this.state.exerciseName}
-                            onChangeText={(event) => this.onHandleExerciseNameChange(event)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Sets"
-                            value={this.state.sets}
-                            onChangeText={(event) => this.onHandleSetsChange(event)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Reps"
-                                value={this.state.reps}
-                                onChangeText={(event) => this.onHandleRepsChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Weight"
-                                value={this.state.weight}
-                                onChangeText={(event) => this.onHandleWeightChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Date"
-                                value={this.state.date}
-                                onChangeText={(event) => this.onHandleDateChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Exercise Type ID"
-                                value={this.state.exercise_type_id}
-                                onChangeText={(event) => this.onHandleExerciseTypeChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="User ID"
-                                value={this.state.user_id}
-                                onChangeText={(event) => this.onHandleUserChange(event)}
-                                multiline={true}
-                                numberOfLines={4}
-                            />
+                            <Text>{exerciseName} has been submitted!</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
-                                onPress={(event) => this.onSubmit(event)}
+                                onPress={newEntry}
                             >
-                                <Text style={styles.textStyle}>Submit</Text>
+                                <Text style={styles.textStyle}>Add</Text>
                             </Pressable>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
-                                onPress={() => this.setModalVisible(!modalVisible)}
+                                onPress={() => setModalVisible(!modalVisible)}
                             >
                                 <Text style={styles.textStyle}>Close </Text>
                             </Pressable>
                         </View>
                     </View>
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Gym Entry</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                ) : (
+                    <ScrollView>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.modalText}>Add Gym Entry</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Exercise Name"
+                                    value={exerciseName}
+                                    onChangeText={(event) => onHandleExerciseNameChange(event)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Sets"
+                                    value={sets}
+                                    onChangeText={(event) => onHandleSetsChange(event)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Reps"
+                                    value={reps}
+                                    onChangeText={(event) => onHandleRepsChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Weight"
+                                    value={weight}
+                                    onChangeText={(event) => onHandleWeightChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Date"
+                                    value={date}
+                                    onChangeText={(event) => onHandleDateChange(event)}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                />
+
+                                <ExerciseTypePicker
+                                    onHandleExerciseTypeChange={onHandleExerciseTypeChange}
+                                />
+
+                                <UserPicker
+                                    onHandleUserChange={onHandleUserChange}
+                                />
+
+                                <Pressable
+                                    style={[styles.modalButton, styles.buttonClose]}
+                                    onPress={(event) => onSubmit(event)}
+                                >
+                                    <Text style={styles.textStyle}>Submit</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={[styles.modalButton, styles.buttonClose]}
+                                    onPress={() => setModalVisible(!modalVisible)}
+                                >
+                                    <Text style={styles.textStyle}>Close </Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </ScrollView>
+                )
+                }
+            </Modal >
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Gym Entry</Text>
+            </TouchableOpacity>
+        </View >
+    );
 };
 
 const styles = StyleSheet.create({
@@ -252,3 +281,5 @@ const styles = StyleSheet.create({
         margin: 10
     },
 });
+
+export default AddGymEntryModal;

@@ -1,163 +1,159 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
-export default class AddVehicleModal extends React.Component {
-    constructor(props) {
-        super(props)
+const AddVehicleModal = () => {
 
-        this.state = {
-            vehicle_id: 0,
-            year: "",
-            make: "",
-            model: "",
-            transmission: "",
-            capacity: 0,
-            submitted: false,
-            modalVisible: false
-        }
+    const [modalVisible, setModalVisible] = useState(false)
+    const [make, setMake] = useState('')
+    const [model, setModel] = useState('');
+    const [year, setYear] = useState('');
+    const [transmission, setTransmission] = useState('Select Transmission')
+    const [capacity, setCapacity] = useState('Select Capacity');
+    const [submitted, setSubmitted] = useState(false);
+
+    const newVehcle = () => {
+        setMake('');
+        setModel('');
+        setYear('');
+        setTransmission('');
+        setCapacity('');
+        setSubmitted(false);
     }
 
-    newVehcle = () => {
-        this.setState({
-            make: "",
-            model: "",
-            year: "",
-            transmission: "",
-            capacity: 0,
-            submitted: false,
-        })
-    }
+    const onHandleMakeChage = (input) => { setMake(input) }
+    const onHandleModelChange = (input) => { setModel(input) }
+    const onHandleYearChange = (input) => { setYear(input) }
+    const onHandleTransmissionChange = (input) => { setTransmission(input) }
+    const onHandleCapacityChange = (input) => { setCapacity(input) }
 
-    setModalVisible = (visible) => { this.setState({ modalVisible: visible }) }
-    onHandleMakeChage = (input) => { this.setState({ make: input }) }
-    onHandleModelChange = (input) => { this.setState({ model: input }) }
-    onHandleYearChange = (input) => { this.setState({ year: input }) }
-    onHandleTransmissionChange = (input) => { this.setState({ transmission: input }) }
-    onHandleCapacityChange = (input) => { this.setState({ capacity: input }) }
-
-    onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            make: this.state.make,
-            model: this.state.model,
-            year: this.state.year,
-            transmission: this.state.transmission,
-            capacity: this.state.capacity
+            make: make,
+            model: model,
+            year: year,
+            transmission: transmission,
+            capacity: capacity
         }
 
         fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/add-vehicle-information', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(() => {
             console.log("Added new vehicle information")
-            this.setState({
-                submitted: true
-            })
+            setSubmitted(true)
         })
-        .catch((error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 
-    render() {
-        const { modalVisible } = this.state
-        return (
-            <View style={styles.view}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
-                >
-                    {this.state.submitted ? (
-                        <View style={styles.addCenteredView}>
-                            <View style={styles.addModalView}>
-                                <Text style={styles.modalText}>Add Music</Text>
-                                <Text>{this.state.title} has been submitted!</Text>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={this.newSong}
-                                >
-                                    <Text style={styles.textStyle}>Add</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
-                                >
-                                    <Text style={styles.textStyle}>Close </Text>
-                                </Pressable>
-                            </View>
+    return (
+        <View style={styles.view}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                {submitted ? (
+                    <View style={styles.addCenteredView}>
+                        <View style={styles.addModalView}>
+                            <Text style={styles.modalText}>Add Vehicle</Text>
+                            <Text>{`${year} ${make} ${model}`} has been submitted!</Text>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={newVehcle}
+                            >
+                                <Text style={styles.textStyle}>Add</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.modalButton, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Text style={styles.textStyle}>Close </Text>
+                            </Pressable>
                         </View>
-                    ) : (
+                    </View>
+                ) : (
+                    <ScollView>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Add Vehicle</Text>
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Manufacturer"
-                                    value={this.state.make}
-                                    onChangeText={(event) => this.onHandleMakeChage(event)}
+                                    value={make}
+                                    onChangeText={(event) => onHandleMakeChage(event)}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Model"
-                                    value={this.state.model}
-                                    onChangeText={(event) => this.onHandleModelChange(event)}
+                                    value={model}
+                                    onChangeText={(event) => onHandleModelChange(event)}
                                     multiline={true}
                                     numberOfLines={4}
                                 />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Year"
-                                    value={this.state.year}
-                                    onChangeText={(event) => this.onHandleYearChange(event)}
+                                    value={year}
+                                    onChangeText={(event) => onHandleYearChange(event)}
                                     multiline={true}
                                     numberOfLines={4}
                                 />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Capacity"
-                                    value={this.state.capacity}
-                                    onChangeText={(event) => this.onHandleCapacityChange(event)}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Transmission"
-                                    value={this.state.transmission}
-                                    onChangeText={(event) => this.onHandleTransmissionChange(event)}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                />
+                                <Picker
+                                    selectedValue={capacity}
+                                    onValueChange={(event) => onHandleCapacityChange(event)}
+                                    mode="dropdown"
+                                    style={styles.picker}
+                                >
+                                    <Picker.Item value="" label="Choose Capacity" />
+                                    <Picker.Item value="1" label="1" />
+                                    <Picker.Item value="2" label="2" />
+                                    <Picker.Item value="4" label="4" />
+                                    <Picker.Item value="6" label="6" />
+                                    <Picker.Item value="8" label="8" />
+                                </Picker>
+                                <Picker
+                                    selectedValue={capacity}
+                                    onValueChange={(event) => onHandleTransmissionChange(event)}
+                                    mode="dropdown"
+                                    style={styles.picker}
+                                >
+                                    <Picker.Item value="" label="Select Transmission" />
+                                    <Picker.Item value="Automatic" label="Automatic" />
+                                    <Picker.Item value="Manual" label="Manual" />
+                                </Picker>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={(event) => this.onSubmit(event)}
+                                    onPress={(event) => onSubmit(event)}
                                 >
                                     <Text style={styles.textStyle}>Submit</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
-                                    onPress={() => this.setModalVisible(!modalVisible)}
+                                    onPress={() => setModalVisible(!modalVisible)}
                                 >
                                     <Text style={styles.textStyle}>Close </Text>
                                 </Pressable>
                             </View>
                         </View>
-                    )}
-                </Modal>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.setModalVisible(true)}
-                >
-                    <Text style={styles.buttonText}>Add Vehicle Information</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+                    </ScollView>
+                )}
+            </Modal>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => setModalVisible(true)}
+            >
+                <Text style={styles.buttonText}>Add Vehicle Information</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -273,4 +269,13 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10
     },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#666",
+    }
 });
+
+export default AddVehicleModal;

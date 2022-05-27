@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 
-function UserPicker() {
+function UserPicker(props) {
   const [users, setUsers] = useState([]);
 
 
@@ -16,16 +16,14 @@ function UserPicker() {
       })
   }, [])
 
-  console.log(users + ' this is users')
-
-  const onHandleUserChange = (input) => {
-    setUsers(input)
+  const handleValueChange = (input) => {
+    props.onHandleUserChange(input)
   }
 
   return (
     <Picker
       selectedValue={users}
-      onValueChange={onHandleUserChange}
+      onValueChange={handleValueChange}
       mode="dropdown"
       style={styles.picker}
     >

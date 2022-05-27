@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-function MedicalOfficePicker() {
+function MedicalOfficePicker(props) {
     const [selectedValue,setSelectedValue] = useState('')
     const [offices,setOffices] = useState([])
 
     const handleValueChange = (input) => {
-        setSelectedValue(input)
+        props.onHandleOfficeChange(input)
     }
 
     useEffect(() => {
@@ -20,8 +20,6 @@ function MedicalOfficePicker() {
             })
     }, [])
 
-    console.log(offices)
-
     return (
         <Picker 
             selectedValue={selectedValue}
@@ -32,7 +30,7 @@ function MedicalOfficePicker() {
             <Picker.Item value="Select Medical Office" label="Select Medical Office" />
             {offices && offices.map((office,index) => {
                 return (
-                    <Picker.Item label={office.name} value={office.medicalOfficeId} index={index} />
+                    <Picker.Item label={office.name} value={office.medicalOfficeId} key={index} />
                 )
             })}
         </Picker>

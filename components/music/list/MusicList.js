@@ -21,8 +21,6 @@ const MusicList = () => {
             .catch((error) => console.log(error))
     }, [])
 
-    console.log(music);
-
     return (
         <ScrollView>
             <View style={styles.table}>
@@ -49,7 +47,7 @@ const MusicList = () => {
                                         <Text>Title:</Text><Text>{currentMusic.title}</Text>
                                     </View>
                                     <View style={styles.indexText}>
-                                        <Text>AutoTrxList:</Text><Text>{currentMusic.artist}</Text>
+                                        <Text>Artist:</Text><Text>{currentMusic.artist}</Text>
                                     </View>
                                     <View style={styles.indexText}>
                                         <Text>Genre:</Text><Text>{currentMusic.genre}</Text>
