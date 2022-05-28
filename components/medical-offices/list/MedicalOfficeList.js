@@ -30,7 +30,7 @@ const MedicalOfficeList = () => {
                 {offices &&
                     offices.map((office, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveOffice(office, index)}>
-                            <Text>{`${office.name}`}</Text>
+                            <Text>{`Office Name: ${office.name}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -88,7 +88,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -157,7 +159,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

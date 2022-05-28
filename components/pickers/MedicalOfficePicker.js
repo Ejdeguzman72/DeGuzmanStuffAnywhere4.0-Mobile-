@@ -8,6 +8,7 @@ function MedicalOfficePicker(props) {
 
     const handleValueChange = (input) => {
         props.onHandleOfficeChange(input)
+        setSelectedValue(input)
     }
 
     useEffect(() => {

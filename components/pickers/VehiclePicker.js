@@ -18,7 +18,7 @@ function VehiclePicker(props) {
 
     const handleValueChange = (input) =>  {
         props.onHandleVehicleChange(input)
-        console.log(input)
+        setSelectedValue(input)
     }
 
     return (
@@ -33,7 +33,7 @@ function VehiclePicker(props) {
                 return (
                     <Picker.Item label={`${vehicle.year + ' ' +  vehicle.make + ' ' + vehicle.model}`} value={vehicle.vehicleId} key={index} />
                 )
-            })}
+            })}  
         </Picker>
     )
 }

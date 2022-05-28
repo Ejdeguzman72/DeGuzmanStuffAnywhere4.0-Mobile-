@@ -27,8 +27,8 @@ const BookList = () => {
                 {books &&
                     books.map((book, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveBook(book, index)}>
-                            <Text>{`${book.title} ${book.author}`}</Text>
-                            <Text note>{`${book.descr}`}</Text>
+                            <Text>{`Title: ${book.title}`}</Text>
+                            <Text>{`Author: ${book.author}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -149,7 +151,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

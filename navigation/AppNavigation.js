@@ -66,7 +66,7 @@ function Root() {
             activeBackgroundColor: '#68f', /* bg color for active screen */
             inactiveTintColor: 'white', /* Font color for inactive screens' labels */
           }}>
-            <Drawer.Screen name="Home" component={HomeScreen} screenOptions={{ headerShown: false, tabBarIconStyle: false }}/>
+            <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="Books" component={BookScreen} />
             <Drawer.Screen name="Contacts" component={ContactInfoScreen} />
             <Drawer.Screen name="Finances" component={FinanceScreen} />
@@ -82,7 +82,7 @@ function Root() {
 function BottomTabNavigator() {
     return (
         <Tab.Navigator>
-            <Stack.Screen name="Home" component={Root} options={{ headerShown: false, tabBarIconStyle: false }} />
+            <Stack.Screen name="Home" component={Root} options={{ headerShown: false, tabBarIconStyle: false, tabBarIconStyle: {display: "none"} }} />
             <Tab.Screen name="Details" component={DetailsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
             <Tab.Screen name="Social Media" component={SocialMediaScreen} options={{ tabBarIconStyle: { display: "none" }} } />
             <Tab.Screen name="Settings" component={SettingsScreen} options={{ tabBarIconStyle: { display: "none" }} } />

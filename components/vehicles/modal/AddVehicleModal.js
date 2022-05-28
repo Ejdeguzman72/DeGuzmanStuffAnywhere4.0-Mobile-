@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 const AddVehicleModal = () => {
@@ -80,7 +80,7 @@ const AddVehicleModal = () => {
                         </View>
                     </View>
                 ) : (
-                    <ScollView>
+                    <ScrollView>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Add Vehicle</Text>
@@ -143,7 +143,7 @@ const AddVehicleModal = () => {
                                 </Pressable>
                             </View>
                         </View>
-                    </ScollView>
+                    </ScrollView>
                 )}
             </Modal>
             <TouchableOpacity

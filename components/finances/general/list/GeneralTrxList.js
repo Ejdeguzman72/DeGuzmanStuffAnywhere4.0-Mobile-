@@ -27,7 +27,8 @@ const GeneralTrxList = () => {
                 {transactions &&
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction,index)}>
-                            <Text>{`${transaction.amount} ${transaction.payment_date}`}</Text>
+                            <Text>{`Amount: ${transaction.amount}`}</Text>
+                            <Text>{`Date: ${transaction.payment_date}`}</Text>
                         </TouchableOpacity>
                     ))}
                 {/* <Divider /> */}
@@ -36,7 +37,7 @@ const GeneralTrxList = () => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Transaction Information</Text>
                         <View style={styles.indexText}>
-                            <Text>Amouunt:</Text><Text>{currentTransaction.amount}</Text>
+                            <Text>Amount:</Text><Text>{currentTransaction.amount}</Text>
                         </View>
                         <View style={styles.indexText}>
                             <Text>Payment Date:</Text><Text>{currentTransaction.payment_date}</Text>
@@ -76,7 +77,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -145,8 +148,10 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
-});
+})
 
 export default GeneralTrxList;

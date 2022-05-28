@@ -18,6 +18,7 @@ function ExerciseTypePicker(props) {
 
     const handleValueChange = (input) => {
         props.onHandleExerciseTypeChange(input)
+        setSelectedValue(input)
     }
 
     return (

@@ -27,8 +27,8 @@ const AutoTrxList = () => {
                 {transactions &&
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction,index)}>
-                            <Text>{`${transaction.amount} ${transaction.auto_transaction_date}`}</Text>
-                            <Text note>{`${transaction.username}`}</Text>
+                            <Text>{`Amount: ${transaction.amount} `}</Text>
+                            <Text note>{`Date: ${transaction.auto_transaction_date}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -51,6 +51,12 @@ const AutoTrxList = () => {
                                 </View>
                                 <View style={styles.indexText}>
                                     <Text>Auto Shop Name:</Text><Text>{currentTransaction.auto_shop_name}</Text>
+                                </View>
+                                <View style={styles.indexText}>
+                                    <Text>Vehicle:</Text><Text>{`${currentTransaction.year} ${currentTransaction.make} ${currentTransaction.model}`}</Text>
+                                </View>
+                                <View style={styles.indexText}>
+                                    <Text>Transaction Type:</Text><Text>{`${currentTransaction.transaction_type_descr}`}</Text>
                                 </View>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
@@ -80,7 +86,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -149,7 +157,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

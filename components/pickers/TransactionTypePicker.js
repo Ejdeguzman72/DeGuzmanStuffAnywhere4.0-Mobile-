@@ -18,6 +18,7 @@ function TransactionTypePicker(props) {
 
     const handleValueChange = (input) => {
         props.onHandleTransactionTypeChange(input)
+        setSelectedValue(input)
     }
 
     return (

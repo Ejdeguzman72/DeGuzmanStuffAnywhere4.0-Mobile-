@@ -14,7 +14,7 @@ const BlogList = () => {
             .then((json) => setBlogs(json))
             .catch((error) => console.log(error))
     }, [])
-
+    
     const setActiveBlog = (blog, index) => {
         setCurrentBlog(blog);
         setCurrentIndex(index)
@@ -26,7 +26,7 @@ const BlogList = () => {
             <View style={styles.table}>
                 {blogs &&
                     blogs.map((blog, index) => (
-                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setBlogs(blog,index)}>
+                        <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveBlog(blog,index)}>
                             <Text>{`${blog.content}`}</Text>
                         </TouchableOpacity>
                     ))}
@@ -43,13 +43,13 @@ const BlogList = () => {
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Post Information</Text>
                                 <View style={styles.indexText}>
-                                    <Text>Name:</Text><Text>{blog.username}</Text>
+                                    <Text>Name:</Text><Text>{currentBlog.username}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Date:</Text><Text>{blog.createdDate}</Text>
+                                    <Text>Date:</Text><Text>{currentBlog.createdDate}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Content:</Text><Text>{blog.content}</Text>
+                                    <Text>Content:</Text><Text>{currentBlog.content}</Text>
                                 </View>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -148,7 +150,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

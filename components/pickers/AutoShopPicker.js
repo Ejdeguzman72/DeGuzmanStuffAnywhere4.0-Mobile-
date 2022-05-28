@@ -22,6 +22,7 @@ function AutoShopPicker(props) {
 
     const handleValueChange = (input) => {
         props.onHandleAutoShopChange(input)
+        setSelectedValue(input)
     }
 
     const renderAutoShopList = () => {
@@ -29,8 +30,6 @@ function AutoShopPicker(props) {
             return <Picker.Item label={autoshop.autoShopName} value={autoshop.auto_shop_id} />
         })
     }
-
-    console.log(autoshops)
 
     return (
         <View>

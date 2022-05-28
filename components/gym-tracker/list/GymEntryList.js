@@ -8,7 +8,7 @@ const GymEntryList = () => {
     const [currentIndex,setCurrentIndex] = useState(-1);
     const [modalVisible, setModalVisible] = useState(!modalVisible)
 
-    setActiveEntry = (entry, index) => {
+    const setActiveEntry = (entry, index) => {
         setCurrentEntry(entry)
         setCurrentIndex(index)
         setModalVisible(!modalVisible)
@@ -27,8 +27,7 @@ const GymEntryList = () => {
                 {entries &&
                     entries.map((entry, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveEntry(entry, index)}>
-                            <Text>{`${entry.sets} ${entry.reps} ${entry.exerciseName}`}</Text>
-                            <Text note>{`${entry.username}`}</Text>
+                            <Text>{`Exericise: ${entry.exerciseName} - ${entry.sets} x ${entry.reps}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -86,7 +85,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -112,7 +113,6 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
-        fontSize: 30,
         backgroundColor: "white",
         borderRadius: 20,
         borderWidth: 5,
@@ -153,11 +153,13 @@ const styles = StyleSheet.create({
         height: 100,
         backgroundColor: 'white',
         textAlign: 'center',
-        fontSize: 45,
+        fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
-})
+});
 
 export default GymEntryList;

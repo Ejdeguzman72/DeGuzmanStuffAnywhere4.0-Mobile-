@@ -27,8 +27,8 @@ const RunEntryList = () => {
                 {entries &&
                     entries.map((entry, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveEntry(entry, index)}>
-                            <Text>{`${entry.run_time} ${entry.run_distance} ${entry.run_date}`}</Text>
-                            <Text note>{`${entry.username}`}</Text>
+                            <Text>{`Time: ${entry.run_time} | Distance: ${entry.run_distance}`}</Text>
+                            <Text note>{`Date: ${entry.run_date}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -83,7 +83,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -152,7 +154,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

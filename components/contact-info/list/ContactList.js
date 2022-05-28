@@ -44,10 +44,10 @@ const ContactList = () => {
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Contact Information</Text>
                                 <View style={styles.indexText}>
-                                    <Text>Name:</Text><Text>{currentContact.firstname + ' ' + currentContact.middle_initial + ' ' + currentContact.lastname}</Text>
+                                    <Text>Name:</Text><Text>{currentContact.firstname + ' ' + currentContact.lastname}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Address:</Text><Text>{currentContact.address01 + ' ' + currentContact.address02 + ' ' + currentContact.city + ' ' + currentContact.state + ' ' + currentContact.zip}</Text>
+                                    <Text>Address:</Text><Text>{currentContact.address01 + ', ' + currentContact.city + ' ' + currentContact.state + ' ' + currentContact.zipcode}</Text>
                                 </View>
                                 <View style={styles.indexText}>
                                     <Text>Birthdate:</Text><Text>{currentContact.birthdate}</Text>
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,
@@ -155,7 +157,9 @@ const styles = StyleSheet.create({
         fontSize: 35,
         width: 300,
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
 })
 

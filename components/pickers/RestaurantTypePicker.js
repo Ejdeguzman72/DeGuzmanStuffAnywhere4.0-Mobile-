@@ -18,11 +18,12 @@ function RestaurantTypeDropDown(props) {
 
     const handleValueChange = (input) => {
         props.onHandleRestaurantType(input)
+        setSelectedValue(input);
     }
 
     return (
         <Picker
-            selectedValue={types}
+            selectedValue={selectedValue}
             onValueChange={handleValueChange}
             mode="dropdown"
             style={styles.picker}
