@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Alert, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Title from '../title/Title';
 import deviceStorage from '../../helper/DeviceStorage';
@@ -10,33 +10,36 @@ export default function LoginComponent({ navigation }) {
 
     const jwt = jwtHelper();
     const token = "DeGuzmanStuffAnywhere_Mobile_Token";
-    const [username, setUsername] = useState("global");
-    const [password, setPassword] = useState("global");
+    const [username, setUsername] = useState("ejdeguzman72");
+    const [password, setPassword] = useState("Fighter63!");
     const [submitted, setSubmitted] = useState(false);
     const [authorized, setAuthorized] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
-    onHandleUsernameChange = (input) => {
-        setUsername(input)
+    const onHandleUsernameChange = (input) => {
+        setUsername(input.nativeEvent.text);
     }
 
-    onHandlePasswordChange = (input) => {
-        setPassword(input)
+    const onHandlePasswordChange = (input) => {
+        setPassword(input.nativeEvent.text);
     }
 
     const onSubmit = () => {
-        Axios.post('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/api/auth/signin', {
+        Axios.post('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/api/auth/signin', {
             username: username,
             password: password
         }).then((response) => {
             deviceStorage.saveKey(token, response.data.token);
             if (jwt) {
-                Alert.alert(`${username}: you have logged in`)
-                navigation.navigate('Root Tab')
+                Alert.alert(`${username}: you have logged in`);
+                navigation.navigate('Root Tab');
             } else {
-                Alert.alert('Invalid Credentials')
+                Alert.alert('Invalid Credentials');
             }
-        }).catch((error) => console.log(error))
+        }).catch((error) => {
+            console.log(error);
+            Alert.alert(error.message); // Use error.message to display the error message
+        });
     }
 
     return (
@@ -78,7 +81,7 @@ export default function LoginComponent({ navigation }) {
                 </Pressable> */}
             </ImageBackground>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -92,16 +95,15 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: "black",
         justifyContent: 'center',
-        textAlign: 'center'
+        alignItems: 'center' // Use alignItems to center content horizontally
     },
     modalButton: {
         borderRadius: 20,
         padding: 10,
         margin: 10,
         fontSize: 20,
-        // height: 50,
         justifyContent: 'center',
-        alignContent: 'center'
+        alignItems: 'center', // Use alignItems to center content horizontally
     },
     input: {
         height: 40,
@@ -110,12 +112,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         textAlign: 'center',
         fontSize: 25,
-        // width: 400,
         borderRadius: 10
     },
     textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
-      },
-})
+    },
+});

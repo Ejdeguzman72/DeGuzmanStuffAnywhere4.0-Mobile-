@@ -43,7 +43,7 @@ const AddMedicalTrxModal = (props) => {
             user_id: user_id
         }
 
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-transactions/add-medical-transaction', {
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-transactions/add-medical-transaction', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

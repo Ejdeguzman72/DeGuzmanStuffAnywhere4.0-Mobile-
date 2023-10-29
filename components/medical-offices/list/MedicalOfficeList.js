@@ -16,9 +16,9 @@ const MedicalOfficeList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/medical-offices/all')
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-offices/all')
             .then((response) => response.json())
-            .then((json) => setOffices(json))
+            .then((json) => setOffices(json.list))
             .catch((error) => console.log(error))
     }, [])
 

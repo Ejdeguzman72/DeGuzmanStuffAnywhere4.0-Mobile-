@@ -57,7 +57,7 @@ const Tab = createBottomTabNavigator();
 
 function Root() {
     return (
-        <Drawer.Navigator useLegacyImplementation={true} drawerStyle={{
+        <Drawer.Navigator drawerStyle={{
             backgroundColor: 'rgb(40,44,53)',
           }}
           drawerContentOptions={{

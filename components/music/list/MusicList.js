@@ -15,9 +15,9 @@ const MusicList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/music/all')
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/music/all')
             .then((response) => response.json())
-            .then((json) => setMusic(json))
+            .then((json) => setMusic(json.list))
             .catch((error) => console.log(error))
     }, [])
     console.log(music)

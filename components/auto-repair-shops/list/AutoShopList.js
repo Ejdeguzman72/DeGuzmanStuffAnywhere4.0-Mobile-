@@ -16,12 +16,12 @@ const AutoShopList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
             .then((response) => response.json())
-            .then((json) => setAutoShops(json))
+            .then((json) => setAutoShops(json.list))
             .catch((error) => console.log(error))
     }, [])
-
+    
     return (
         <ScrollView>
             <View style={styles.table}>
