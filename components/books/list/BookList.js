@@ -23,11 +23,19 @@ const BookList = () => {
     // }, []);
 
     useEffect(() => {
+<<<<<<< HEAD
         Axios.get('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/all')
             .then(response => response.json())
             .then((json) => setBooks(json.list))
             .catch((error) => console.log(error))
     })
+=======
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/all')
+            .then((response) => response.json())
+            .then((json) => setBooks(json))
+            .catch((error) => console.log(error) && Alert.alert(error));
+    }, []);
+>>>>>>> 758b8ebca2e1628174f0014837e79110540d79eb
 
     return (
         <ScrollView>
