@@ -7,7 +7,7 @@ function UserPicker(props) {
   const [selectedValue, setSelectedValue] = useState(0);
 
   useEffect(() => {
-    fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/users/all')
+    fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/users/all')
       .then((response) => response.json())
       .then((json) => setUsers(json))
       .catch((error) => {

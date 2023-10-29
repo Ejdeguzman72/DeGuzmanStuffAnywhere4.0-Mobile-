@@ -49,7 +49,7 @@ const AddAutoTrxModal = () => {
             user_id: user_id
         }
 
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/auto-transactions/add-auto-transaction-information', {
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-transactions/add-auto-transaction-information', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

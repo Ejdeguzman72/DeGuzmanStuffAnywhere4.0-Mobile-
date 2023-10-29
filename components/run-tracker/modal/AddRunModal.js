@@ -34,7 +34,7 @@ const AddRunEntryModal = (props) => {
             user_id: user_id
         }
 
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/run-tracker-app/add-run-tracker-info', {
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/run-tracker-app/add-run-tracker-info', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

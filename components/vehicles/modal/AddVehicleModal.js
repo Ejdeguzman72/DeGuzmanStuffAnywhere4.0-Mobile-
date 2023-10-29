@@ -38,7 +38,7 @@ const AddVehicleModal = () => {
             capacity: capacity
         }
 
-        fetch('http://ec2-18-207-142-188.compute-1.amazonaws.com:8080/app/vehicles/add-vehicle-information', {
+        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/vehicles/add-vehicle-information', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
