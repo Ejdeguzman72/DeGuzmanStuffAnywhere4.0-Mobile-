@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import BookService from '../../../services/BookService';
 import Axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -15,27 +17,12 @@ const BookList = () => {
         setModalVisible(!modalVisible);
     }
 
-    // useEffect(() => {
-    //     fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/all')
-    //         .then((response) => response.json())
-    //         .then((json) => setBooks(json.list))
-    //         .catch((error) => console.log(error) && Alert.alert(error));
-    // }, []);
-
     useEffect(() => {
-<<<<<<< HEAD
-        Axios.get('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/all')
-            .then(response => response.json())
+        BookService.getAllBooks()
+            .then((response) => response.data)
             .then((json) => setBooks(json.list))
             .catch((error) => console.log(error))
-    })
-=======
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/all')
-            .then((response) => response.json())
-            .then((json) => setBooks(json))
-            .catch((error) => console.log(error) && Alert.alert(error));
-    }, []);
->>>>>>> 758b8ebca2e1628174f0014837e79110540d79eb
+    }, [])
 
     return (
         <ScrollView>

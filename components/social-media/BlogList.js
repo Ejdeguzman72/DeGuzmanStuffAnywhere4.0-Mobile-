@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import PostService from '../../services/post-service';
 
 const BlogList = () => {
     const [blogs, setBlogs] = useState([]);
@@ -9,9 +10,9 @@ const BlogList = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/posts/all')
-            .then((response) => response.json())
-            .then((json) => setBlogs(json))
+        PostService.getAllPostsInfo()
+            .then(response => response.data)
+            .then((json) => setBlogs(json.list))
             .catch((error) => console.log(error))
     }, [])
     

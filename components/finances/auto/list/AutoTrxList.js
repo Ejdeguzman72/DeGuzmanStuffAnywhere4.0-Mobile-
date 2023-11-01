@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import AutoTrxService from '../../../../services/AutoTrxService';
 
 const AutoTrxList = () => {
     const [transactions,setTransactions] = useState([]);
@@ -15,8 +16,8 @@ const AutoTrxList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-transactions/all')
-            .then((response) => response.json())
+        AutoTrxService.getAllAutoTransactions()
+            .then((response) => (response.data))
             .then((json) => setTransactions(json.list))
             .catch((error) => console.log(error))
     }, [])
@@ -28,7 +29,7 @@ const AutoTrxList = () => {
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction,index)}>
                             <Text>{`Amount: ${transaction.amount} `}</Text>
-                            <Text note>{`Date: ${transaction.auto_transaction_date}`}</Text>
+                            <Text note>{`Date: ${transaction.autoTrxDate}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -47,16 +48,16 @@ const AutoTrxList = () => {
                                     <Text>Amount:</Text><Text>{currentTransaction.amount}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Payment Date:</Text><Text>{currentTransaction.auto_transaction_date}</Text>
+                                    <Text>Payment Date:</Text><Text>{currentTransaction.autoTrxDate}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Auto Shop Name:</Text><Text>{currentTransaction.auto_shop_name}</Text>
+                                    <Text>Auto Shop Name:</Text><Text>{currentTransaction.autoShopName}</Text>
                                 </View>
                                 <View style={styles.indexText}>
                                     <Text>Vehicle:</Text><Text>{`${currentTransaction.year} ${currentTransaction.make} ${currentTransaction.model}`}</Text>
                                 </View>
                                 <View style={styles.indexText}>
-                                    <Text>Transaction Type:</Text><Text>{`${currentTransaction.transaction_type_descr}`}</Text>
+                                    <Text>Transaction Type:</Text><Text>{`${currentTransaction.transactionTypeDescr}`}</Text>
                                 </View>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}

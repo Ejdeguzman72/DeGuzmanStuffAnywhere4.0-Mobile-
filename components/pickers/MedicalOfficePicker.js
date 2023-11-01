@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import MedicalOfficeService from '../../services/MedicalOfficeService';
 
 function MedicalOfficePicker(props) {
     const [selectedValue,setSelectedValue] = useState('')
@@ -12,13 +13,10 @@ function MedicalOfficePicker(props) {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-offices/all')
-            .then((response) => response.json())
+        MedicalOfficeService.getAllMedicalOfficeInfo()
+            .then((response) => (response.data))
             .then((json) => setOffices(json.list))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Application facing issue ${error}`)
-            })
+            .catch((error) => console.log(`Error fetching data ${error}`))
     }, [])
 
     return (

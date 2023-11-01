@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, Alert } from "react-native";
 import Axios from 'axios';
+import BookService from "../../../services/BookService";
 
 const AddBookModal = () => {
 
@@ -41,14 +42,16 @@ const AddBookModal = () => {
             descr: descr,
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/books/add-book-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log("Added new book information")
-            setSubmitted(true)
-        }).catch((error) => console.log(error))
+        BookService.addBookInformation(data)
+            .then(response => {
+                setTitle(response.title);
+                setAuthor(responseauthor);
+                setDescr(response.descr)
+                setSubmitted(true)
+            })
+            .catch(error => {
+                Alert.alert("Application is facing issue: " + error);
+            })
     }
 
     return (

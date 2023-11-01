@@ -7,6 +7,8 @@ import FitnessCard from '../../components/home/FitnessCard';
 import MusicCard from '../../components/home/MusicCard';
 import RecipesCard from '../../components/home/RecipesCard';
 import RestaurantCard from '../../components/home/RestaurantCard';
+import EntertainmentCard from '../../components/home/EntertainmentCard';
+import GarageInventoryCard from '../../components/home/GarageInventoryCard';
 
 export default function HomeScreen({ navigation }) {
     return (
@@ -14,8 +16,10 @@ export default function HomeScreen({ navigation }) {
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <BookRecCard navigation={navigation}/>
                 <ContactInfoCard navigation={navigation} />
+                <EntertainmentCard navigation={navigation} />
                 <FinanceCard navigation={navigation} />
                 <FitnessCard navigation={navigation} />
+                <GarageInventoryCard navigation={navigation} />
                 <MusicCard navigation={navigation} />
                 <RecipesCard navigation={navigation} />
                 <RestaurantCard navigation={navigation} />

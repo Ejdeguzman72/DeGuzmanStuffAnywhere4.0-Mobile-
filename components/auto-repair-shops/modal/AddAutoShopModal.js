@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { set } from "react-native-reanimated";
+import AutoShopService from "../../../services/AutoShopService";
 
 const AddAutoRepairShopModal = () => {
 
-    const [name, setName] = useState('');
+    const [autoShopName, setAutoShopName] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -14,7 +15,7 @@ const AddAutoRepairShopModal = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const onHandleNameChange = (input) => {
-        setName(input)
+        setAutoShopName(input)
     }
 
     const onHandleAddressChange = (input) => {
@@ -36,25 +37,27 @@ const AddAutoRepairShopModal = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         const data = {
-            name: name,
+            autoShopName: autoShopName,
             address: address,
             city: city,
             state: state,
             zip: zip
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-repair-shops/add-auto-shop', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log("Added new auto repair shop")
-            setSubmitted(true)
-        }).catch((error) => console.log(error))
+        AutoShopService.addAutoShop(data)
+            .then((response) => {
+                setAutoShopName(response.autoShopName)
+                setAddress(response.address)
+                setCity(response.city)
+                setState(response.state)
+                setZip(response.zip)
+                setSubmitted(true);
+            })
+            .catch((error) => console.log(error))
     }
 
     const newAutoShop = () => {
-        setName('');
+        setAutoShopName('');
         setAddress('');
         setCity('');
         setState('');
@@ -76,7 +79,7 @@ const AddAutoRepairShopModal = () => {
                         <View style={styles.addCenteredView}>
                             <View style={styles.addModalView}>
                                 <Text style={styles.modalText}>Add Auto Repair Shop</Text>
-                                <Text>{name} has been submitted!</Text>
+                                <Text>{autoShopName} has been submitted!</Text>
                                 <Pressable
                                     style={[styles.modalButton, styles.buttonClose]}
                                     onPress={newAutoShop}
@@ -99,7 +102,7 @@ const AddAutoRepairShopModal = () => {
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Auto Shop Name"
-                                        value={name}
+                                        value={autoShopName}
                                         onChangeText={(event) => onHandleNameChange(event)}
                                     />
                                     <TextInput

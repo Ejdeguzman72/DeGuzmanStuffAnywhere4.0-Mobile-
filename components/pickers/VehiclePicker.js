@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
+import VehicleInformationService from '../../services/VehicleInformationService';
 
 function VehiclePicker(props) {
     const [selectedValue, setSelectedValue] = useState('Choose a Vehicle')
     const [vehicles,setVehicles] = useState([])
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/vehicles/all')
-            .then((response) => response.json())
+        VehicleInformationService.getAllVehicleInformation()
+            .then((response) => (response.data))
             .then((json) => setVehicles(json.list))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Error: ${error}`)
-            })
+            .catch((error) => console.log(`Error fetching data: ${error}`))
     }, [])
 
     const handleValueChange = (input) =>  {

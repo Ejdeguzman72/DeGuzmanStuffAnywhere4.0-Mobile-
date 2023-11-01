@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Pressable, Modal } from 'react-native';
 import { Divider } from 'react-native-paper';
+import ContactInfoService from '../../../services/ContactInfoService';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState([]);
@@ -15,10 +16,10 @@ const ContactList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/person-info/all')
-            .then((response) => response.json())
-            .then((json) => setContacts(json.list))
-            .catch((error) => console.log(error))
+        ContactInfoService.getContactInfo()
+            .then(response => response.data)
+            .then(json => setContacts(json.list))
+            .catch(error => console.log(error))
     }, [])
 
     return (

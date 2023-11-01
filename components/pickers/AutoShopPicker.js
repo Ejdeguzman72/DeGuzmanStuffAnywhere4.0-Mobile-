@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { StyleSheet, Alert, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import AutoShopService from '../../services/AutoShopService';
 
 function AutoShopPicker(props) {
     const [selectedValue,setSelectedValue] = useState('')
@@ -11,13 +12,13 @@ function AutoShopPicker(props) {
     }, [])
     
     const getAutoShopList = () => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
-            .then((response) => response.json())
-            .then((json) => setAutoShops(json.list))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Error: ${error}`)
+        AutoShopService.getAllAutoShopsInfo()
+            .then((response) => (response.data))
+            .then((json) => {
+                console.log(json)
+                setAutoShops(json.list)
             })
+            .catch((error) => console.log(`Error fetching data: ${error}`))
     }
 
     const handleValueChange = (input) => {
@@ -27,7 +28,7 @@ function AutoShopPicker(props) {
 
     const renderAutoShopList = () => {
         return autoshops.map((autoshop) => {
-            return <Picker.Item label={autoshop.autoShopName} value={autoshop.auto_shop_id} />
+            return <Picker.Item label={autoshop.autoShopName} value={autoshop.autoShopId} />
         })
     }
 

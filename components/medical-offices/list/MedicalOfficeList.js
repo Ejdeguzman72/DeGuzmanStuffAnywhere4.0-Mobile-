@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import MedicalOfficeService from '../../../services/MedicalOfficeService';
+import { Alert } from 'react-native';
 
 const MedicalOfficeList = () => {
     const [offices,setOffices] = useState([]);
@@ -16,13 +18,14 @@ const MedicalOfficeList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-offices/all')
-            .then((response) => response.json())
+        MedicalOfficeService.getAllMedicalOffices().
+            then((response) => (response.data))
             .then((json) => setOffices(json.list))
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.log(`Error fetching data: ${error}`)
+                Alert.alert(`Error fetching data: ${error}`)
+            })
     }, [])
-
-    console.log(offices)
 
     return (
         <ScrollView>

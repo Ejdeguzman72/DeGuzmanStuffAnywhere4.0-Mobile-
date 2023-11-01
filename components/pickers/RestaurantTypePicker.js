@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
+import RestaurantService from '../../services/RestaurantRecommendationsService';
 
 function RestaurantTypeDropDown(props) {
     const [selectedValue,setSelectedValue] = useState('')
     const [types,setTypes] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/restaurant-types/all')
-            .then((response) => response.json())
-            .then((json) => setTypes(json))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Mobile App facing issue: ${error}`)
-            })
+        RestaurantService.getAllRestaurantTypes()
+            .then((response) => (response.data))
+            .then((json) => setTypes(json.list))
+            .catch((error) => console.log(`Error fetching data ${error}`))
     }, [])
 
     const handleValueChange = (input) => {
@@ -31,7 +29,7 @@ function RestaurantTypeDropDown(props) {
             <Picker.Item label="Choose A Restaurant Type" value="Choose A Restaurant Type" />
             {types && types.map((type,index) => {
                 return (
-                    <Picker.Item label={type.descr} value={type.restaurant_type_id} key={index} />
+                    <Picker.Item label={type.descr} value={type.restaurantTypeId} key={index} />
                 )
             })}
         </Picker>

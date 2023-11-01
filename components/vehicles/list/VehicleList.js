@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import VehicleService from '../../../services/VehicleInformationService';
 
 const VehicleList = () => {
     const [vehicles,setVehicles] = useState([]);
@@ -15,10 +16,13 @@ const VehicleList = () => {
     }
  
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/vehicles/all')
-            .then((response) => response.json())
-            .then((json) => setVehicles(json.list))
-            .catch((error) => console.log(error))
+        VehicleService.getAllVehicleInformation()
+            .then((response) => (response.data))
+            .then((json) => {
+                setVehicles(json.list)
+                console.log(json)
+            })
+            .catch((error) => console.log(`Error fetching data: ${error}`))
     }, [])
 
     console.log(vehicles)

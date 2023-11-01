@@ -1,7 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, ScrollView, TextInput } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import ContactInfoService from '../../../services/ContactInfoService';
 
 const AddContactModal = () => {
 
@@ -62,14 +62,22 @@ const AddContactModal = () => {
             birthdate: birthdate
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/person-info/add-person-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log('Added contact information')
-            setSubmitted(true)
-        }).catch((error) => console.log(error))
+        ContactInfoService.addContactInfo(data)
+            .then((response) => {
+                setFirstName(response.firstname)
+                setMiddleInitial(response.middleInitial)
+                setLastName(response.lastname)
+                setAddress01(response.address01)
+                setAddress02(response.address02)
+                setCity(response.city)
+                setState(response.state)
+                setZipcode(response.zipcode)
+                setPhone(response.phone)
+                setEmail(response.email)
+                setBirthdate(response.birthdate)
+                setSubmitted(true)
+            })
+            .catch((error) => console.log(`Error retrieving data: ${error}`))
     }
     return (
         <View style={styles.view}>

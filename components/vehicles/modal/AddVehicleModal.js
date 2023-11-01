@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import VehicleInformationService from "../../../services/VehicleInformationService";
 
 const AddVehicleModal = () => {
 
@@ -38,15 +39,16 @@ const AddVehicleModal = () => {
             capacity: capacity
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/vehicles/add-vehicle-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log("Added new vehicle information")
-            setSubmitted(true)
-        })
-            .catch((error) => console.log(error))
+        VehicleInformationService.addVehicleInformation(data)
+            .then(response => {
+                console.log(response)
+                setMake(response.make);
+                setModel(response.model);
+                setYear(response.year);
+                setTransmission(response.transmission);
+                setCapacity(response.capacity);
+                setSubmitted(true);
+            })
     }
 
     return (
@@ -64,7 +66,7 @@ const AddVehicleModal = () => {
                     <View style={styles.addCenteredView}>
                         <View style={styles.addModalView}>
                             <Text style={styles.modalText}>Add Vehicle</Text>
-                            <Text>{`${year} ${make} ${model}`} has been submitted!</Text>
+                            <Text>Vehicle Info has been submitted!</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={newVehcle}
@@ -120,7 +122,7 @@ const AddVehicleModal = () => {
                                     <Picker.Item value="8" label="8" />
                                 </Picker>
                                 <Picker
-                                    selectedValue={capacity}
+                                    selectedValue={transmission}
                                     onValueChange={(event) => onHandleTransmissionChange(event)}
                                     mode="dropdown"
                                     style={styles.picker}

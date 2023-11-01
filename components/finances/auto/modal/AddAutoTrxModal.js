@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView, Alert } from "react-native";
 import AutoShopPicker from "../../../pickers/AutoShopPicker";
 import TransactionTypePicker from "../../../pickers/TransactionTypePicker";
 import UserPicker from "../../../pickers/UserPicker";
 import VehiclePicker from "../../../pickers/VehiclePicker";
+import AutoTrxService from '../../../../services/AutoTrxService';
 
 const AddAutoTrxModal = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [amount, setAmount] = useState(0);
-    const [auto_transaction_date, setAutoTrxDate] = useState('');
-    const [auto_shop_id, setAutoShop] = useState(0);
-    const [vehicle_id, setVehicle] = useState(0);
-    const [transaction_type_id, setTransactionType] = useState(0);
-    const [user_id, setUser] = useState(0);
+    const [autoTrxDate, setAutoTrxDate] = useState('');
+    const [autoShopId, setAutoShop] = useState(0);
+    const [vehicleId, setVehicle] = useState(0);
+    const [trxTypeId, setTransactionType] = useState(0);
+    const [userId, setUser] = useState(0);
     const [submitted, setSubmitted] = useState(false);
 
     const newTransaction = () => {
@@ -28,35 +29,38 @@ const AddAutoTrxModal = () => {
 
     const onHandleAmountChange = (input) => { setAmount(input) }
     const onHandleDateChange = (input) => { setAutoTrxDate(input) }
-
-    const onHandleAutoShopChange = (auto_shop_id) => { setAutoShop(auto_shop_id) }
-
-    const onHandleVehicleChange = (vehicle_id) => { setVehicle(vehicle_id) }
-
-    const onHandleTransactionTypeChange = (transaction_type_id) => { setTransactionType(transaction_type_id) }
-
-    const onHandleUserChange = (user_id) => { setUser(user_id) }
+    const onHandleAutoShopChange = (autoShopId) => { setAutoShop(autoShopId) }
+    const onHandleVehicleChange = (vehicleId) => { setVehicle(vehicleId) }
+    const onHandleTransactionTypeChange = (trxTypeId) => { setTransactionType(trxTypeId) }
+    const onHandleUserChange = (userId) => { setUser(userId) }
 
     const onSubmit = (event) => {
         event.preventDefault();
 
         const data = {
             amount: amount,
-            auto_transaction_date: auto_transaction_date,
-            auto_shop_id: auto_shop_id,
-            vehicle_id: vehicle_id,
-            transaction_type_id: transaction_type_id,
-            user_id: user_id
+            autoTrxDate: autoTrxDate,
+            autoShopId: autoShopId,
+            vehicleId: vehicleId,
+            trxTypeId: trxTypeId,
+            userId: userId
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-transactions/add-auto-transaction-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log(data)
-            setSubmitted(false)
-        }).catch((error) => console.log(error))
+        AutoTrxService.addAutoTransactionInformation(data)
+            .then(response => {
+                setAmount(response.amount)
+                setAutoTrxDate(response.autoTrxDate)
+                setAutoShop(response.autoShopId)
+                setVehicle(response.vehicleId)
+                setTransactionType(response.trxTypeId)
+                setUser(response.userId)
+                setSubmitted(true)
+                console.log(amount)
+            })
+            .catch((error) => {
+                console.log(`Error fetching data: ${error}`)
+                Alert.alert(`Error fetching data: ${error}`)
+            })
     }
 
     return (
@@ -96,7 +100,7 @@ const AddAutoTrxModal = () => {
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Auto Transaction Date"
-                                    value={auto_transaction_date}
+                                    value={autoTrxDate}
                                     onChangeText={(event) => onHandleDateChange(event)}
                                 />
                                 <TextInput

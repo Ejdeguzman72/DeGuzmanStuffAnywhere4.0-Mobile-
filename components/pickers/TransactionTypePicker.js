@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
+import TransactionTypeService from '../../services/TrxTypeService'
 
 function TransactionTypePicker(props) {
     const [selectedValue,setSelectedValue] = useState('Choose a Transaction Type')
     const [types,setTypes] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/transaction-types/all')
-            .then((response) => response.json())
+        TransactionTypeService.getAllTrxTypes()
+            .then((response) => (response.data))
             .then((json) => setTypes(json.list))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Mobile App facing issue: ${error}`)
-            })
+            .catch((error) => console.log(`Error fetching data ${error}`))
     }, [])
 
     const handleValueChange = (input) => {
@@ -31,7 +29,7 @@ function TransactionTypePicker(props) {
             <Picker.Item label="Choose A Transaction Type" value="Choose A Transaction Type" />
             {types && types.map((type,index) => {
                 return (
-                    <Picker.Item label={type.transaction_type_descr} value={type.transaction_type_id} key={index} />
+                    <Picker.Item label={type.trxTypeDescr} value={type.trxTypeId} key={index} />
                 )
             })}
         </Picker>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import MusicService from '../../../services/MusicService';
 
 const MusicList = () => {
     const [music, setMusic] = useState([]);
@@ -15,12 +16,12 @@ const MusicList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/music/all')
-            .then((response) => response.json())
+        MusicService.getAllMusic()
+            .then((response) => (response.data))
             .then((json) => setMusic(json.list))
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(`Error fetching data ${error}`))
     }, [])
-    console.log(music)
+    
     return (
         <ScrollView>
             <View style={styles.table}>

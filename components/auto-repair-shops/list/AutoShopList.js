@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import AutoShopService from '../../../services/AutoShopService';
 
 const AutoShopList = () => {
 
@@ -16,8 +17,8 @@ const AutoShopList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/auto-repair-shops/all')
-            .then((response) => response.json())
+        AutoShopService.getAllAutoShopsInfo()
+            .then((response) => (response.data))
             .then((json) => setAutoShops(json.list))
             .catch((error) => console.log(error))
     }, [])
@@ -28,7 +29,7 @@ const AutoShopList = () => {
                 {autoshops &&
                     autoshops.map((autoshop, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveShop(autoshop,index)}>
-                            <Text>{`${autoshop.auto_shop_name}`}</Text>
+                            <Text>{`${autoshop.autoShopName}`}</Text>
                             <Text note>{`${autoshop.address} ${autoshop.city} ${autoshop.state} ${autoshop.zip}`}</Text>
                         </TouchableOpacity>
                     ))}
@@ -45,7 +46,7 @@ const AutoShopList = () => {
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Auto Repair Shop Information</Text>
                                 <View style={styles.indexText}>
-                                    <Text>Name:</Text><Text>{currentShop.auto_shop_name}</Text>
+                                    <Text>Name:</Text><Text>{currentShop.autoShopName}</Text>
                                 </View>
                                 <View style={styles.indexText}>
                                     <Text>Address:</Text><Text>{currentShop.address}</Text>

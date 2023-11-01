@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
+import ExerciseService from '../../services/ExerciseService';
 
 function ExerciseTypePicker(props) {
     const [selectedValue,setSelectedValue] = useState('')
     const [types,setTypes] = useState([]);
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/exercise-type/all')
-            .then((response) => response.json())
-            .then((json) => setTypes(json.list))
-            .catch((error) => {
-                console.log(error)
-                Alert.alert(`Mobile App facing issue: ${error}`)
-            })
+        ExerciseService.getAllExerciseTypes()
+            .then((response) => (response.data))
+            .then((json) => setTypes(json))
+            .catch((error) => console.log(`Error fetching data: ${error}`))
     }, [])
 
     const handleValueChange = (input) => {

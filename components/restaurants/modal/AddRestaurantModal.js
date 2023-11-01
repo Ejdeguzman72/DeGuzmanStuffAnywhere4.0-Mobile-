@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import RestaurantTypePicker from '../../pickers/RestaurantTypePicker';
 import { Picker } from "@react-native-picker/picker";
+import RestaurantRecommendationsService from "../../../services/RestaurantRecommendationsService";
 
 const AddRestaurantModal = ({ props }) => {
 
@@ -11,7 +12,7 @@ const AddRestaurantModal = ({ props }) => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
-    const [restaurant_type_id, setRestaurantTypeId] = useState(0)
+    const [restaurantTypeId, setRestaurantTypeId] = useState(0)
     const [submitted, setSubmitted] = useState(false)
 
     const newRestaurant = () => {
@@ -30,8 +31,8 @@ const AddRestaurantModal = ({ props }) => {
     const onHandleStateChange = (input) => { setState(input) }
     const onHandleZipChange = (input) => { setZip(input) }
 
-    const onHandleRestaurantType = (restaurant_type_id) => {
-        setRestaurantTypeId(restaurant_type_id)
+    const onHandleRestaurantType = (restaurantTypeId) => {
+        setRestaurantTypeId(restaurantTypeId)
     }
 
     const onSubmit = (event) => {
@@ -43,15 +44,21 @@ const AddRestaurantModal = ({ props }) => {
             city: city,
             state: state,
             zip: zip,
-            restaurant_type_id: restaurant_type_id
+            restaurantTypeId: restaurantTypeId
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/restaurants/add-restaurant-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => setSubmitted(true))
-            .catch((error) => console.log(error))
+        RestaurantRecommendationsService.addRestaurantInformation(data)
+            .then((response) => {
+                setName(response.name)
+                console.log(name)
+                setAddress(response.address)
+                setCity(response.city)
+                setState(response.state)
+                setZip(response.zip)
+                setRestaurantTypeId(response.restaurantTypeId)
+                setSubmitted(true)
+            })
+            .catch((error) => console.log(`Error fetching data ${error}`))
     }
 
     return (

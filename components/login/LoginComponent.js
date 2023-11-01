@@ -25,21 +25,21 @@ export default function LoginComponent({ navigation }) {
     }
 
     const onSubmit = () => {
-        Axios.post('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/api/auth/signin', {
-            username: username,
-            password: password
-        }).then((response) => {
-            deviceStorage.saveKey(token, response.data.token);
-            if (jwt) {
-                Alert.alert(`${username}: you have logged in`);
+        // Axios.post('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/api/auth/signin', {
+        //     username: username,
+        //     password: password
+        // }).then((response) => {
+        //     deviceStorage.saveKey(token, response.data.token);
+        //     if (jwt) {
+        //         Alert.alert(`${username}: you have logged in`);
                 navigation.navigate('Root Tab');
-            } else {
-                Alert.alert('Invalid Credentials');
-            }
-        }).catch((error) => {
-            console.log(error);
-            Alert.alert(error.message); // Use error.message to display the error message
-        });
+        //     } else {
+        //         Alert.alert('Invalid Credentials');
+        //     }
+        // }).catch((error) => {
+        //     console.log(error);
+        //     Alert.alert(error.message); // Use error.message to display the error message
+        // });
     }
 
     return (

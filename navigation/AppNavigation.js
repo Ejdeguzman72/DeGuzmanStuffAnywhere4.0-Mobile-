@@ -48,6 +48,11 @@ import AllMedicalTrxScreen from '../screens/finance/medical-finances/AllMedicalT
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegisterScreen from '../screens/authentication/RegistrationScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+import EntertainmentScreen from '../screens/entertainment/EntertainmentScreen';
+import NewsScreen from '../screens/news/NewsScreen';
+import GarageInvScreen from '../screens/garage-inventory/GarageInvScreen';
+import ListEntertainmentScreen from '../screens/entertainment/ListEntertainmentScreen';
+import ListGarageInventoryScreen from '../screens/garage-inventory/ListGarageInventoryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,7 +74,9 @@ function Root() {
             <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="Books" component={BookScreen} />
             <Drawer.Screen name="Contacts" component={ContactInfoScreen} />
+            <Drawer.Screen name="Entertainment" component={EntertainmentScreen} />
             <Drawer.Screen name="Finances" component={FinanceScreen} />
+            <Drawer.Screen name="Garage Inventory" component={GarageInvScreen} />
             <Drawer.Screen name="Gym Tracker" component={GymTrackerScreen} />
             <Drawer.Screen name="Music" component={MusicScreen} />
             <Drawer.Screen name="Recipes" component={RecipeScreen} />    
@@ -84,6 +91,7 @@ function BottomTabNavigator() {
         <Tab.Navigator>
             <Stack.Screen name="Home" component={Root} options={{ headerShown: false, tabBarIconStyle: false, tabBarIconStyle: {display: "none"} }} />
             <Tab.Screen name="Details" component={DetailsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
+            <Tab.Screen name="News" component={NewsScreen} options={{ tabBarIconStyle: { display: "none"}} } />
             <Tab.Screen name="Social Media" component={SocialMediaScreen} options={{ tabBarIconStyle: { display: "none" }} } />
             <Tab.Screen name="Settings" component={SettingsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
         </Tab.Navigator>
@@ -119,6 +127,10 @@ const AppNavigation = () => {
                 <Stack.Screen name="All Restaurants" component={AllRestaurantsScreen} options={{ title: 'All Restaurants' }} />
                 <Stack.Screen name="Social Media" component={SocialMediaScreen} options={{ title: 'Social Media' }} />
                 <Stack.Screen name="Utility Info" component={UtilityScreen} options={{ title: 'Utility Info' }} />
+                <Stack.Screen name="Entertainment" component={EntertainmentScreen} options={{ title: 'Entertainment' }} />
+                <Stack.Screen name="All Entertainment" component={ListEntertainmentScreen} options={{ title: 'All Entertainment' }} />
+                <Stack.Screen name="Garage Inventory" component={GarageInvScreen} options={{ title: 'Garage Inventory' }} />
+                <Stack.Screen name="All Garage Inventory" component={ListGarageInventoryScreen} options={{ title: 'All Garage Inventory'}} />
                 <Stack.Screen name="Asian Recipes" component={AsianRecipesScreen} options={{ title: 'Asian Recipes' }} />
                 <Stack.Screen name="American" component={AmericanRecipesScreen} option={{ title: 'American Recipes' }} />
                 <Stack.Screen name="Barbeque Recipes" component={BarbequeRecipeScreen} option={{ title: 'Barbeque Recipes' }} />

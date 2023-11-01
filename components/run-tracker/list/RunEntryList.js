@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import CardioTrackerService from '../../../services/CardioTrackerService'
 
 const RunEntryList = () => {
     const [entries, setEntries] = useState([]);

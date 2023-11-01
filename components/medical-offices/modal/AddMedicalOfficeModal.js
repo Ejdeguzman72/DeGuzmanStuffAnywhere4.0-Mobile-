@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import MedicalOfficeService from "../../../services/MedicalOfficeService";
 
 const AddMedicalOfficeModal = () => {
 
@@ -13,13 +14,9 @@ const AddMedicalOfficeModal = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const onHandleNameChange = (input) => { setName(input) }
-
     const onHandleAddressChange = (input) => { setAddress(input) }
-
     const onHandleCityChange = (input) => { setCity(input) }
-
     const onHandleStateChange = (input) => { setState(input) }
-
     const onHandleZipChange = (input) => { setZip(input) }
 
     const onSubmit = async (event) => {
@@ -32,14 +29,15 @@ const AddMedicalOfficeModal = () => {
             zip: zip
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-offices/add-medical-office-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log("Added new medical office")
-            setSubmitted(true)
-        }).catch((error) => console.log(error))
+        MedicalOfficeService.addMedicalOffice(data)
+            .then((response) => {
+                setName(response.name);
+                setAddress(response.address);
+                setCity(response.city);
+                setState(response.state)
+                setZip(response.zip)
+                setSubmitted(true)
+            })
     }
 
     const newOffice = () => {
@@ -65,7 +63,7 @@ const AddMedicalOfficeModal = () => {
                     <View style={styles.addCenteredView}>
                         <View style={styles.addModalView}>
                             <Text style={styles.modalText}>Add Medical Office</Text>
-                            <Text>{name} has been submitted!</Text>
+                            <Text>Office has been submitted!</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={newOffice}

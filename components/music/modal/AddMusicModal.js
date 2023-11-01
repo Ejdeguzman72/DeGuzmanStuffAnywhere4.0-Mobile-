@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Pressable } from 'react-native';
+import { Alert, Pressable } from 'react-native';
 import { ImageBackground, StyleSheet, Text, View, Modal, TextInput } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import GenresPicker from '../../pickers/GenresPicker';
+import MusicService from '../../../services/MusicService';
 
 const AddMusicModal = () => {
     
@@ -33,14 +33,17 @@ const AddMusicModal = () => {
             genre: genre,
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/music/add-song-information', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log("Added new song information")
-            setSubmitted(true)
-        }).catch((error) => console.log(error))
+        MusicService.addSongInformaton(data)
+            .then((response) => {
+                setTitle(response.title);
+                setArtist(response.artist);
+                setGenre(response.setGenre);
+                setSubmitted(true);
+            })
+            .catch((error) => {
+                console.log(`Error sending data: ${error}`);
+                Alert.alert(`Error sending data: ${error}`);
+            })
     }
 
         return (
@@ -58,7 +61,7 @@ const AddMusicModal = () => {
                             <View style={styles.addCenteredView}>
                                 <View style={styles.addModalView}>
                                     <Text style={styles.modalText}>Add Music</Text>
-                                    <Text>{title} has been submitted!</Text>
+                                    <Text>New entry has been submitted!</Text>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={newSong}

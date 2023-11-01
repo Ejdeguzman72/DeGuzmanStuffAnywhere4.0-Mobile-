@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
+import RestaurantService from '../../../services/RestaurantRecommendationsService';
 
 const RestaurantList = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -15,10 +16,10 @@ const RestaurantList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/restaurants/all')
-            .then((response) => response.json())
+        RestaurantService.GetAllRestaurantRecommendations()
+            .then((response) => (response.data))
             .then((json) => setRestaurants(json.list))
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(`Error fetching data: ${error}`))
     }, [])
 
     return (
@@ -27,7 +28,7 @@ const RestaurantList = () => {
                 {restaurants &&
                     restaurants.map((restaurant, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveRestaurant(restaurant, index)}>
-                            <Text>{`Name: ${restaurant.name}`}</Text>
+                            <Text>{`${restaurant.name}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
