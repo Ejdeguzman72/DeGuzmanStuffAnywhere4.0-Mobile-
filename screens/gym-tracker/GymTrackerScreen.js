@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import AddGymEntryBtn from '../../components/gym-tracker/buttons/AddGymEntryBtn';
-import ViewAllGymEntriesBtn from '../../components/gym-tracker/buttons/ViewAllGymEntriesBtn';
-import GymTrackerDetailsCard from '../../components/gym-tracker/cards/GymTrackerDetailsCard';
-import AddGymEntryModal from '../../components/gym-tracker/modal/AddGymEntryModal';
+import ViewAllGymEntriesBtn from '../../components/fitness/gym-tracker/buttons/ViewAllGymEntriesBtn';
+import GymTrackerDetailsCard from '../../components/fitness/gym-tracker/cards/GymTrackerDetailsCard';
+import AddGymEntryModal from '../../components/fitness/gym-tracker/modal/AddGymEntryModal';
 import Title from '../../components/title/Title';
 
 const GymTrackerScreen = ({ navigation }) => {

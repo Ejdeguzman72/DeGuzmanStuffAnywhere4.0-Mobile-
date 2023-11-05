@@ -48,6 +48,7 @@ const AddAutoTrxModal = () => {
 
         AutoTrxService.addAutoTransactionInformation(data)
             .then(response => {
+                console.log(response)
                 setAmount(response.amount)
                 setAutoTrxDate(response.autoTrxDate)
                 setAutoShop(response.autoShopId)
@@ -77,7 +78,7 @@ const AddAutoTrxModal = () => {
                     <View style={styles.addCenteredView}>
                         <View style={styles.addModalView}>
                             <Text style={styles.modalText}>Add Transaction</Text>
-                            <Text>{this.state.amount} has been submitted!</Text>
+                            <Text>{amount} has been submitted!</Text>
                             <Pressable
                                 style={[styles.modalButton, styles.buttonClose]}
                                 onPress={newTransaction}

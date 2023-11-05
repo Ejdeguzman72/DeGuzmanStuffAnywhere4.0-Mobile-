@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import DetailsCard from '../../components/details/AppDetailsCard';
 import Title from '../../components/title/Title';
+import WeatherCard from '../../components/newsfeed/card/WeatherCard';
 
 const DetailsScreen = () => {
   return (
@@ -9,6 +10,7 @@ const DetailsScreen = () => {
       <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image} >
         <View style={styles.container}>
           <Title />
+          <WeatherCard />
           <DetailsCard />
         </View>
       </ImageBackground>

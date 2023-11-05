@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
-import { Divider } from 'react-native-paper';
+import GeneralTrxService from '../../../../services/GeneralTrxService';
+import { Alert } from 'react-native';
 
 const GeneralTrxList = () => {
     const[transactions, setTransactions] = useState([]);
@@ -15,35 +16,37 @@ const GeneralTrxList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/general-transactions/all')
-            .then((response) => response.json())
+        GeneralTrxService.getAllGeneralTransactions()
+            .then((response) => (response.data))
             .then((json) => setTransactions(json.list))
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.log(`Error fetching data: ${error}`)
+                Alert.alert(`Error fetching data: ${error}`)
+            })
     }, []);
-    console.log(transactions)
+    
     return (
         <ScrollView>
             <View style={styles.table}>
                 {transactions &&
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction,index)}>
-                            <Text>{`Amount: ${transaction.amount}`}</Text>
-                            <Text>{`Date: ${transaction.payment_date}`}</Text>
+                            <Text>{`Amount: $${transaction.amount.toFixed(2)}`}</Text>
+                            <Text>{`Date: ${transaction.paymentDate}`}</Text>
                         </TouchableOpacity>
                     ))}
-                {/* <Divider /> */}
                 {currentTransaction ? (
                     <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Transaction Information</Text>
                         <View style={styles.indexText}>
-                            <Text>Amount:</Text><Text>{currentTransaction.amount}</Text>
+                            <Text>Amount:</Text><Text>${currentTransaction.amount.toFixed(2)}</Text>
                         </View>
                         <View style={styles.indexText}>
-                            <Text>Payment Date:</Text><Text>{currentTransaction.payment_date}</Text>
+                            <Text>Payment Date:</Text><Text>{currentTransaction.paymentDate}</Text>
                         </View>
                         <View style={styles.indexText}>
-                            <Text>Transaction Type:</Text><Text>{currentTransaction.transaction_type_descr}</Text>
+                            <Text>Transaction Type:</Text><Text>{currentTransaction.transactionTypeDescr}</Text>
                         </View>
                         <View style={styles.indexText}>
                             <Text>Entity:</Text><Text>{currentTransaction.entity}</Text>

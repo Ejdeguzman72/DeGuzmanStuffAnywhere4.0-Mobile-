@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable, Button } from 'react-native';
 import { Divider } from 'react-native-paper';
 import AutoShopService from '../../../services/AutoShopService';
+import Axios from 'axios';
+
+const PAGE_SIZE = 10;
 
 const AutoShopList = () => {
 
@@ -9,6 +12,15 @@ const AutoShopList = () => {
     const [currentShop, setCurrentShop] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [modalVisible, setModalVisible] = useState(false);
+    const [page,setPage] = useState(1);
+    const [hasMoreData,setHasMoreData] = useState(true)
+    const scrollViewRef = useRef();
+
+    const loadMore = () => {
+        if (hasMoreData) {
+            setPage(page + 1);
+        }
+    }
 
     setActiveShop = (autoShop, index) => {
         setCurrentShop(autoShop);
@@ -17,11 +29,17 @@ const AutoShopList = () => {
     }
 
     useEffect(() => {
-        AutoShopService.getAllAutoShopsInfo()
+        AutoShopService.getAllAutoShopsInfo(page,PAGE_SIZE)
             .then((response) => (response.data))
-            .then((json) => setAutoShops(json.list))
+            .then((json) => {
+                if (json.list.length === 0) {
+                    setHasMoreData(false);
+                } else {
+                    setAutoShops([...autoshops,...json.list])
+                }
+            })
             .catch((error) => console.log(error))
-    }, [])
+    }, [page])
     
     return (
         <ScrollView>
@@ -29,7 +47,7 @@ const AutoShopList = () => {
                 {autoshops &&
                     autoshops.map((autoshop, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveShop(autoshop,index)}>
-                            <Text>{`${autoshop.autoShopName}`}</Text>
+                            <Text>{`ID: ${autoshop.autoShopId} - ${autoshop.autoShopName}`}</Text>
                             <Text note>{`${autoshop.address} ${autoshop.city} ${autoshop.state} ${autoshop.zip}`}</Text>
                         </TouchableOpacity>
                     ))}
@@ -72,6 +90,7 @@ const AutoShopList = () => {
                 </View>
                 ) : null}
             </View>
+            <Button title="Load More" onPress={loadMore} disabled={!hasMoreData} />
         </ScrollView>
     )
 }
@@ -88,7 +107,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         textAlign: 'center',
-        padding: 20
+        padding: 20,
+        borderBottomWidth:1,
+        borderTopWidth:1
     },
     contact: {
         flex: 1,

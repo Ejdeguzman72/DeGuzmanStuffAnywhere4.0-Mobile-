@@ -28,8 +28,8 @@ const EntertainmentList = () => {
                 {list &&
                     list.map((item, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveItem(item, index)}>
-                            <Text>{`Title: ${item.title}`}</Text>
-                            <Text>{`Author: ${item.author}`}</Text>
+                            <Text>{`Title: ${item.name}`}</Text>
+                            <Text>{`Author: ${item.descr}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -45,10 +45,7 @@ const EntertainmentList = () => {
                                 <View style={styles.modalView}>
                                     <Text style={styles.modalText}>Entertainment Information</Text>
                                     <View style={styles.indexText}>
-                                        <Text>Title:</Text><Text>{currentItem.title}</Text>
-                                    </View>
-                                    <View style={styles.indexText}>
-                                        <Text>Author:</Text><Text>{currentItem.author}</Text>
+                                        <Text>Title:</Text><Text>{currentItem.name}</Text>
                                     </View>
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentItem.descr}</Text>

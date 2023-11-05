@@ -7,7 +7,7 @@ class UploadMedicalFileUploadService {
 
         formData.append("file", file);
 
-        return Axios.post("http://ec2-54-196-51-159.compute-1.amazonaws.com:8080/app/medical-transaction-documents/upload", formData, {
+        return Axios.post("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-transaction-documents/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -16,7 +16,7 @@ class UploadMedicalFileUploadService {
     }
 
     getMedicalFiles() {
-        return Axios.get('http://ec2-54-196-51-159.compute-1.amazonaws.com:8080/app/medical-transaction-documents/files');
+        return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-transaction-documents/files');
     }
 }
 

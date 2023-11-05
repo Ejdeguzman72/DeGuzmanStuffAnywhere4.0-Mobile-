@@ -28,7 +28,7 @@ const AutoTrxList = () => {
                 {transactions &&
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction,index)}>
-                            <Text>{`Amount: ${transaction.amount} `}</Text>
+                            <Text>{`Amount: $${transaction.amount.toFixed(2)} `}</Text>
                             <Text note>{`Date: ${transaction.autoTrxDate}`}</Text>
                         </TouchableOpacity>
                     ))}
@@ -45,7 +45,7 @@ const AutoTrxList = () => {
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Transaction Information</Text>
                                 <View style={styles.indexText}>
-                                    <Text>Amount:</Text><Text>{currentTransaction.amount}</Text>
+                                    <Text>Amount:</Text><Text>${currentTransaction.amount.toFixed(2)}</Text>
                                 </View>
                                 <View style={styles.indexText}>
                                     <Text>Payment Date:</Text><Text>{currentTransaction.autoTrxDate}</Text>

@@ -26,7 +26,7 @@ function EntertainmentTypePicker(props) {
 
     const renderTypeList = () => {
         return types.map((type) => {
-            return <Picker.Item label={type.descr} value={type.entertainment_type_id} />
+            return <Picker.Item label={type.descr} value={type.entertainmentTypeId} />
         })
     }
 

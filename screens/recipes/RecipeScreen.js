@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, Text, ImageBackground, StyleSheet } from 'react-native';
-import RecipeCategories from '../../components/recipes/RecipeCategories';
 import Title from '../../components/title/Title';
 
 const RecipeScreen = ({ navigation }) => {
@@ -8,7 +7,7 @@ const RecipeScreen = ({ navigation }) => {
         <SafeAreaView style={styles.screen}>
             <ImageBackground source={require('../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <RecipeCategories navigation={navigation} />
+                
             </ImageBackground>
         </SafeAreaView>
     )

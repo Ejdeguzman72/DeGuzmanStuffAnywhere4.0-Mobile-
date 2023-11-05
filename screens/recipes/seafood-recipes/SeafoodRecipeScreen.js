@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import CrabCakesRecipeModal from '../../../components/recipes/modals/seafood-recipes/CrabCakeRecipeModal';
-import StuffedClamsRecipeModal from '../../../components/recipes/modals/seafood-recipes/StuffedClamsRecipeModal';
 import Title from '../../../components/title/Title';
 
 const SeafoodRecipeScreen = () => {
@@ -9,8 +7,7 @@ const SeafoodRecipeScreen = () => {
         <View style={styles.screen}>
             <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
                 <Title />
-                <CrabCakesRecipeModal />
-                <StuffedClamsRecipeModal />
+                
             </ImageBackground>
         </View>
     )

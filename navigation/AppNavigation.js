@@ -32,12 +32,11 @@ import HispanicRecipeScreen from '../screens/recipes/hispanic-recipes/HispanicRe
 import ItalianRecipeScreen from '../screens/recipes/italian-recipes/ItalianRecipeScreen';
 import SeafoodRecipeScreen from '../screens/recipes/seafood-recipes/SeafoodRecipeScreen';
 import SlowCookerRecipeScreen from '../screens/recipes/slow-cooker-recipes/SlowCookerRecipeScreen';
-import RunTrackerScreen from '../screens/run-tracker/RunTrackerScreen';
+import CardioTrackerScreen from '../screens/cardio-tracker/CardioTrackerScreen';
 import BookListScreen from '../screens/book-recommendations/BookListScreen';
 import AllMusicScreen from '../screens/music-recommendations/AllMusicScreen';
 import AllContactsScreen from '../screens/contact-info/AllContactsScreen';
 import AllRestaurantsScreen from '../screens/restaurant-recommendations/AllRestaurantsScreen';
-import AllRunsScreen from '../screens/run-tracker/AllRunsScreen';
 import AllGymEntriesScreen from '../screens/gym-tracker/AllGymEntriesScreen';
 import AllVehiclesScreen from '../screens/vehicles/AllVehiclesScreen';
 import AllGeneralTrxScreen from '../screens/finance/general-finances/AllGeneralTrxScreen';
@@ -53,6 +52,12 @@ import NewsScreen from '../screens/news/NewsScreen';
 import GarageInvScreen from '../screens/garage-inventory/GarageInvScreen';
 import ListEntertainmentScreen from '../screens/entertainment/ListEntertainmentScreen';
 import ListGarageInventoryScreen from '../screens/garage-inventory/ListGarageInventoryScreen';
+import AllCardioScreen from '../screens/cardio-tracker/AllCardioScreen';
+import BusinessNewsScreen from '../screens/news/BusinessNewsScreen';
+import PoliticalNewsScreen from '../screens/news/PolitcalNewsScreen';
+import SportsNewsScreen from '../screens/news/SportsNewsScreen';
+import TechnologyNewsScreen from '../screens/news/TechnologyNewsScreen'
+import FinanceNewsScreen from '../screens/news/FinanceNewsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +78,7 @@ function Root() {
           }}>
             <Drawer.Screen name="Home" component={HomeScreen} />
             <Drawer.Screen name="Books" component={BookScreen} />
+            <Drawer.Screen name="Cardio Tracker" component={CardioTrackerScreen} />
             <Drawer.Screen name="Contacts" component={ContactInfoScreen} />
             <Drawer.Screen name="Entertainment" component={EntertainmentScreen} />
             <Drawer.Screen name="Finances" component={FinanceScreen} />
@@ -81,7 +87,7 @@ function Root() {
             <Drawer.Screen name="Music" component={MusicScreen} />
             <Drawer.Screen name="Recipes" component={RecipeScreen} />    
             <Drawer.Screen name="Restaurants" component={RestaurantScreen} />
-            <Drawer.Screen name="Run Tracker" component={RunTrackerScreen} />
+            <Drawer.Screen name="Vehicles" component={VehicleScreen} options={{ title: 'Vehicles' }} />
         </Drawer.Navigator>
     )
 }
@@ -90,8 +96,8 @@ function BottomTabNavigator() {
     return (
         <Tab.Navigator>
             <Stack.Screen name="Home" component={Root} options={{ headerShown: false, tabBarIconStyle: false, tabBarIconStyle: {display: "none"} }} />
-            <Tab.Screen name="Details" component={DetailsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
-            <Tab.Screen name="News" component={NewsScreen} options={{ tabBarIconStyle: { display: "none"}} } />
+            <Tab.Screen name="Weather" component={DetailsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
+            <Tab.Screen name="Top Headlines" component={NewsScreen} options={{ tabBarIconStyle: { display: "none"}} } />
             <Tab.Screen name="Social Media" component={SocialMediaScreen} options={{ tabBarIconStyle: { display: "none" }} } />
             <Tab.Screen name="Settings" component={SettingsScreen} options={{ tabBarIconStyle: { display: "none" }} } />
         </Tab.Navigator>
@@ -109,8 +115,8 @@ const AppNavigation = () => {
                 <Stack.Screen name="All Contacts" component={AllContactsScreen} options={{ title: 'All Contacts' }} />
                 <Stack.Screen name="Gym Tracker" component={GymTrackerScreen} options={{ title: 'Gym Tracker' }} />
                 <Stack.Screen name="All Gym Entries" component={AllGymEntriesScreen} options={{ title: 'All Gym Entries ' }} />
-                <Stack.Screen name="Run Tracker" component={RunTrackerScreen} option={{ title: 'Run Tracker' }} />
-                <Stack.Screen name="All Runs" component={AllRunsScreen} options={{ title: 'All Runs' }} />
+                <Stack.Screen name="Cardio Tracker" component={CardioTrackerScreen} option={{ title: 'Cardio Tracker' }} />
+                <Stack.Screen name="All Cardio" component={AllCardioScreen} options={{ title: 'All Cardio' }} />
                 <Stack.Screen name="Auto-Finances" component={AutoFinanceScreen} options={{ title: 'Auto Finances' }} />
                 <Stack.Screen name="All Auto Transactions" component={AllAutoTrxScreen} options={{ title: 'All Auto Transactions' }} />
                 <Stack.Screen name="Auto-Shops" component={AutoShopScreen} options={{ title: 'Auto Shops' }} />
@@ -142,7 +148,11 @@ const AppNavigation = () => {
                 <Stack.Screen name="Italian Recipes" component={ItalianRecipeScreen} option={{ title: 'Italian Recipes' }} />
                 <Stack.Screen name="Seafood Recipes" component={SeafoodRecipeScreen} option={{ title: 'Seafood Recipes' }} />
                 <Stack.Screen name="Slow Cooker Recipes" component={SlowCookerRecipeScreen} option={{ title: 'Slow Cooker Recipes' }} />
-                
+                <Stack.Screen name="Business News" component={BusinessNewsScreen} option={{ title: 'Business News'}} />
+                <Stack.Screen name="Finance News" component={FinanceNewsScreen} options={{ title: 'Finance News'}} />
+                <Stack.Screen name="Political News" component={PoliticalNewsScreen} option={{ title: 'Political News'}} />
+                <Stack.Screen name="Sports News" component={SportsNewsScreen} option={{ title: 'Sports News'}} />
+                <Stack.Screen name="Technology News" component={TechnologyNewsScreen} option={{ title: 'Technology News'}} />
             </Stack.Navigator>
         </NavigationContainer>
     )

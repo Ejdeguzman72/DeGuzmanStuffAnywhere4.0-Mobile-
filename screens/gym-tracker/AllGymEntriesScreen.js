@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
-import GymEntryList from '../../components/gym-tracker/list/GymEntryList';
+import GymEntryList from '../../components/fitness/gym-tracker/list/GymEntryList';
 import Title from '../../components/title/Title';
 
 const AllGymEntriesScreen = () => {

@@ -10,7 +10,7 @@ const AddGeneralTrxModal = () => {
     const [amount, setAmount] = useState(0);
     const [paymentDate, setPaymentDate] = useState('');
     const [entity, setEntity] = useState('');
-    const [transaction_type_id, setTransactionTypeId] = useState(0);
+    const [trxTypeId, setTransactionTypeId] = useState(0);
     const [user_id, setUserId] = useState(0);
     const [submitted, setSubmitted] = useState(false)
 
@@ -41,7 +41,7 @@ const AddGeneralTrxModal = () => {
             user_id: user_id
         }
 
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/general-transactions/add-general-transaction-information', {
+        fetch('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/add-general-transaction-information', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, Pressable, Alert } from 'react-native';
 import { Divider } from 'react-native-paper';
+import MedicalTrxService from '../../../../services/MedicalTrxService';
 
 const MedicalTrxList = () => {
     const [transactions, setTransactions] = useState([]);
@@ -15,20 +16,23 @@ const MedicalTrxList = () => {
     }
 
     useEffect(() => {
-        fetch('http://ec2-3-89-42-57.compute-1.amazonaws.com:8080/app/medical-transactions/all')
-            .then((response) => response.json())
+        MedicalTrxService.getAllMedicalTransactions()
+            .then((response) => (response.data))
             .then((json) => setTransactions(json.list))
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.log(`Error fetching data: ${error}`)
+                Alert.alert(`Error fetching data: ${error}`)
+            })
     }, [])
-    console.log(transactions)
+    
     return (
         <ScrollView>
             <View style={styles.table}>
                 {transactions &&
                     transactions.map((transaction, index) => (
                         <TouchableOpacity style={styles.container} key={index} avatar onPress={() => setActiveTransaction(transaction, index)}>
-                            <Text>{`Amount: ${transaction.amount.toFixed(2)}`}</Text>
-                            <Text>{`Date: ${transaction.medical_transaction_date}`}</Text>
+                            <Text>{`Amount: $${transaction.amount.toFixed(2)}`}</Text>
+                            <Text>{`Date: ${transaction.medTrxDate}`}</Text>
                         </TouchableOpacity>
                     ))}
                 <Divider />
@@ -44,13 +48,13 @@ const MedicalTrxList = () => {
                                 <View style={styles.modalView}>
                                     <Text style={styles.modalText}>Transaction Information</Text>
                                     <View style={styles.indexText}>
-                                        <Text>Amount:</Text><Text>{currentTransaction.amount}</Text>
+                                        <Text>Amount:</Text><Text>${currentTransaction.amount.toFixed(2)}</Text>
                                     </View>
                                     <View style={styles.indexText}>
-                                        <Text>Payment Date:</Text><Text>{currentTransaction.medical_transaction_date}</Text>
+                                        <Text>Payment Date:</Text><Text>{currentTransaction.medTrxDate}</Text>
                                     </View>
                                     <View style={styles.indexText}>
-                                        <Text>Transaction Type:</Text><Text>{currentTransaction.transaction_type_descr}</Text>
+                                        <Text>Transaction Type:</Text><Text>{currentTransaction.transactionTypeDescr}</Text>
                                     </View>
                                     <View style={styles.indexText}>
                                         <Text>Office:</Text><Text>{currentTransaction.facilityName}</Text>

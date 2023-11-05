@@ -16,11 +16,11 @@ const FitnessCard = ({ navigation }) => {
                         </View>
                         <View style={styles.buttonView}>
                             <Button
-                                color='rgb(40,44,53)' title="Run Tracker" onPress={() => navigation.navigate('Run Tracker')}
+                                color='rgb(40,44,53)' title="Cardio Tracker" onPress={() => navigation.navigate('Cardio Tracker')}
                             />
                         </View>
                     </Card.Content>
-                    <Card.Cover source={require('../../assets/home-screen-pics/images.jpeg')} style={styles.cardCoverImg} />
+                    <Card.Cover source={require('../../assets/home-screen-pics/fitness.jpg')} style={styles.cardCoverImg} />
 
                 </Card>
             </View>
