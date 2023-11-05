@@ -1,22 +1,15 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import Title from '../../../components/title/Title';
+import { View, ScrollView, ImageBackground, StyleSheet } from 'react-native';
+import RecipeCategoryPicker from '../../../components/recipes/picker/RecipePicker';
+import FilipinoRecipeList from '../../../components/recipes/list/FilipinoRecipeList';
 
 const FilipinoRecipeScreen = () => {
     return (
         <ScrollView>
             <View style={styles.screen}>
                 <ImageBackground source={require('../../../assets/app-background.jpg')} style={styles.image}>
-                    <Title />
-                    <AdoboRecipeModal />
-                    <ArrozCaldoRecipeModal />
-                    <CrispyPataRecipeModal />
-                    <LecheFlanRecipeModal />
-                    <LumpiaRecipeModal />
-                    <PandesalRecipeModal />
-                    <SinigangRecipeModal />
-                    <UkoyRecipeModal />
+                    <RecipeCategoryPicker />
+                    <FilipinoRecipeList />
                 </ImageBackground>
             </View>
         </ScrollView>

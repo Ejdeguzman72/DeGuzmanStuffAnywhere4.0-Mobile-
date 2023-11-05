@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { Divider } from 'react-native-paper';
-import RecipeService from '../../services/RecipeService';
+import RecipeService from '../../../services/RecipeService';
 import { Alert } from 'react-native';
 
-const RecipeList = () => {
+const AsianRecipeList = () => {
     const [recipes, setRecipes] = useState([]);
     const [currentRecipe, setCurrentRecipe] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(-1)
@@ -17,9 +17,13 @@ const RecipeList = () => {
     }
 
     useEffect(() => {
-        RecipeService.getAllRecipes()
+        const recipeTypeId = 2;
+        RecipeService.getRecipesByType(recipeTypeId)
             .then((response) => (response.data))
-            .then((json) => setRecipes(json.list))
+            .then((json) => {
+                setRecipes(json.list)
+                console.log(recipes)
+            })
             .catch((error) => {
                 console.log(`Error fetching data: ${error}`)
                 Alert.alert(`Error fetching data: ${error}`)
@@ -159,4 +163,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RecipeList;
+export default AsianRecipeList;

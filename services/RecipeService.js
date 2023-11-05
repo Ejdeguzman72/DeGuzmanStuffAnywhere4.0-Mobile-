@@ -9,9 +9,10 @@ const getAllRecipesPagination = () => {
     return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/all-recipes');
 }
 
-const getRecipesByType = (recipeTypeId,page) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/all/types/${recipeTypeId}?page=${page}`)
-}
+const getRecipesByType
+    = (recipeTypeId, page) => {
+        return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/all/types/${recipeTypeId}?page=${page}`)
+    }
 
 const getRecipeByName = (name) => {
     return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/search/name/${name}`)
@@ -24,6 +25,7 @@ const getRecipesById = (recipeId) => {
 const addRecipeInformation = (data) => {
     return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/add', data);
 }
+
 
 const updateRecipeInformation = (recipeId, recipe) => {
     return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8081/app/recipes/update/${recipeId}`, recipe);
@@ -38,6 +40,6 @@ const getRecipeTypes = () => {
 }
 
 export default {
-    getAllRecipes,getAllRecipesPagination,getRecipesByType,getRecipeByName,getRecipesById,
-    addRecipeInformation,updateRecipeInformation,deleteRecipeInformation,getRecipeTypes
+    getAllRecipes, getAllRecipesPagination, getRecipesByType, getRecipeByName, getRecipesById,
+    addRecipeInformation, updateRecipeInformation, deleteRecipeInformation, getRecipeTypes
 }

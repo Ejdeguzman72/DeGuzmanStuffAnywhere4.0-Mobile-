@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable, FlatList, Image, Button } from 'react-native';
-import { Divider } from 'react-native-paper';
-import { Alert } from 'react-native';
 import NewsService from '../../../services/NewsService';
-import { Picker } from '@react-native-picker/picker';
-import { useNavigation } from '@react-navigation/native';
 
 const PAGE_SIZE = 10;
 

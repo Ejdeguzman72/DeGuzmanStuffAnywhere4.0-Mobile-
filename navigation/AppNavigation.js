@@ -138,7 +138,7 @@ const AppNavigation = () => {
                 <Stack.Screen name="Garage Inventory" component={GarageInvScreen} options={{ title: 'Garage Inventory' }} />
                 <Stack.Screen name="All Garage Inventory" component={ListGarageInventoryScreen} options={{ title: 'All Garage Inventory'}} />
                 <Stack.Screen name="Asian Recipes" component={AsianRecipesScreen} options={{ title: 'Asian Recipes' }} />
-                <Stack.Screen name="American" component={AmericanRecipesScreen} option={{ title: 'American Recipes' }} />
+                <Stack.Screen name="American Recipes" component={AmericanRecipesScreen} option={{ title: 'American Recipes' }} />
                 <Stack.Screen name="Barbeque Recipes" component={BarbequeRecipeScreen} option={{ title: 'Barbeque Recipes' }} />
                 <Stack.Screen name="Breakfeast Recipes" component={BreakfeastRecipeScreen} option={{ title: 'Breakfeast Recipes' }} />
                 <Stack.Screen name="Comfort Recipes" component={ComfortRecipeScreen} option={{ title: 'Comfort Recipes' }} />
