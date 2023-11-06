@@ -1,41 +1,62 @@
-import authHeader from './AuthHeader';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
+
 const getAllBooks = () => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/all`, { headers: authHeader() });
+    return axiosInstance.get('/books/all');
 }
 
 const getAllBookInformation = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/all-books', { headers: authHeader() });
+    return axiosInstance.get('/books/all-books', { params });
 };
 
 const getBooksByAuthor = (author) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/book/search/author/${author}`, { headers: authHeader() });
+    return axiosInstance.get(`/books/book/search/author/${author}`);
 }
 
 const getBookInformationById = (bookId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/book/search/id/${bookId}`, { headers: authHeader() });
+    return axiosInstance.get(`/books/book/search/id/${bookId}`);
 };
 
 const findBookByName = (title) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/book/search/title/${title}`, { headers: authHeader() });
+    return axiosInstance.get(`/books/book/search/title/${title}`);
 }
 
 const addBookInformation = (data) => {
-    return Axios.post(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/add`,data, { headers: authHeader() });
+    return axiosInstance.post(`/books/add`, data);
 };
 
-const updateBookInformation = (bookId,book) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/update/${bookId}`, book, { headers: authHeader() })
+const updateBookInformation = (bookId, book) => {
+    return axiosInstance.put(`/books/update/${bookId}`, book)
 };
 
 const deleteBookInformation = (bookId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/delete/${bookId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/books/delete/${bookId}`);
 };
 
 const deleteAllBookInformation = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/books/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/books/delete-all');
 }
 
 export default {

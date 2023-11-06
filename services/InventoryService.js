@@ -1,36 +1,58 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllInventory = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/all', { headers: authHeader() });
+    return axiosInstance.get('/inventory/all');
 }
 
 const getAllInventoryPagination = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/all-inventory', { headers: authHeader(), params } );
+    return axiosInstance.get('/inventory/all-inventory', { params } );
 };
 
 const getAllInventoryByLocation = (location) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/exercises/search/user/${location}`, { headers: authHeader() });
+    return axiosInstance.get(`/inventory/exercises/search/user/${location}`);
 }
 
 const getAllInventoryByCondition = (condition) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/exercise/search/type/${condition}`), { headers: authHeader() };
+    return axiosInstance.get(`/inventory/exercise/search/type/${condition}`);
 }
 
 const addInventoryInformation = (data) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/add',data, { headers: authHeader() });
+    return axiosInstance.post('/inventory/add',data);
 }
 
 const updateInventoryInformation = (data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/update`,data, { headers: authHeader() });
+    return axiosInstance.put(`/inventory/update`,data);
 }
 
 const deleteInventory = (data) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/delete`,data, { headers: authHeader() });
+    return axiosInstance.delete(`/inventory/delete`,data);
 }
 
 const deleteAllInventory = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/inventory/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/inventory/delete-all');
 }
 
 export default {

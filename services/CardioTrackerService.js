@@ -1,40 +1,61 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 const getAllCardioTrackerInfo = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/all', { headers: authHeader() });
+    return axiosInstance.get('/cardio-tracker-app/all');
 }
 
 const getAllCardioTypes = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-types/all', { headers: authHeader() });
+    return axiosInstance.get('/cardio-types/all');
 }
 
 const getAllCardioByType = (cardioTypeId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/all/type/${cardioTypeId}`);
+    return axiosInstance.get(`/cardio-tracker-app/all/type/${cardioTypeId}`);
 }
 
 const getAllCardioPagination = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/all-cardio', { headers: authHeader(), params });
+    return axiosInstance.get('/cardio-tracker-app/all-cardio', { params });
 }
 
 const getCardioTrackerById = (cardioId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/cardio/id/${cardioId}`, { headers: authHeader() });
+    return axiosInstance.get(`/cardio-tracker-app/cardio/id/${cardioId}`);
 }
 
 const addCardioInfo = (data) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/add',data, { headers: authHeader() });
+    return axiosInstance.post('/cardio-tracker-app/add',data);
 }
 
 const updateCardioInformation = (cardioId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/update/${cardioId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/cardio-tracker-app/update/${cardioId}`,data);
 }
 
 const deleteCardio = (cardioId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/delete/${cardioId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/cardio-tracker-app/delete/${cardioId}`);
 }
 
 const deleteAllCardioInfo = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/cardio-tracker-app/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/cardio-tracker-app/delete-all');
 }
 
 export default {

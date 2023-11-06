@@ -1,24 +1,46 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllPosts = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/posts/all-posts', { headers: authHeader(), params });
+    return axiosInstance.get('/posts/all-posts', { params });
 }
 
 const getAllPostsInfo = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/posts/all', { headers: authHeader() })
+    return axiosInstance.get('/posts/all', )
 }
 
 const getPostByUser = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/posts/user`, data, { headers: authHeader() });
+    return axiosInstance.get(`/posts/user`, data);
 }
 
 const addPost = (newData) => {
-    return Axios.post(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/posts/add`, newData, { headers: authHeader() })
+    return axiosInstance.post(`/posts/add`, newData)
 }
 
 const deletePost = (data) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/posts/delete`, data, { headers: authHeader() });
+    return axiosInstance.delete(`/posts/delete`, data);
 }
 
 export default {

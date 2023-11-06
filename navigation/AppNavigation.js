@@ -70,7 +70,7 @@ function Root() {
         <Drawer.Navigator drawerStyle={{
             backgroundColor: 'rgb(40,44,53)',
           }}
-          drawerContentOptions={{
+          screenOptions={{
             fontSize: 30,
             activeTintColor: '#fff', /* font color for active screen label */
             activeBackgroundColor: '#68f', /* bg color for active screen */

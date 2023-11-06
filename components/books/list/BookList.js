@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         textAlign: 'center',
         padding: 20,
-        borderBottomWidth:1,
-        borderTopWidth:1
+        borderBottomWidth: 1,
+        borderTopWidth: 1
     },
     contact: {
         flex: 1,
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
         width: 300,
         textAlign: 'center',
         justifyContent: 'center',
-        borderBottomWidth:1,
-        borderTopWidth:1
+        borderBottomWidth: 1,
+        borderTopWidth: 1
     },
 })
 

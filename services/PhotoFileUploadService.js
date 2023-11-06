@@ -6,7 +6,7 @@ const uploadPhotosService = (file, onUploadProgress) => {
 
     formData.append("file",file);
 
-    return Axios.post("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/photo-uploads/upload", formData, {
+    return axiosInstance.post("/photo-uploads/upload", formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         },

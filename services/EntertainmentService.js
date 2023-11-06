@@ -1,35 +1,59 @@
 import Axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
+
 
 const getAllEntertainment = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/all')
+    return axiosInstance.get('/entertainment/all')
 }
 
 const getAllEntertainmentTypes = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment-types/all')
+    return axiosInstance.get('/entertainment-types/all')
 }
 
 const getAllEntertainmentByType = (entertainmentTypeId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/all/type/${entertainmentTypeId}`);
+    return axiosInstance.get(`/entertainment/all/type/${entertainmentTypeId}`);
 }
 
 const getEntertainmentById = (entityId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/search/${entityId}`)
+    return axiosInstance.get(`/entertainment/search/${entityId}`)
 }
 
 const getEntertainmentByName = (name) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/search/${name}`)
+    return axiosInstance.get(`/entertainment/search/${name}`)
 }
 
 const addEntertainmentInfo = (data) => {
-    return Axios.post(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/add`, data)
+    return axiosInstance.post(`/entertainment/add`, data)
 }
 
 const updateEntertainmentInfo = (entityId, data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/entertainment/update/${entityId}`,data)
+    return axiosInstance.put(`/entertainment/update/${entityId}`,data)
 }
 
 const deleteEntertainment = (entityId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/delete/${entityId}`);
+    return axiosInstance.delete(`/delete/${entityId}`);
 }
 
 export default {

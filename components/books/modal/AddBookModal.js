@@ -45,12 +45,13 @@ const AddBookModal = () => {
         BookService.addBookInformation(data)
             .then(response => {
                 setTitle(response.title);
-                setAuthor(responseauthor);
+                setAuthor(response.author);
                 setDescr(response.descr)
                 setSubmitted(true)
             })
             .catch(error => {
-                Alert.alert("Application is facing issue: " + error);
+                console.log("Applcation is facing issue: " + error)
+                // Alert.alert("Application is facing issue: " + error);
             })
     }
 

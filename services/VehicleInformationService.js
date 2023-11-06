@@ -1,32 +1,54 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllVehicleInformation = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/all', { headers: authHeader() });
+    return axiosInstance.get('/vehicles/all');
 }
 
 const getAllVehicles = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/all-vehicles', { headers: authHeader(), params });
+    return axiosInstance.get('/vehicles/all-vehicles', { params });
 }
 
 const getVehicleInformationById = (vehicleId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/vehicle/id/${vehicleId}`, { headers: authHeader() });
+    return axiosInstance.get(`/vehicles/vehicle/id/${vehicleId}`);
 }
 
 const addVehicleInformation = (data) => {
-    return Axios.post(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/add`,data, { headers: authHeader() });
+    return axiosInstance.post(`/vehicles/add`,data);
 }
 
 const updateVehicleInformation = (vehicleId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/update/${vehicleId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/vehicles/update/${vehicleId}`,data);
 }
 
 const deleteAllVehicles = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/delete-all-vehicles', { headers: authHeader() });
+    return axiosInstance.delete('/vehicles/delete-all-vehicles');
 }
 
 const deleteVehicle = (vehicleId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/vehicles/delete/${vehicleId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/vehicles/delete/${vehicleId}`);
 }
 
 export default {

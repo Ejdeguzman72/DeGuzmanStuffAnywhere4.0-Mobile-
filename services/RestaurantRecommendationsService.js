@@ -1,61 +1,82 @@
-import React from 'react';
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const GetAllRestaurantRecommendations = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/all', { headers: authHeader() })
+    return axiosInstance.get('/restaurants/all')
 }
 
 const getAllRestaurants = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/all-restaurants', { headers: authHeader(), params });
+    return axiosInstance.get('/restaurants/all-restaurants', { params });
 }
 
 const getRestaurantsByType = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/all/search/type`,data, { headers: authHeader() })
+    return axiosInstance.get(`/restaurants/all/search/type`,data)
 }
 
 const getRestaurantsByZip = (data) => {
-     return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/all/search/zip`, { headers: authHeader() })
+     return axiosInstance.get(`/restaurants/all/search/zip`)
 }
 
 const getRestaurantsByDescr = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/all/search/descr`,data, { headers: authHeader() })
+    return axiosInstance.get(`/restaurants/all/search/descr`,data)
 }
 
 const getRestaurantById = (restaurantId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/restaurant/search/id/${restaurantId}`, { headers: authHeader() });
+    return axiosInstance.get(`/restaurants/restaurant/search/id/${restaurantId}`);
 }
 
 const getRestaurantsDTOById = (restaurantId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/restaurant-dto/search/id/${restaurantId}`, { headers: authHeader() })
+    return axiosInstance.get(`/restaurants/restaurant-dto/search/id/${restaurantId}`)
 }
 
 const getRestaurantByName = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/restaurant/search/name`,data, { headers: authHeader() })
+    return axiosInstance.get(`/restaurants/restaurant/search/name`,data)
 }
 
 const getRestaurantCount = () => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/count`, { headers: authHeader() })
+    return axiosInstance.get(`/restaurants/count`)
 }
 
 const addRestaurantInformation = (data) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/add',data, { headers: authHeader() });
+    return axiosInstance.post('/restaurants/add',data);
 }
 
 const updateRestaurantInformation = (restaurantId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/update/${restaurantId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/restaurants/update/${restaurantId}`,data);
 }
 
 const deleteRestaurantInformation = (restaurantId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/delete/${restaurantId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/restaurants/delete/${restaurantId}`);
 }
 
 const deleteAllRestaurants = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurants/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/restaurants/delete-all');
 }
 
 const getAllRestaurantTypes = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/restaurant-types/all', { headers: authHeader() })
+    return axiosInstance.get('/restaurant-types/all')
 }
 
 export default {

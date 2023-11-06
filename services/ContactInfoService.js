@@ -1,48 +1,70 @@
 import Axios from 'axios';
-import authHeader from '../services/AuthHeader'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getContactInfo = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/all', { headers: authHeader() });
+    return axiosInstance.get('/person-info/all');
 }
 
 const getAllContactInfo = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/all-contacts', { headers: authHeader(), params });
+    return axiosInstance.get('/person-info/all-contacts', { params });
 }
 
 const getContactInfoById = (personId) => {
-    return Axios.get(`http:///ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/contact/id/${personId}`, { headers: authHeader() });
+    return axiosInstance.get(`/person-info/contact/id/${personId}`);
 }
 
 const getContactsByLastName = (data) => {
-    return Axios.get(`http:///ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/contact/lastname`,data, { headers: authHeader() })
+    return axiosInstance.get(`/person-info/contact/lastname`,data)
 }
 
 const getContactsByEmail = (data) => {
-    return Axios.get(`http:///ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/contact/email`,data, { headers: authHeader() });
+    return axiosInstance.get(`/person-info/contact/email`,data);
 }
 
 const getContactsByPhone = (data) => {
-    return Axios.get(`http:///ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/contact/email`,data, { headers: authHeader() })
+    return axiosInstance.get(`/person-info/contact/email`,data)
 }
 
 const getContactCount = () => {
-    return Axios.get(`http:///ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/count`, { headers: authHeader() });
+    return axiosInstance.get(`/person-info/count`);
 }
 
 const addContactInfo = (data) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/add', data, { headers: authHeader() });
+    return axiosInstance.post('/person-info/add', data);
 }
 
 const updateContactInfo = (personId, data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/update/${personId}`, data, { headers: authHeader() });
+    return axiosInstance.put(`/person-info/update/${personId}`, data);
 }
 
 const deleteContactById = (personId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/delete/${personId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/person-info/delete/${personId}`);
 }
 
 const deleteAllContactInfo = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/person-info/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/person-info/delete-all');
 }
 
 export default {

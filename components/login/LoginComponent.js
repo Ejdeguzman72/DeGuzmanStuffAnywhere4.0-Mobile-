@@ -5,16 +5,14 @@ import Title from '../title/Title';
 import deviceStorage from '../../helper/DeviceStorage';
 import Axios from 'axios';
 import { jwtHelper } from '../../helper/jwtHelper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginComponent({ navigation }) {
 
     const jwt = jwtHelper();
-    const token = "DeGuzmanStuffAnywhere_Mobile_Token";
+    const [dsaToken, setDsaToken] = useState('');
     const [username, setUsername] = useState("ejdeguzman72");
     const [password, setPassword] = useState("Fighter63!");
-    const [submitted, setSubmitted] = useState(false);
-    const [authorized, setAuthorized] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const onHandleUsernameChange = (input) => {
         setUsername(input.nativeEvent.text);
@@ -24,22 +22,45 @@ export default function LoginComponent({ navigation }) {
         setPassword(input.nativeEvent.text);
     }
 
-    const onSubmit = () => {
-        // Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/api/auth/signin', {
-        //     username: username,
-        //     password: password
-        // }).then((response) => {
-        //     deviceStorage.saveKey(token, response.data.token);
-        //     if (jwt) {
-        //         Alert.alert(`${username}: you have logged in`);
-                navigation.navigate('Root Tab');
-        //     } else {
-        //         Alert.alert('Invalid Credentials');
-        //     }
-        // }).catch((error) => {
-        //     console.log(error);
-        //     Alert.alert(error.message); // Use error.message to display the error message
-        // });
+    _storeToken = async (tokenName, value) => {
+        try {
+            const response = await AsyncStorage.setItem(tokenName, value)
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const onSubmit = async () => {
+        try {
+            const response = await Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/api/auth/signin', {
+                username: username,
+                password: password
+            });
+
+            if (response && response.data && response.data.accessToken) {
+                const accessToken = response.data.accessToken;
+                setDsaToken(accessToken);
+                await _storeToken('DeGuzmanStuffAnywhere', accessToken);
+
+                const storedToken = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+                console.log("Stored token: " + storedToken);
+
+                if (jwt != null) {
+                    Alert.alert(`${username}: you have logged in!`)
+                    navigation.navigate('Root Tab')
+                } else {
+                    Alert.alert('Invalid Credentials')
+                }
+            } else {
+                Alert.alert('Invalid Response from the server')
+            }
+
+
+        } catch (error) {
+            console.log(error)
+            Alert.alert(error.message);
+        }
     }
 
     return (

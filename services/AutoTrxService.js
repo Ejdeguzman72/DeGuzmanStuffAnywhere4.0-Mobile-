@@ -1,53 +1,75 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllAutoTransactions = () => {
     console.log(authHeader());
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/all', { headers : authHeader() });
+    return axiosInstance.get('/auto-transactions/all');
 }
 
 const getAllAutoTransactionsPagination = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/all-transactions', { headers: authHeader(), params });
+    return axiosInstance.get('/auto-transactions/all-transactions');
 }
 
 const getAutoTrxByVehicle = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/transactions/search/vehicle`,data, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/transactions/search/vehicle`,data);
 }
 
 const getAutoTrxByUser = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/transactions/search/user`,data, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/transactions/search/user`,data);
 }
 
 const getAutoTrxByTrxType = (data) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/transactions/search/type`,data, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/transactions/search/type`,data);
 }
 
 const getAutoTransactionDTOById = (autoTrxId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/transaction-dto/search/id/${autoTrxId}`, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/transaction-dto/search/id/${autoTrxId}`);
 }
 
 const getAutoTransactionById = (autoTrxId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/transaction/search/id/${autoTrxId}`, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/transaction/search/id/${autoTrxId}`);
 }
 
 const getTrxCount = () => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/count`, { headers: authHeader() });
+    return axiosInstance.get(`/auto-transactions/count`);
 }
 
 const addAutoTransactionInformation = (newData) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/add',newData, { headers: authHeader() });
+    return axiosInstance.post('/auto-transactions/add',newData);
 }
 
 const updateAutoTransaction = (autoTrxId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/update/${autoTrxId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/auto-transactions/update/${autoTrxId}`,data);
 }
 
 const deleteAutoTransaction = (autoTrxId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/delete/${autoTrxId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/auto-transactions/delete/${autoTrxId}`);
 }
 
 const deleteAllTransactions = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/auto-transactions/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/auto-transactions/delete-all');
 }
 
 export default {

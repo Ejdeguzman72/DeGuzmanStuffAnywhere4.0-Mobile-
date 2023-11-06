@@ -1,40 +1,62 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllMedicalOffices = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/all', { headers: authHeader() });
+    return axiosInstance.get('/medical-offices/all');
 }
 
 const getAllMedicalOfficeInfo = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/all-medical-offices', { headers: authHeader(), params });
+    return axiosInstance.get('/medical-offices/all-medical-offices', { params });
 }
 
 const getMedicalOfficesByZip = (zip) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/offices/search/zip/${zip}`, { headers: authHeader() })
+    return axiosInstance.get(`/medical-offices/offices/search/zip/${zip}`)
 }
 
 const getMedicalOfficeById = (medicalOfficeId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/offices/search/id/${medicalOfficeId}`, { headers: authHeader() });
+    return axiosInstance.get(`/medical-offices/offices/search/id/${medicalOfficeId}`);
 }
 
 const getMedicalTrxCount = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-transactions/count', { headers: authHeader() })
+    return axiosInstance.get('/medical-transactions/count')
 }
 
 const addMedicalOffice = (newData) => {
-    return Axios.post("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/add", newData, { headers: authHeader() });
+    return axiosInstance.post("/medical-offices/add", newData);
 }
 
 const updateMedicalOfficeInformation = (medicalOfficeId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/update/${medicalOfficeId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/medical-offices/update/${medicalOfficeId}`,data);
 }
 
 const deleteMedicalOffice = (medicalOfficeId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/delete/${medicalOfficeId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/medical-offices/delete/${medicalOfficeId}`);
 }
 
 const deleteAllMedicalOffices = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/medical-offices/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/medical-offices/delete-all');
 }
 
 

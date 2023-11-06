@@ -1,48 +1,71 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
+
 
 const GetAllExercise = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/all', { headers: authHeader() });
+    return axiosInstance.get('/gym-tracker/all');
 }
 
 const getAllExerciseInformation = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/all-exercises', { headers: authHeader(), params });
+    return axiosInstance.get('/gym-tracker/all-exercises', { params });
 };
 
 const getAllExercisesByUser = (userId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/exercises/search/user/${userId}`, { headers: authHeader() });
+    return axiosInstance.get(`/gym-tracker/exercises/search/user/${userId}`);
 }
 
 const getAllExercisesByType = (exerciseTypeId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/exercises/search/type/${exerciseTypeId}`, { headers: authHeader() });
+    return axiosInstance.get(`/gym-tracker/exercises/search/type/${exerciseTypeId}`);
 }
 
 const getExerciseInfoDTOById = (exerciseId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/exercise-dto/search/id/${exerciseId}`, { headers: authHeader() });
+    return axiosInstance.get(`/gym-tracker/exercise-dto/search/id/${exerciseId}`);
 }
 
 const getExerciseInformationById = (exerciseId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/exercise/search/id/${exerciseId}`, { headers: authHeader() });
+    return axiosInstance.get(`/gym-tracker/exercise/search/id/${exerciseId}`);
 }
 
 const addExerciseInformation = (data) => {
-    return Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/add', data, { headers: authHeader() });
+    return axiosInstance.post('/gym-tracker/add', data);
 }
 
 const updateExerciseinformation = (exerciseId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/update/${exerciseId}`, data, { headers: authHeader() });
+    return axiosInstance.put(`/gym-tracker/update/${exerciseId}`, data);
 }
 
 const deleteExercise = (exerciseId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/delete/${exerciseId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/gym-tracker/delete/${exerciseId}`);
 }
 
 const deleteAllExercises = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/gym-tracker/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/gym-tracker/delete-all');
 }
 
 const getAllExerciseTypes = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/exercise-type/all', { headers: authHeader })
+    return axiosInstance.get('/exercise-type/all')
 }
 
 export default {

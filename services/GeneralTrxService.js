@@ -1,44 +1,66 @@
 import Axios from 'axios';
-import authHeader from './AuthHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const axiosInstance = Axios.create({
+    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+});
+
+const getToken = async () => {
+    try {
+        const token = await AsyncStorage.getItem('DeGuzmanStuffAnywhere');
+        return token;
+    } catch (error) {
+        console.error(`Error retrieving token: ${error}`)
+        return null;
+    }
+}
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = await getToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config
+})
 
 const getAllGeneralTransactions = () => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/all', { headers: authHeader() });
+    return axiosInstance.get('/general-transactions/all');
 }
 
 const getAllTransactionsPagination = (params) => {
-    return Axios.get('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/all-transactions', { headers: authHeader(), params });
+    return axiosInstance.get('/general-transactions/all-transactions', { params });
 }
 
 const getAllTransactionsByType = (trxTypeId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/search/type/${trxTypeId}`, { headers: authHeader() })
+    return axiosInstance.get(`/general-transactions/search/type/${trxTypeId}`)
 }
 
 const getAllTransactionsByUser = (userId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/search/user/${userId}`, { headers: authHeader() })
+    return axiosInstance.get(`/general-transactions/search/user/${userId}`)
 }
 
 const getGeneralTransactionDTOById = (genTrxId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/tranasction-dto/search/id/${genTrxId}`, { headers: authHeader() })
+    return axiosInstance.get(`/general-transactions/tranasction-dto/search/id/${genTrxId}`)
 }
 
 const getTransactionById = (genTrxId) => {
-    return Axios.get(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/transaction/search/id/${genTrxId}`, { headers: authHeader() });
+    return axiosInstance.get(`/general-transactions/transaction/search/id/${genTrxId}`);
 }
 
 const addGeneralTransactionInformation = (newData) => {
-    return Axios.post("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/add", newData, { headers: authHeader() });
+    return axiosInstance.post("/general-transactions/add", newData);
 }
 
 const updateTransactionInformation = (genTrxId,data) => {
-    return Axios.put(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/update/${genTrxId}`,data, { headers: authHeader() });
+    return axiosInstance.put(`/general-transactions/update/${genTrxId}`,data);
 }
 
 const deleteTransaction = (genTrxId) => {
-    return Axios.delete(`http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/delete/${genTrxId}`, { headers: authHeader() });
+    return axiosInstance.delete(`/general-transactions/delete/${genTrxId}`);
 }
 
 const deleteAllTransactions = () => {
-    return Axios.delete('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/delete-all', { headers: authHeader() });
+    return axiosInstance.delete('/general-transactions/delete-all');
 }
 
 export default {
