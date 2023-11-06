@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable, FlatList } from 'react-native';
 import { Divider } from 'react-native-paper';
 import RecipeService from '../../../services/RecipeService';
 import { Alert } from 'react-native';
@@ -8,12 +8,18 @@ const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
     const [currentRecipe, setCurrentRecipe] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(-1)
-    const [modalVisible, setModalVisible] = useState(!modalVisible)
+    const [modalVisible, setModalVisible] = useState(false)
 
     setActiveRecipe = (recipe, index) => {
         setCurrentRecipe(recipe);
         setCurrentIndex(index)
         setModalVisible(!modalVisible)
+    }
+
+    closeRecipeModal = () => {
+        setModalVisible(!modalVisible);
+        setCurrentRecipe(null)
+        setCurrentIndex(-1);
     }
 
     useEffect(() => {
@@ -54,6 +60,17 @@ const RecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
+                                    <FlatList
+                                        data={currentRecipe.ingredients}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
+                                    <Text>Directions:</Text>
+                                    <FlatList
+                                        data={currentRecipe.directions}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}

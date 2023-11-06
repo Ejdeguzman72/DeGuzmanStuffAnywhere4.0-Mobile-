@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable, FlatList } from 'react-native';
 import { Divider } from 'react-native-paper';
 import RecipeService from '../../../services/RecipeService';
 import { Alert } from 'react-native';
@@ -29,7 +29,7 @@ const HispanicRecipeList = () => {
                 Alert.alert(`Error fetching data: ${error}`)
             })
     }, [])
-    
+
     return (
         <ScrollView>
             <View style={styles.table}>
@@ -58,6 +58,17 @@ const HispanicRecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
+                                    <FlatList
+                                        data={currentRecipe.ingredients}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
+                                    <Text>Directions:</Text>
+                                    <FlatList
+                                        data={currentRecipe.directions}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}
@@ -87,8 +98,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         textAlign: 'center',
         padding: 20,
-        borderBottomWidth:1,
-        borderTopWidth:1
+        borderBottomWidth: 1,
+        borderTopWidth: 1
     },
     contact: {
         flex: 1,
@@ -158,8 +169,8 @@ const styles = StyleSheet.create({
         width: 300,
         textAlign: 'center',
         justifyContent: 'center',
-        borderBottomWidth:1,
-        borderTopWidth:1
+        borderBottomWidth: 1,
+        borderTopWidth: 1
     },
 });
 

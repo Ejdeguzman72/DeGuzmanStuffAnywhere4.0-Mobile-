@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import Title from '../../../components/title/Title';
 import RecipeCategoryPicker from '../../../components/recipes/picker/RecipePicker';
-import AsianRecipeList from '../../../components/recipes/list/AmericanRecipeList';
+import AsianRecipeList from '../../../components/recipes/list/AsianRecipeList'
 
 const AsianRecipesScreen = () => {
     return (

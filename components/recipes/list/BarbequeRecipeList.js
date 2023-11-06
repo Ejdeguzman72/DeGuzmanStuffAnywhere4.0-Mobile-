@@ -58,6 +58,18 @@ const BarbequeRecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
+                                    <View style={styles.indexText}>
+                                        <Text>Ingredients:</Text><Text>{currentRecipe.descr}</Text>
+                                        {currentRecipe.ingredients.map((ingredient, index) => (
+                                            <Text key={index}>{ingredient}</Text>
+                                        ))}
+                                    </View>
+                                    <View style={styles.indexText}>
+                                        <Text>Directions:</Text><Text>{currentRecipe.descr}</Text>
+                                        {currentRecipe.directions.map((direction, index) => (
+                                            <Text key={index}>{direction}</Text>
+                                        ))}
+                                    </View>
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}
