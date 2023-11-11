@@ -15,7 +15,7 @@ const uploadvideoFile = (file,onUploadProgress) => {
 };
 
 const getVideos = () => {
-    return Axios.get("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/video-uploads/files");
+    return Axios.get("http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/app/video-uploads/files");
 }
 
 export default {

@@ -41,7 +41,7 @@ const AddGeneralTrxModal = () => {
             user_id: user_id
         }
 
-        fetch('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/general-transactions/add-general-transaction-information', {
+        fetch('http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/app/general-transactions/add-general-transaction-information', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

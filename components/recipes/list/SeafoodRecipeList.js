@@ -58,6 +58,7 @@ const SeafoodRecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
+                                    <Text>Ingredients</Text>
                                     <FlatList
                                         data={currentRecipe.ingredients}
                                         keyExtractor={(item, index) => index.toString()}

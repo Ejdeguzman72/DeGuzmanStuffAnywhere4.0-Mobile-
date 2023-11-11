@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, Pressable, FlatList } from 'react-native';
 import { Divider } from 'react-native-paper';
 import RecipeService from '../../../services/RecipeService';
 import { Alert } from 'react-native';
@@ -58,18 +58,18 @@ const BarbequeRecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
-                                    <View style={styles.indexText}>
-                                        <Text>Ingredients:</Text><Text>{currentRecipe.descr}</Text>
-                                        {currentRecipe.ingredients.map((ingredient, index) => (
-                                            <Text key={index}>{ingredient}</Text>
-                                        ))}
-                                    </View>
-                                    <View style={styles.indexText}>
-                                        <Text>Directions:</Text><Text>{currentRecipe.descr}</Text>
-                                        {currentRecipe.directions.map((direction, index) => (
-                                            <Text key={index}>{direction}</Text>
-                                        ))}
-                                    </View>
+                                    <Text>ingredients</Text>
+                                    <FlatList
+                                        data={currentRecipe.ingredients}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
+                                    <Text>Directions:</Text>
+                                    <FlatList
+                                        data={currentRecipe.directions}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => <Text>{item}</Text>}
+                                    />
                                     <Pressable
                                         style={[styles.modalButton, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}

@@ -8,7 +8,7 @@ const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
     const [currentRecipe, setCurrentRecipe] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(-1)
-    const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(!modalVisible)
 
     setActiveRecipe = (recipe, index) => {
         setCurrentRecipe(recipe);
@@ -60,6 +60,7 @@ const RecipeList = () => {
                                     <View style={styles.indexText}>
                                         <Text>Description:</Text><Text>{currentRecipe.descr}</Text>
                                     </View>
+                                    <Text>Ingredients</Text>
                                     <FlatList
                                         data={currentRecipe.ingredients}
                                         keyExtractor={(item, index) => index.toString()}

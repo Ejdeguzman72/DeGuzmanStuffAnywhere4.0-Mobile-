@@ -21,7 +21,7 @@ const RegisterComponent = ({ navigation }) => {
     }
 
     const onSubmit = () => {
-        Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/api/auth/signup', {
+        Axios.post('http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/api/auth/signup', {
             username: username, password: password, email: email
         }).then((response) => {
             setSubmitted(true)

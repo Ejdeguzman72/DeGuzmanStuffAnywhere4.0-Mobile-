@@ -2,7 +2,7 @@ import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const axiosInstance = Axios.create({
-    baseURL: 'http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app',
+    baseURL: 'http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/app',
 });
 
 const getToken = async () => {

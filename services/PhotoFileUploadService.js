@@ -15,7 +15,7 @@ const uploadPhotosService = (file, onUploadProgress) => {
 };
 
 const getPhotoFiles = () => {
-    return Axios.get("http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/app/photo-uploads/files");
+    return Axios.get("http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/app/photo-uploads/files");
 }
 
 export default {

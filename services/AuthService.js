@@ -1,7 +1,7 @@
 import deviceStorage from '../../helper/DeviceStorage';
 import Axios from 'axios';
 
-const API_URL = "http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/api/auth/";
+const API_URL = "http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/api/auth/";
 
 class AuthService {
   async login(username, password) {

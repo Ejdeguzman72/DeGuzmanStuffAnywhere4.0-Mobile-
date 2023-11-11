@@ -33,7 +33,7 @@ export default function LoginComponent({ navigation }) {
 
     const onSubmit = async () => {
         try {
-            const response = await Axios.post('http://ec2-54-224-136-155.compute-1.amazonaws.com:8080/api/auth/signin', {
+            const response = await Axios.post('http://ec2-23-20-134-157.compute-1.amazonaws.com:8080/api/auth/signin', {
                 username: username,
                 password: password
             });
